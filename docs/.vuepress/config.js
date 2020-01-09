@@ -1,6 +1,7 @@
 module.exports = {
     title: 'Sunflower',  // 网站的标题
     description: 'Vuepress blog demo',   // 网站的描述
+    base: '/Sunflowerjing.github.io/',
     themeConfig: {
         repo: 'https://github.com/Sunflowerjing/Sunflowerjing.github.io', // GitHub仓库地址
         repoLabel: 'GitHub', // 自定义仓库链接文字。
