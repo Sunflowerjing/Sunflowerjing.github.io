@@ -14,18 +14,23 @@ module.exports = {
         sidebar: {
             '/blog/':[
                 {
-                    title: 'MySQL',
+                    title: 'Dev',
+                    collapsable: true, // 可选的, 默认值是 true,
                     children: [
-                        '安装 MySQL',
-                        '终端连接MySQL',
-                        'MySQL 操作表的常见命令'
+                        'MySQL基础',
+                        'PHP基础'
                     ]
                 },
                 {
-                    title: '博客标题二',
+                    title: '网络协议',
                     children: [
-                        'blog2-1',
-                        'blog2-2'
+                       
+                    ]
+                },
+                {
+                    title: '算法',
+                    children: [
+                
                     ]
                 }
             ],
