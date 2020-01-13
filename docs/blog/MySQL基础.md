@@ -38,13 +38,17 @@
 
 - `~/.bash_profile`介绍：该文件包含专用于你的bash shell的bash信息，当登录时以及每次打开新的shell时，该文件被读取.（每个用户都有一个.bashrc文件，在用户目录下）使用注意：需要需要重启才会生效，/etc/profile对所有用户生效，~/.bash_profile只对当前用户生效。
 
-## MySQL 操作表的常见命令
+## MySQL 常见命令
 1. `show databases;`查看多少个数据库,database后面带"s"。
 2. `use "数据库名"` 使用该数据库
 3. `show tables ;` 查看当前库下有哪些表
-4. `create database 数据库名`新建数据库
-
+4. `create database 数据库名;`新建数据库
 
 - MAC上的MySQL管理工具 Sequel Pro
-![安装 MySQL img](MySQL操作表的常见命令-image1.png
+![安装 MySQL img](MySQL操作表的常见命令-image1.png)
+
+
+
+
+
 
