@@ -101,6 +101,7 @@
         
         // 关联数组 mysqli_fetch_assoc()
         while($row = mysqli_fetch_assoc($result)) {
+            // 像数组中添加数据
             array_push($arr,array('newstitle'=>$row['newstitle'], 'newimg'=>$row['newimg']));
         }
         $res = array('errcode'=>0, 'result'=>$arr);
@@ -110,3 +111,32 @@
     * `$_GET` 变量接受所有以 get 方式发送的请求
     * `$_POST` 变量接受所有以 post 方式发送的请求
     * `$_REQUEST` 支持两种方式发送过来的请求
+
+## PHP PDO
+```
+<?php
+    $dbms='mysql';     //数据库类型
+    $host='localhost'; //数据库主机名
+    $dbName='PHPTest';    //使用的数据库
+    $user='root';      //数据库连接用户名
+    $pass='';          //对应的密码
+
+    $dsn="$dbms:host=$host;dbname=$dbName";
+
+    try{
+        $dbh = new PDO($dsn, $user, $pass); //初始化一个PDO对象,连接到 MySQL
+        echo "连接成功<br/>";
+        // 进行一次搜索操作
+        // 执行 SQL 语句
+        foreach ($dbh->query('SELECT * from news') as $row) {
+            print_r($row); //你可以用 echo($GLOBAL); 来看到这些值
+        }
+    // 现在运行完成，在此关闭连接    
+    $dbh = null;
+    }catch(PDOException $e){
+        die ("Error!: " . $e->getMessage() . "<br/>");
+    }
+?>
+```
+* PDO::query — 执行 SQL 语句，返回PDOStatement对象,可以理解为结果集。
+  `参数: 要执行的SQL语句`。
