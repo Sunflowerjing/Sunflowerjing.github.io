@@ -17,7 +17,8 @@ module.exports = {
                     collapsable: true, // 可选的, 默认值是 true,
                     children: [
                         'MySQL基础',
-                        'PHP基础'
+                        'PHP基础',
+                        'PHP升级',
                     ]
                 },
                 {
