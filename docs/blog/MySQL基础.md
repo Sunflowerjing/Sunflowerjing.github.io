@@ -43,9 +43,34 @@
 2. `use "数据库名"` 使用该数据库
 3. `show tables ;` 查看当前库下有哪些表
 4. `create database 数据库名;`新建数据库
+5. 基础增删改查操作命令
+    * `INSERT INTO 表名 ( field1, field2,...fieldN ) VALUES ( value1, value2,...valueN );` 插入数据
+    * `SELECT * FROM 表名 WHERE 条件(id=1);` 查询表中，符合条件(即id等于1)的数据
+    * `UPDATE 表名 SET key=value WHERE  条件;`  更新符合条件的数据
+    * `DELETE FROM 表名 WHERE 条件;`  删除符合条件的数据
 
 - MAC上的MySQL管理工具 Sequel Pro
-![安装 MySQL img](MySQL操作表的常见命令-image1.png)
+![MySQL 常见命令](MySQL操作表的常见命令-image1.png)
+
+## MySql 踩过的坑
+* phpMyAdmin 尝试连接到 MySQL 服务器，但服务器拒绝连接。
+    * 首先检查配置文件中的`主机`、`用户名`和`密码`。
+    * 其次，要把本地安装的 MySQL 关闭。在系统偏好里面，点进小海豹图标，点击`Stop MySQL Server`，停止服务。
+    * 点击下图第二个按钮, 即可进入`xamppfiles`此文件夹。
+    ![MySql 踩过的坑](MySql踩过的坑-image1.png)
+    * 然后找到安装目录，`xamppfiles/phpmyadmin/config.inc.php`。
+    * 然后修改此文件。执行：`vim config.inc.php`。
+    * 更改信息如下：
+        ```
+        $cfg['Servers'][$i]['host'] = '127.0.0.1';
+        $cfg['Servers'][$i]['port'] = '3306';
+        $cfg['Servers'][$i]['user'] = '这里填写用户名(一般为 root)';
+        $cfg['Servers'][$i]['password'] = '这里填写你的MySQL密码(12345678)';
+        $cfg['Servers'][$i]['AllowNoPassword'] = true;
+        ```
+    
+
+
 
 
 
