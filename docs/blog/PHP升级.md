@@ -93,3 +93,95 @@ public function say(){ // 人可以说话的方法哦
     echo $result;
 ?>
 ```
+## 构造方法和析构方法
+* 两个下划线 `__`, 表示私有的方法。
+1. 构造方法
+
+* 构造方法: 在类声明的时候被执行。`即: 当这个类 new 的时候自动执行`
+* 构造方法的语法格式:
+```
+[修饰符] function __construct([参数]){
+    程序体
+}    
+```
+
+2. 析构方法
+* 析构方法: 下面在没有此类方法调用的时候，就会执行析构方法。`即: 对象被销毁的时候执行, 没有代码在去运行了`
+* 用途: 可以进行资源的释放操作,例如: 数据库的关闭。
+* 析构方法的语法格式:
+```
+[修饰符] function __destruct([参数]){
+    程序体
+}   
+```
+
+## PHP 面向对象封装性
+
+1. 设置私有成员与私有成员的访问。
+    * 封装的修饰符: `public(公有的,默认)`、`private(私有的)`、`protected(受保护的)`
+    * 设置私有成员
+    * 访问私有成员: `私有的成员方法,不能在类的外部直接访问`。只能在对象的内部方法中使用`$this`访问。
+2. 以下几个魔术方法, 只针对`private、protected`修饰的变量生效。
+    * 魔术方法 __set(); `当外面的元素，对类里面的元素进行设置值的时候，会自动调用。`
+    * 魔术方法 __get();`取这个元素的时候会自动调用`
+    * 魔术方法 __isset();  `对类里面成员属性进行判断的时候调用`。属性是public修饰的话,为 true。属性是private、protected修饰的话,为 false。
+    * 魔术方法 __unset();  `从类外释放属性的时候进行调用`
+    ```
+    <?php
+        class Person{
+            private $is='我存在啊';
+            private $name = 'jingjing';
+            private $age = 28;
+            protected $many = 200;
+
+            private function getAge(){
+                return $this->age;
+            }
+
+            private function getMany(){
+                return $this->many;
+            }
+
+            public function user(){
+                echo $this->$is.'===='.$this->name.'======'.$this->getAge().'====='.$this->getMany();
+            }
+            public function __set($key,$value){
+                echo $key.'-------'.$value.'<br/>';
+                if($key ==='name' && $value === '小红'){
+                    echo '要修改了<br/>';
+                    $this->name='小红';
+                }
+            }
+            public function __get($key){
+                if($key === 'age'){
+                    return '不想告诉你我的年龄==='.$this->age.'<br/>';
+                }
+            }
+            public function __isset($key){
+                if($key === 'is'){
+                    return false;
+                }
+            }
+            public function __unset($key){
+                echo '<br/> 调用__unset()方法';
+                if($key === 'is'){
+                    unset($this->is);
+                }
+            }
+        }
+        $p = new Person();
+        $p->name='小红';   // 调用__set()方法
+        echo $p->age;     // 调用__get()方法
+        var_dump(isset($p->is)); // 调用__isset()方法
+        unset($p->is);  // 调用__unset()方法
+        echo $p->is;  // 没有输出的原因是,私有属性。可以调用__get()方法
+        $p->user();  // $this->$is报错。别的属性正常输出。
+    ?>
+    ```
+    * 正常情况下, 在外面调用私有属性、私有方法会报错。
+    * 若要修改私有属性，则调用`__set()`方法。
+    * 若外部输出私有属性，则调用`__get()`方法。
+3. 封装性: 就是把对象中的`成员属性`和`成员方法`加上访问修饰符,使其尽可能`隐藏对象的内部细节`,以达到对成员的`访问控制(切记不是拒绝访问)`。
+4. 
+
+
