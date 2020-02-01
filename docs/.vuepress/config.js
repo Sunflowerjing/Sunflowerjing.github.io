@@ -34,6 +34,12 @@ module.exports = {
                     ]
                 },
                 {
+                    title: '小程序',
+                    children: [
+                        '微信小程序'
+                    ]
+                },
+                {
                     title: '网络协议',
                     children: [
                        
