@@ -56,7 +56,13 @@ module.exports = {
 
             ],
             '/about/': [
-                
+                {
+                    title: '补充',
+                    collapsable: false,
+                    children: [
+                        '如何提升'
+                    ]
+                }
             ]
         }
     }
