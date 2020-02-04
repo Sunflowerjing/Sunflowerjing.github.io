@@ -24,7 +24,8 @@ module.exports = {
                 {
                     title: 'CSS',
                     children: [
-                
+                        'CSS3知识点梳理',
+                        'CSS 单位'
                     ]
                 },
                 {
@@ -36,7 +37,8 @@ module.exports = {
                 {
                     title: '小程序',
                     children: [
-                        '微信小程序'
+                        '微信小程序基础概念',
+                        '微信小程序业务需求'
                     ]
                 },
                 {
