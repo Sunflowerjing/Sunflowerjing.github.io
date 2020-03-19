@@ -33,7 +33,31 @@ lo: 对应的是local。127.0.0.1(ipv4) 本地回环地址
 ipv4是4个byte = 32bit
 
 查看此网卡的配置文件(ifcfg-ens23): cat ifcfg-ens23。
-怎样固定 ip: 保证网卡的配置文件中ONBOOT=yes, IPADDR=固定的IP地址, PREFIX=24(子网掩码), GATEWAY=192.168.8.2(网关 路由器), BOOTPROTO=none或static(默认) 若为dncp,则是动态获取。
+怎样固定 ip: 
+保证网卡的配置文件中ONBOOT=yes, 
+IPADDR=固定的IP地址, 
+PREFIX=24(子网掩码), 
+GATEWAY=192.168.8.2(网关 路由器), 
+BOOTPROTO=none或static(默认) 若为dncp,则是动态获取。
+
+修改ifcfg-ens23此文件: 输入vi /etc/sysconfig/network-scripts/ifcfg-ens23
+按一下【i】进入编辑模式。
+修改：
+ONBOOT=“no”改为ONBOOT=”yes“
+BOOTPROTO=”dhcp”，改为BOOTPROTO=“none”
+末尾添加：
+IPADDR=100.71.42.50
+NETMASK=255.255.254.0
+GATEWAY=100.71.42.1
+//以上三行需要根据你自己第一步查询的ip和网关填写
+//第一行：把你的ip地址的尾数改为其他数字（小于255），比如我把100.71.42.27改为了100.71.42.50
+//第二行：填写你的子网掩码
+//第三行：把你的ip地址的尾数改为1
+按一下Esc键进入命令行模式，输入【：wq】敲回车，保存并退出
+3.输入【service network restart】重启网络服务
+4.输入【ifconfig eth0】检查设置是否正确
+5.回到Windows下，在cmd窗口输入【ping 100.71.42.50】（改成你刚才设置的那个ip地址），如果出现下面的信息，说明配置成功。
+
 
 ifup 网卡名: 激活网卡
 ifdown 网卡名: 关闭网卡
