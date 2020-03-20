@@ -1,5 +1,14 @@
 # Linux
 
+1. 操作 MAC 文件的显示和隐藏:
+    * MAC显示隐藏文件: `defaults write com.apple.finder AppleShowAllFiles -bool true`
+    * MAC不显示隐藏文件: `defaults write com.apple.finder AppleShowAllFiles -bool false`
+    * 重启Finder：窗口左上角的苹果标志-->强制退出-->Finder-->重新启动
+
+
+
+
+
 ## Linux下的⽬目录
 
 1. `/home`: `系统预设的使用者家目录(home directory)。普通用户存在此目录下`。当新增一个一般使用者帐号时, 预设的使用者家目录都会规范到这里来。 执行`cd` 切换到当前用户目录下。`pwd`: 查看当前在哪个目录下。
