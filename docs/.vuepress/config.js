@@ -19,7 +19,8 @@ module.exports = {
                         'MySQL基础',
                         'PHP基础',
                         'PHP升级',
-                        'Linux'
+                        'Linux',
+                        'Git'
                     ]
                 },
                 {
