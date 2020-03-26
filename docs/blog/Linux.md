@@ -4,8 +4,14 @@
     * MAC显示隐藏文件: `defaults write com.apple.finder AppleShowAllFiles -bool true`
     * MAC不显示隐藏文件: `defaults write com.apple.finder AppleShowAllFiles -bool false`
     * 重启Finder：窗口左上角的苹果标志-->强制退出-->Finder-->重新启动
-
-
+2. 查看拿个端口被谁占用了:  `netstat  -anp`（无此命令，则安装npm install net-rools -g）
+3. 发生端口冲突执行 `kill pid` : 强行禁止进程
+4. 管理服务: `systemctl  start|stop|status  服务名`
+5. 端口不能跨进程使用：所以不能冲突   
+6. `父进程 退出，子进程也直接退出`（父进程一般 pid 比较小，不绝对 master）
+7. 往虚拟机上传东西：`scp  本地路径  root@IP：/服务器路径`（将本地文件上传到服务器）   
+    * 上传目录（即上传文件夹） `需要加-r`： scp  -r 本地路径 root@IP：/服务器路径（将本地文件上传到服务器） 
+    * 若服务器下载本地（倒过来）：则 scp  root@IP：/服务器路径 本地路径
 
 
 
@@ -142,6 +148,7 @@ ifdown 网卡名: 关闭网卡
         ```
 
 ### 文件处理命令        
+* `touch`: touch的作用是更改一个文件或目录的时间。`touch 2.txt` 如果2.txt不存在，则创建空文件2.txt
 1. `mkdir`: 创建目录
     * `mkdir -p [⽬录名]` (-p 递归创建)
 2. `cd`: 切换目录
@@ -346,6 +353,7 @@ ifdown 网卡名: 关闭网卡
         ```
         shutdown -r 06:00 
         shutdown -c
+        shutdown -h now  (h 停机 now 现在)
         ```
 2. `init`:
     * 关机: `init 0`
@@ -515,6 +523,12 @@ bash hello.sh
     * :15 跳转到指定行
     * /xxx 从光标位置开始向后搜索 xxx 字符串
     * ?xxx 从光标位置开始向前搜索
+    * `vi 文件名`: 打开 文件了
+    * `i`: 编辑状态
+    * `esc`: 退出
+    * `:wq`:  保存并退出
+    * `:q!`:  不保存退出
+
 
 
 ## 用户和用户组

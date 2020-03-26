@@ -50,7 +50,8 @@ module.exports = {
                     children: [
                         'NodeJS 基础概念',
                         'NodeJS基础API',
-                        'Express'
+                        'Express',
+                        '项目实战总结'
                     ]
                 },
                 {
@@ -62,7 +63,7 @@ module.exports = {
                 {
                     title: '算法',
                     children: [
-                
+                        '二分查找'
                     ]
                 }
             ],
