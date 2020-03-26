@@ -34,7 +34,9 @@ module.exports = {
                     title: 'JS 基础',
                     children: [
                         '基本概念',
-                        'Moment'
+                        'Moment',
+                        '字符串方法',
+                        '数组方法'
                     ]
                 },
                 {
