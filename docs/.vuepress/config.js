@@ -63,7 +63,8 @@ module.exports = {
                 {
                     title: '算法',
                     children: [
-                        '二分查找'
+                        '二分查找',
+                        '快速排序'
                     ]
                 }
             ],
