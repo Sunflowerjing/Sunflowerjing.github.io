@@ -37,7 +37,8 @@ module.exports = {
                         'Moment',
                         '字符串方法',
                         '数组方法',
-                        '手写集合'
+                        '手写集合',
+                        'JavaScript&QA工程师'
                     ]
                 },
                 {

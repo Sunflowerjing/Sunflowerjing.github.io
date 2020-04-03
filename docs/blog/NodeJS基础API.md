@@ -1,5 +1,7 @@
 # NodeJS基础API
-
+1. `process.pid` 属性返回进程的 PID。  
+2. `process.cwd()` 方法返回 Node.js 进程的当前工作目录。 
+3. 项目热更新: 需要引入的包 `nodemon`
 
 ## Node.js回调机制
 什么是回调:
