@@ -38,9 +38,52 @@
 ## 安全测试
 ## 功能测试
 
+## karma 自动化单元测试
+* karma 自动化 runner 集成 PhantomJS 无刷新
+1. 安装单元测试框架: `npm install karma --save-dev`
+2. 执行 karma init 命令, 生成 karma.conf.js 测试框架选择 jasmine, 浏览器选择PhantomJS
+```
+package.json 里添加
+"unit:init": "karma init",    // 初始化
+"unit:start": "karma start"   // 运行
+```
+3. 安装断言库
+* npm install karma-jasmine jasmine-core --save-dev
+* npm install --save-dev karma-phantomjs-launcher
+* 下载安装PhantomJS, 配置路径
+    * export PHANTOMJS_BIN = /usr/local/bin/phantomjs
+4. 安装生成测试报告和代码覆盖率检测工具
+npm install karma karma-coverage --save-dev
+5. karma.conf.js 配置文件
+```
+{
+    basePath: '',
+    frameworks: ['jasmine'],
+    files: [
+        "./src/**/*.js",
+        "./unit/unit/**/*.spec.js"
+    ], 
+    exclude: [],
+    preprocessors: {
+      "src/**/*.js": ['coverage']
+    },
+    coverageReporter: {
+      type : 'html',
+      dir : './docs/coverage/'
+    },
+    reporters: ['progress'],
+    port: 9876,
+    colors: true,
+    logLevel: config.LOG_INFO,
+    autoWatch: false,
+    browsers: ['Chrome', 'PhantomJS'],
+    singleRun: true,
+    concurrency: Infinity
+}
+```
 
 
-
+## UI 测试
 
 
 
