@@ -158,13 +158,110 @@ npm install karma karma-coverage --save-dev
 4. 在`backstop_data`文件夹中创建`bitmaps_reference`文件夹, 放入 UI 切片图。
 
 
-## e2e 测试
+## e2e测试 (功能测试)
+1. 安装selenium: `npm install selenium-webdriver`
+2. 使用:
+```
+const {Builder, By, Key, until} = require('selenium-webdriver');
+ 
+(async function example() {
+  let driver = await new Builder().forBrowser('firefox').build();
+  try {
+    await driver.get('http://www.baidu.com');
+    await driver.findElement(By.name('q')).sendKeys('webdriver', Key.RETURN);
+    await driver.wait(until.titleIs('webdriver - Google Search'), 1000);
+  } finally {
+    await driver.quit();
+  }
+})();
+```
+3. package.json 
+```
+"e2e:start": "node ./tests/e2e/index.space.js"
+```
+4. `geckodriver` 找不到的原因是: 需要安装浏览器驱动。
+    * 相关网址: https://www.npmjs.com/package/selenium-webdriver
 
+|  Browser              | Component                 |
+|  ----                 | ----                      |
+|  Chrome	            |   chromedriver(.exe)      |
+| Internet Explorer	    |   IEDriverServer.exe      |
+| Edge	                |   MicrosoftWebDriver.msi  |
+| Firefox	            |   geckodriver(.exe)       |
+| Safari	            |   safaridriver            |
+5. 其他功能测试工具
+* Nightwatch.js
+* rize (比较常用)
+* cypress
+* 阿里的 f2etest (比较复杂)
 
+## service 测试
+1. 测试 nodejs api 的 API 是否与结果符合
+2. app.js 文件
+```
+const Koa = require('koa');
+const app = new Koa();
 
+app.use(async ctx => {
+    ctx.body = {
+        data: 'Hello World'
+    }
+});
 
+app.listen(3000);
 
+module.exports = app;
+```
+3. router.spec.js 文件
+```
+const superagent = require("supertest");
+const app = require("./app");
+function request() {
+    return superagent(app.listen());
+}
+describe("接口测试脚本", function () {
+    it("API测试", function (done) {
+        request()
+            .get("/")
+            .set("Accept","application/json")
+            .expect("Content-Type",/json/)
+            .expect(200)
+            .end(function(err,res){
+                if(err){
+                    done(err);
+                }
+                if(res.body.data=="Hello World"){
+                    done();
+                }else{
+                    done(new Error("返回接口错误"));
+                }
+            })
+    });
+});
+describe("Node的容错机制", function () {
+    it("404脚本错误", function (done) {
+        request()
+            .get("/message/notfound")
+            .expect("404", done);
+    });
+});
+```
+4. mochaRunner.js 文件
+```
+const Mocha = require("mocha");
 
+const mocha = new Mocha({
+    reporter: 'mochawesome',
+    reporterOptions: {
+        reportDir: "./docs/mochawesome-report"
+    }
+})
+mocha.addFile("./tests/service/router.spec.js");
 
+mocha.run(function () {
+    console.log("All done");
+    process.exit();
+})
+```
 
 
