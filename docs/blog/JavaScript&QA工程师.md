@@ -50,7 +50,7 @@ package.json 里添加
 "unit:init": "karma init",    // 初始化
 "unit:start": "karma start"   // 运行
 ```
-* 运行的时候用: `npx karma start `(确保跑的配置和依赖项都在文件夹里)。npx 不受全局安装影响, 项目装什么用什么，和直接跑bin里的karma是一个道理。
+* 运行的时候用: `npx karma start `(确保跑的配置和依赖项都在文件夹里)。`npx 不受全局安装影响`, 项目装什么用什么，和直接跑bin里的karma是一个道理。
 3. 安装断言库
 * npm install karma-jasmine jasmine-core --save-dev
 * npm install --save-dev karma-phantomjs-launcher
@@ -89,8 +89,82 @@ npm install karma karma-coverage --save-dev
 
 
 ## UI 测试
-1. Phantom Css
+1. Phan tom Css
 2. backstopjs: `npm install -g backstopjs`
     * 执行: backstop init
-    * 会生成文件 `backstop.json`和 文件夹`backstop_data`
-3. 
+    * 会生成文件 `backstop.json`和 文件夹`backstop_data`(包含文件夹 chromy 和 puppet, 操作无头浏览器)。 二者相互配合
+    * `backstop.json` 文件内容
+    ```
+    {
+        "id": " QQ",
+        "viewports": [  // 窗口
+            {
+                "label": "iphone",
+                "width": 375,
+                "height": 667
+            },
+            {
+                "label": "ipad",
+                "width": 1024,
+                "height": 1366
+            }
+        ],
+        "onBeforeScript": "puppet/onBefore.js",  // 操作无头浏览器
+        "onReadyScript": "puppet/onReady.js",   // 操作无头浏览器
+        "scenarios": [
+            {
+            "label": "map",
+            "cookiePath": "backstop_data/engine_scripts/cookies.json",
+            "url": "https://map.qq.com/m/", // 对比的网址
+            "referenceUrl": "",
+            "readyEvent": "",
+            "readySelector": "",
+            "delay": 0,
+            "hideSelectors": [],
+            "removeSelectors": [],
+            "hoverSelector": "",
+            "clickSelector": "",
+            "postInteractionWait": 0,
+            "selectors": [],
+            "selectorExpansion": true,
+            "expect": 0,
+            "misMatchThreshold" : 0.1,
+            "requireSameDimensions": true
+            }
+        ],
+        "paths": {
+            "bitmaps_reference": "backstop_data/bitmaps_reference",  
+            "bitmaps_test": "backstop_data/bitmaps_test",  // 这个是生成的文件夹
+            "engine_scripts": "backstop_data/engine_scripts",
+            "html_report": "backstop_data/html_report",
+            "ci_report": "backstop_data/ci_report"
+        },
+        "report": ["browser"],
+        "engine": "puppeteer",  // 最新的无头浏览器 和 rize 一起用
+        "engineOptions": {
+            "args": ["--no-sandbox"]
+        },
+        "asyncCaptureLimit": 5,
+        "asyncCompareLimit": 50,
+        "debug": false,
+        "debugWindow": false
+    }
+    ```
+3. package.json 
+```
+"ui:init": "backstop init",  // 初始化
+"ui:start": "backstop test"  // 运行 可执行 npx backstop test
+```
+4. 在`backstop_data`文件夹中创建`bitmaps_reference`文件夹, 放入 UI 切片图。
+
+
+## e2e 测试
+
+
+
+
+
+
+
+
+
