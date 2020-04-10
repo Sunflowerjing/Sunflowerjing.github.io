@@ -38,7 +38,8 @@ module.exports = {
                         '字符串方法',
                         '数组方法',
                         '手写集合',
-                        'JavaScript&QA工程师'
+                        'JavaScript&QA工程师',
+                        'JavaScript函数编程'
                     ]
                 },
                 {
