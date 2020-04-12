@@ -317,18 +317,153 @@
         .map(x => x + 1)    // 结果 Container(4)
         .map(x => 'Result is ' + x);    // 结果 Container('Result is 4')
     ```
+    *  Maybe 函子
+        * Maybe用于处理错误和异常。
+            * 函子接受各种函数，处理容器内部的值。
+            * 这里就有一个问容器内部的值可能是一个空值(比如null)，而外部函数未必有处理空值的机制，
+            * 如果传入空值，很可能就会出错。
+            * 案例
+            ```
+            Functor.of(null).map(function (s) { 
+                return s.toUpperCase();
+            });
+            // TypeError
+            class Maybe extends Functor {
+                map(f) {
+                    return this.val ? Maybe.of(f(this.val)) : Maybe.of(null);
+                } 
+            }
+            Maybe.of(null).map(function (s) { 
+                return s.toUpperCase();
+            });
+            // Maybe(null)
+            ```
     * Pointed函子
-        * 函子只是一个实现了map契约的接口。`Ponited函子是 一个函子的子集`。
+        * 函子只是一个实现了 map 契约的接口。`Ponited函子是 一个函子的子集`。
         * 生成新的函子的时候，用了new命令。这实在太不像函数式编程了，因为new命令是面向对象编程的标志。 `函数式编程一般约定，函子有一个of方法，用来生成新的容器。`
-        * 
- 11. 错误处理、Either、AP
- 12. IO
- 13. Monad
+        * 案例
+        ```
+        Functor.of = function(val) { 
+            return new Functor(val);
+        };
+        Functor.of(2).map(function (two) { 
+            return two + 2;
+        });
+        // Functor(4);
 
+        // 数组成为一个Pointed函子 Array.of(“”)
+        ```
+11. 错误处理、Either、AP
+    * Either函子
+            * 我们的容器能做的事情太少了，`try/catch/throw` 并不是“纯”的，因为它从外部接管了我们的函数，并且在这个函数出错时抛弃了它的返回值。`分支`
+            * Promise 是可以调用 catch 来集中处理错误的。
+            * 事实上 Either 并不只是用来做错误处理的，它表示了逻辑或，范畴学里的 coproduc。
+            * 条件运算`if...else`是最常见的运算之一，函数式编程里面，`使用 Either 函子表达`。 Either 函子内部有两个值:`左值(Left)和右值(Right)`。右值是正常情况下使用的值，左值是右值不存在时使用的默认值。
+    * AP函子
+        * 概念: `函子里面包含的值，完全可能是函数`。我们可以想象这样一种情况，一个函子的值是数值，另一个函子的值是函数。
+        * 案例:
+        ```
+        class Ap extends Functor {
+            ap(F) {
+                return Ap.of(this.val(F.val)); 
+            }
+        }
+        ```
+12. IO
+    * 概念: IO它的 __value 是一个函数。它把不纯的操作(比如 IO、网络请求、DOM)包裹到一个函数内，从而延迟这个操作的执行。所以我们认为，IO 包含的是被包裹的操作的返回值。
+    * IO其实也算是惰性求值。
+    * IO负责了调用链积累了很多很多不纯的操作，带来的复杂性和不可维护性。
+    * 案例:
+    ```
+    import _ from 'lodash'; 
+    var compose = _.flowRight;
+    var IO = function(f) {
+            this.__value = f; 
+        }
+    IO.of = x => new IO(_ => x);
+    IO.prototype.map = function(f) {
+        return new IO(compose(f, this.__value)) 
+    };
+    ```
+    ```
+    // ES6 方式
+    import _ from 'lodash'; 
+    var compose = _.flowRight;
+    class IO extends Monad{ 
+        map(f){
+            return IO.of(compose(f, this.__value))   // 被调用的时候执行
+        }
+    }
+    ```
+    * IO 函子
+    ```
+    var fs = require('fs');
+    var readFile = function(filename) {
+        return new IO(function() {
+            return fs.readFileSync(filename, 'utf-8');
+        }); 
+    };
 
+    readFile('./user.txt').flatMap(tail).flatMap(print)
+    // 等同于 
+    readFile('./user.txt').chain(tail).chain(print)
+    ```
+13. Monad
+    * 类似于拆箱
+    * `Monad`就是一种设计模式，`表示将一个运算过程，通过函数拆解成互相连接的多个步骤`。你只要提供下一步运算所需的函数，整个运算就会自动进行下去。
+    * `Promise 就是一种 Monad`。
+    * Monad 让我们避开了嵌套地狱，可以轻松地进行深度嵌套的函数式编程，比如IO和其它`异步任务`。
+    * Monad 函子的作用是，总是返回一个单层的函子。它有一个 flatMap 方法, 与 map 方法作用相同, 唯一的区别是如果⽣成了⼀个嵌套函⼦，它会取出后者内部的值，保证返回的永远是⼀个单层的容器，不会出现嵌套的情况。
+    * 如果函数 f 返回的是一个函子, 那么 this.map(f) 就会生成一个嵌套的函子。所以, join 方法保证了flatMap 方法总是返回一个单层的函子。这意味着嵌套的函⼦会被铺平(flatten )。
+    * 案例:
+    ```
+     Maybe.of( 
+        Maybe.of(
+            Maybe.of({name: 'Mulburry', number: 8402}) 
+        )
+    )
 
+    class Monad extends Functor { 
+        join() {
+            return this.val; 
+        }
+        flatMap(f) {
+            return this.map(f).join();
+        } 
+    }
+    ```
 
+## 当下函数式编程比较火热的库
+1. `RxJS`
+    * 在 Rxjs 中，所有的外部输入(用户输入、网络请求等等)都被视作一种 『事件流』
+    * 响应式编程是继承自函数式编程，`声明式的，不可变的，没有副作用的` 是函数式编程的三大护法。
+    * 在函数中与`函数作用域之外的一切事物`有交互的就产生了副作用。
+2. cycleJS
+3. `lodashJS`、lazy(惰性求值) 
+    * lodash是一个`具有一致接口、模块化、高性能等特性的JavaScript工具库`，是underscore.js的fork，其最初目标也是“一致的跨浏览器行 为。。。，并改善性能”。
+    * `lodash采用延迟计算`，意味着我们的`链式方法在显式或者隐式的 value() 调用之前是不会执行的`，因此lodash可以进行shortcut(捷径) fusion(融合)这样的优化，通过合并链式大大降低迭代的次数，从而大大提升其执行性能。
+    * 就如同 jQuery 在全部函数前加全局的$一样，lodash使用全局的_来提供对工具的快速访问。
+4. underscoreJS
+    * Underscore 是一个 JavaScript 工具库，它提供了一整套`函数式编程的实用功能`，但是没有扩展任何 JavaScript 内置对象。
+5. ramdajs
+    * ramda 是一个非常优秀的js工具库，跟同类比更函数式主要体现在以下几个原则: 
+        * Ramda 的`数据一律放在最后一个参数`，理念是"function first, data last"。`R.map(square, [4, 8]) // [16, 64]`
+            * ramda里面的提供的函数全部都是curry的也就是说，所有多参数的函数，默认都可以单参数使用。`R.map(square, [4, 8])=》 R.map(square)([4, 8])`
+            * ramda 推崇 pointfree 简单的说是使用简单函数组合实现一个复杂功能，而不是单独写一个函数操作临时变量。
+            * ramda 有个`非常好用的参数占位符` `R._ `大大减轻了函数在 pointfree 过程中参数位置的问题
+            * 相比underscore/lodash 感觉要干净很多。
+ 
+## 实际应用场景
+1. 易调试、热部署、并发
+    * 决定函数执行结果的唯一因素就是它 的返回值，而影响其返回值的唯一因素就是它的参数。
+    * 函数式编程不需要考虑`”死锁"(deadlock)`，因为它不修改变量，所以根本不存在"锁"线程的问题。不必担心一个线程的数据，被另一个线程修改，所以可以很放心地把工作分摊到多个线程，部署`"并发编程"(concurrency)`。
+    * `函数式编程中所有状态就是传给函数的参数，而参数都是储存在栈上的`。这一特性让软件的热部署变得十分简单。只要比较一下正在运行的代码以及新的代码获得一个diff，然后用这个diff更新现有的代码，新代码的热部署就完成了。
+2. 单元测试
+    * 严格函数式编程的每一个符号都是对直接量或者表达式结果的引用， 没有函数产生副作用。
 
+## 总结与补充
+* 函数式编程被视为我们现有工具箱的一个很自然的补充 —— 它带来了更高的可组合性, 灵活性以及容错性。
+* Redux 作为一种 FLUX 的变种实现，核心理念也是状态机和函数式编程。
 
 
 
