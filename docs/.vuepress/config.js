@@ -39,7 +39,8 @@ module.exports = {
                         '数组方法',
                         '手写集合',
                         'JavaScript&QA工程师',
-                        'JavaScript函数编程'
+                        'JavaScript函数编程',
+                        'JavaScript面试题目'
                     ]
                 },
                 {
@@ -62,7 +63,8 @@ module.exports = {
                 {
                     title: '网络协议',
                     children: [
-                       
+                       'HTTP 协议',
+                       '代理'
                     ]
                 },
                 {
