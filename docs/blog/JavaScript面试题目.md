@@ -51,7 +51,7 @@ if (flag) {
     test();  //  报错
     console.log(test);  // 输出 undefind
 
-    方式三:  存在 if
+    方式三:  存在 if。在 IE6 的情况下, 会正常输出 123, 函数提升。
     test(); // 报错
     console.log(test); => undefind, 只是提升了函数名
     if(true){
@@ -199,7 +199,6 @@ var yideng = {
 }
 const result = yideng.method.bind(null);
 result(fn,1);
-
 ```
 
 

@@ -20,6 +20,7 @@ module.exports = {
                         'PHP基础',
                         'PHP升级',
                         'Linux',
+                        'Linux2',
                         'Git'
                     ]
                 },
