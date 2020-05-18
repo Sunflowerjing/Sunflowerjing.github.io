@@ -114,7 +114,7 @@ if (flag) {
     var a;      => undefind
 
     console.log(a);  => undefind
-    console.log(typeof yideng(a));  => 报错, yideng is not undefind
+    console.log(typeof yideng(a));  => 报错, yideng is not a function
     flag = true;
     if (!flag) { // 没有赋值成功
             a = 1;
@@ -132,17 +132,6 @@ if (flag) {
     }
     ```
   
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -200,6 +189,39 @@ var yideng = {
 const result = yideng.method.bind(null);
 result(fn,1);
 ```
+
+
+3. `请问变量a会被GC回收么`，为什么呢?  不会被回收
+```
+function test(){
+    var a = "yideng"; 
+    return function(){
+        eval("");  // eval 形成了闭包
+    }
+} 
+test()();
+```
+答案: 不会被回收, 因为eva
+
+(1) `闭包`: 保留住函数执行的作用域
+(2) `函数执行`: 会创造执行栈(call stack)
+(3) `anonymous`: 匿名的
+(4) GC 不会实时进行回收的
+(5) 若要回收 则 const = test()(); x = null
+
+4. 暂时性死区
+```
+{
+    a=1;
+    let a;
+}
+```
+* 报错: `Cannot access 'a' before initialization`
+6. 
+
+
+
+
 
 
 

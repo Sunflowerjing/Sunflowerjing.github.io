@@ -1,5 +1,26 @@
 # Linux
 
+* 常用命令
+    1. `查看占用磁盘`
+       * `du -sh * | grep G`:   查看占用磁盘(du -sh,  du -sh * : * 表示  当前目录下所有文件/目录)。查看使用超过1G 的目录(grep G)。
+       * -s：summaries，只显示汇总的大小
+       * -h：表示以高可读性的形式进行显示
+       * 统计“/root”目录的实际大小:   du -sh /root
+       * 统计磁盘有已经使用的空间。它是直接统计各文件各目录的大小，而不是从硬盘获得信息的。
+    2. `删除文件夹下2天之前的文件`
+       * `find . -type f -ctime +2 | xargs rm -rf`
+       * 先查看2天之前的所有文件:  find . -type f -ctime +2
+       * 然后在删除:  xargs rm -rf
+       * 若没有权限 在后面加 sudo： find . -type f -ctime +2 | xargs sudo rm -rf
+    3. `统计磁盘中空闲的空间`
+       * `df -h`
+       * 显而易见它是统计磁盘中空闲的空间，也即空闲的磁盘块数
+       * 它是通过文件系统磁盘块分配图进行计算出的。
+
+
+
+
+
 1. 操作 MAC 文件的显示和隐藏:
     * MAC显示隐藏文件: `defaults write com.apple.finder AppleShowAllFiles -bool true`
     * MAC不显示隐藏文件: `defaults write com.apple.finder AppleShowAllFiles -bool false`
