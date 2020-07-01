@@ -1,6 +1,6 @@
 ---
 home: true
-heroImage: /home2.png
+heroImage: /home3.png
 tagline: 努力，每天进步一点点
 actionText: Go →
 actionLink: /blog/
