@@ -78,12 +78,22 @@ module.exports = {
                 }
             ],
             '/scattered/':[
-
+                {
+                    title: '常用快捷键',
+                    children: [
+                        'MAC'
+                    ]
+                },
+                {
+                    title: '前端界面常见需求',
+                    children: [
+                        '联动菜单'
+                    ]
+                }
             ],
             '/about/': [
                 {
                     title: '补充',
-                    collapsable: false,
                     children: [
                         '如何提升'
                     ]
