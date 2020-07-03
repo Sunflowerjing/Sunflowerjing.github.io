@@ -81,13 +81,20 @@ module.exports = {
                 {
                     title: '常用快捷键',
                     children: [
-                        'MAC'
+                        'MAC',
+                        'VsCode'
                     ]
                 },
                 {
                     title: '前端界面常见需求',
                     children: [
                         '联动菜单'
+                    ]
+                },
+                {
+                    title: '概念点补充',
+                    children: [
+                        '名词知识点介绍'
                     ]
                 }
             ],
