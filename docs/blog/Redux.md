@@ -19,7 +19,7 @@ export default store
 
 
 ## State
-1. 应用中所有的 `state` 都以一个 `对象树的形式`储存在一个`单一的 store` 中。
+1. 应用中所有的 `state` 都以一个 `对象树的形式`储存在一个`单一的 store` 中。(唯一改变 state 的办法是触发 action )
 2. 操作state
     > 1. `state 的变化`要通过 `store对象的 dispatch() 方法`来实现。(传递一个 action 对象给 reducer处理)
     > 2. 必须要通过 store API 操作 state, react 中的 view 才会更新.
