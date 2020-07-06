@@ -57,7 +57,7 @@ const reducer = (state = initialState, action) => {
     }
 };
 ```
-* `state 保存数据`。`reducer定义处理数据的规则`。`action触发某种规则`
+
 
 
 ## Action
@@ -95,6 +95,7 @@ const reduce = num => {
 3. store 接收 reducer 作为参数
    * 通过 store 的 api 来接收 action 以调用 reducer
    * ```store.dispatch(action)```
+4. `state 保存数据`。`reducer定义处理数据的规则`。`action触发某种规则`
 
 
 ## 示例代码
