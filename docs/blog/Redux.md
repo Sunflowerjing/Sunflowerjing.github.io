@@ -15,7 +15,7 @@ export default store
 
 // 上面代码中，createStore函数接受另一个函数作为参数，返回新生成的 Store 对象。
 ```
-4. 可以理解为，store 是 state 和 view 链接的桥梁。(毕竟创建 store 的元素包含 reducer, 构成 reducer 的有 state)
+4. 可以理解为，store 是 state 和 view 链接的桥梁。(毕竟创建 store 的元素包含 reducer, 更新state 需要 action 对象的 type  来触发reducer)
 
 
 ## State
