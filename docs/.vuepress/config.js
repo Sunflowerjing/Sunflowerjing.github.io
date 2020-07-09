@@ -40,7 +40,6 @@ module.exports = {
                         '字符串方法',
                         '数组方法',
                         '手写集合',
-                        'JS方法',
                         'JavaScript&QA工程师',
                         'JavaScript函数编程',
                         'JavaScript面试题目',
