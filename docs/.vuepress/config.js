@@ -22,7 +22,8 @@ module.exports = {
                         'Linux',
                         'Linux2',
                         'Git',
-                        'MongoDB'
+                        'MongoDB',
+                        'shell'
                     ]
                 },
                 {

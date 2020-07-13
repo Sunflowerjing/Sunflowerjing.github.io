@@ -6,6 +6,14 @@
 1. 查看项目的分支们(包括本地和远程): git branch -a 
 2. 删除本地分支: git branch -d <BranchName>
 
+## 查看远程地址
+1. `git remote -v`
+
+## 查看历史提交信息
+1. `git log`
+
+## 
+
 ## git丢弃本地修改的所有文件（新增、删除、修改）
 1. `git checkout . `:本地所有修改的。没有的提交的，都返回到原来的状态
 2. `git stash`: 把所有没有提交的修改暂存到stash里面。可用`git stash pop`回复.
