@@ -44,7 +44,8 @@ module.exports = {
                         'JavaScript&QA工程师',
                         'JavaScript函数编程',
                         'JavaScript面试题目',
-                        'Redux'
+                        'Redux',
+                        'npm'
                     ]
                 },
                 {
