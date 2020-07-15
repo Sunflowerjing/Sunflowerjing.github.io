@@ -21,9 +21,9 @@ module.exports = {
                         'PHP升级',
                         'Linux',
                         'Linux2',
-                        'Git',
                         'MongoDB',
-                        'shell'
+                        'shell',
+                        'Git',
                     ]
                 },
                 {

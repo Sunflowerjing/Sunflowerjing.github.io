@@ -8,8 +8,17 @@ npm官方网站: `https://www.npmjs.com`
 
 cnpm: 中国 npm 服务器。安装命令: `npm install cnpm`
 
-> `nvm` 管理 node 版本  
-> `nrm` 管理 npm
+> `nvm` 管理 node 版本 
+* 查看可安装的node版本: `nvm ls-remote`
+* 安装指定node版本: `nvm install <version>`
+* 查看当前已安装的node版本: `nvm ls`
+* 切换node版本: `nvm use <version>`
+* 切换到默认node版本: `nvm alias default <version>`
+
+> `nrm` 管理 源地址
+* 当前可用源: `nrm ls`
+* 切换源: `nrm use 源名称`
+* 检测所有源的速度: `nrm test`
 
 ## 什么是 `NodeJS`?
 * NodeJS 本质是一个 JavaScript 解析器。
