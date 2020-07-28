@@ -19,6 +19,7 @@ module.exports = {
                         'MySQL基础',
                         'PHP基础',
                         'PHP升级',
+                        'Linux基础命令',
                         'Linux',
                         'Linux2',
                         'MongoDB',
@@ -62,7 +63,8 @@ module.exports = {
                         'NodeJS 基础概念',
                         'NodeJS基础API',
                         'Express',
-                        '项目实战总结'
+                        '项目实战总结',
+                        'PM2'
                     ]
                 },
                 {

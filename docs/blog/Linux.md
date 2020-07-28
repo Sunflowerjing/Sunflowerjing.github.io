@@ -1,8 +1,8 @@
 # Linux
 
-* 创建文件: `touch 文件名` 或 `vi 文件名`
-* 创建文件夹: `mkdir 文件夹名`
-* 显示文件行: `set number`
+
+
+
 * 搜索历史记录: `history | grep ssh`
 * `PATH`: 系统查找可执行文件的路径集合，`:` 分隔
 
