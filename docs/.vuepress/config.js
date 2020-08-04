@@ -46,7 +46,8 @@ module.exports = {
                         'JavaScript函数编程',
                         'JavaScript面试题目',
                         'Redux',
-                        'npm'
+                        'npm',
+                        'Promise'
                     ]
                 },
                 {
@@ -102,6 +103,12 @@ module.exports = {
                     title: '概念点补充',
                     children: [
                         '名词知识点介绍'
+                    ]
+                },
+                {
+                    title: '工具网址',
+                    children: [
+                        '实用工具网站'
                     ]
                 }
             ],
