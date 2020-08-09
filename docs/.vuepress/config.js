@@ -47,7 +47,8 @@ module.exports = {
                         'JavaScript面试题目',
                         'Redux',
                         'npm',
-                        'Promise'
+                        'Promise',
+                        'ES集合'
                     ]
                 },
                 {
