@@ -424,21 +424,108 @@ input.map(function (item) {
 
 10. `Map`集合(字典)
 
-   - 键值对的元素
+  - 键值对的元素
 
-     ```javascript
-     let food = new Map();
-     let fruit={}, cook=function(){};
-     food.set(fruit, '👀');
-     food.set(cook, '🧠');
-     
-     console.log(food); // Map(2) {{…} => "👀", ƒ => "🧠"}
-     console.log(food.get(cook));  // 🧠
-     food.delete(cook);
-     console.log(food.size);  // 获取food长度 1
-     food.clear();  // 清除全部元素
-     console.log(food);   // Map(0) {}
-     ```
+    ```javascript
+    let food = new Map();
+    let fruit={}, cook=function(){};
+    food.set(fruit, '👀');
+    food.set(cook, '🧠');
+    
+    console.log(food); // Map(2) {{…} => "👀", ƒ => "🧠"}
+    console.log(food.get(cook));  // 🧠
+    console.log(food.has(fruit));  // 判断是否有此 key
+    food.delete(cook);
+    console.log(food.size);  // 获取food长度 1
+    food.clear();  // 清除全部元素
+    console.log(food);   // Map(0) {}
+    ```
+    
+  - 属性和操作方法
+
+    - **size** 属性: 返回 Map 结构的成员总数。
+
+    - **Map.prototype.set(key, value)**
+
+      - `set`方法设置键名`key`对应的键值为`value`，然后返回整个 Map 结构。如果`key`已经有值，则键值会被更新，否则就新生成该键。
+
+      - `set`方法返回的是当前的`Map`对象，因此可以采用链式写法。
+
+        ```javascript
+        let map = new Map()
+          .set(1, 'a')
+          .set(2, 'b')
+          .set(3, 'c');
+        ```
+
+    - **Map.prototype.get(key)**
+
+      - `get`方法读取`key`对应的键值，如果找不到`key`，返回`undefined`。
+
+    - **Map.prototype.has(key)**
+
+      - `has`方法返回一个布尔值，表示某个键是否在当前 Map 对象之中。
+
+    - **Map.prototype.delete(key)**
+
+      - `delete`方法删除某个键，返回`true`。如果删除失败，返回`false`。
+
+    - **Map.prototype.clear()**
+
+      - `clear`方法清除所有成员，没有返回值。
+
+  - 遍历操作
+
+    - `Map.prototype.keys()`：返回键名的遍历器。
+
+    - `Map.prototype.values()`：返回键值的遍历器。
+
+    - `Map.prototype.entries()`：返回所有成员的遍历器。
+
+    - `Map.prototype.forEach()`：遍历 Map 的所有成员。
+
+    - 注：Map 的遍历顺序就是插入顺序。
+
+    - 示例
+
+      ```javascript
+      const map = new Map([
+        ['F', 'no'],
+        ['T',  'yes'],
+      ]);
+      
+      for (let key of map.keys()) {
+        console.log(key);
+      }
+      // "F"
+      // "T"
+      
+      for (let value of map.values()) {
+        console.log(value);
+      }
+      // "no"
+      // "yes"
+      
+      for (let item of map.entries()) {
+        console.log(item[0], item[1]);
+      }
+      // "F" "no"
+      // "T" "yes"
+      
+      // 或者
+      for (let [key, value] of map.entries()) {
+        console.log(key, value);
+      }
+      // "F" "no"
+      // "T" "yes"
+      
+      // 等同于使用map.entries()
+      for (let [key, value] of map) {
+        console.log(key, value);
+      }
+      // "F" "no"
+      // "T" "yes"
+      ```
 
 11. 经典案例
 
@@ -570,5 +657,6 @@ input.map(function (item) {
       getArea(shapeType.triangle, { width: 100, height: 100 });
       ```
 
-      
+
+## ES7 编程
 
