@@ -467,28 +467,108 @@ input.map(function (item) {
         ```javascript
         import {test, gogo } from 'index.js'
         
-    test();
+        test();
         gogo();
-    ```
+        ```
       
-- 默认
-    
-  - 导出 `export` 
-    
-    ```javascript
+    - 默认
+
+      - 导出 `export`
+        ```javascript
         const test = function(argument) {}
-    const gogo = function(argument) {}
+        const gogo = function(argument) {}
         export default {test,gogo};
         ```
-    
+      
       - 导入 `import`
-    
         ```javascript
         import * as data from 'index.js';  // 若是 default，则不要去结构
         
         data.test();
         data.gogo();
         ```
+
+	- system.js`第三方模块加载器
+
+13. `async await` 
+
+    - `await`后面接`Promise`函数
+
+    - 案例
+
+      ```javascript
+      (async => {
+        function promisefn(url){
+          return new Promise(function(resolve, reject){
+            $.ajax({
+              url:url,
+              success: function(){
+                resolve(response);
+              },
+              error: function(){
+                reject('error');
+              }
+            })
+          })
+        }
+        const a1 = await promisefn('http://www.baidu.com/s');
+        const a2 = await promisefn('http://www.baidu.com/b');
+      
+        let p = a1+a2;
+        console.log(p);
+      })();
+      ```
     
-    - `system.js`第三方模块加载器
-    
+14. 装饰器
+
+    - `类的装饰`: 装饰器可以用来装饰整个类。
+
+      - 修饰器是一个函数，用来修改类的行为。
+      - 修饰器对类的行为的改变，是代码编译时发生的，而不是运行时。这意味着，修饰器能在编译阶段运行代码。
+
+      ```javascript
+      function testable(target) {
+        target.isTestable = true;
+      }
+      
+      @testable
+      class MyTestableClass {
+        // ...
+      }
+      
+      MyTestableClass.isTestable // true
+      ```
+
+    - Core-decorators.js
+
+      - 是一个第三方模块，提供了几个常见的装饰器。
+      - `@autobind`装饰器使得方法中的 `this`对象，绑定原始对象。
+      - `@readonly`装饰器使得属性或方法不可写。
+      - `@override`装饰器检查子类的方法，是否正确覆盖了父类的同名方法，如果不正确会报错。
+
+15. Symbol
+
+    - `唯一`。若想要某值，永远不被改变，则用Symbol。
+
+    - 消除魔法字符串
+
+      ```javascript
+      const shapeType = {
+        triangle: Symbol()
+      };
+      
+      function getArea(shape, options) {
+        let area = 0;
+        switch (shape) {
+          case shapeType.triangle:
+            area = .5 * options.width * options.height;
+            break;
+        }
+        return area;
+      }
+      
+      getArea(shapeType.triangle, { width: 100, height: 100 });
+      ```
+
+      
+
