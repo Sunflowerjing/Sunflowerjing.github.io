@@ -530,12 +530,22 @@ input.map(function (item) {
 11. 经典案例
 
     - 数组去重
+        - 方法一
+        ```javascript
+        const arr = [12,34,6,98,6];
+        const result = [...new Set(arr)];
+        console.log(result); // [12, 34, 6, 98]
+        ```
 
-      ```javascript
-      const arr = [12,34,6,98,6];
-      const result = [...new Set(arr)];
-      console.log(result); // [12, 34, 6, 98]
-      ```
+        - 方法二
+        ```javascript
+        const arrayDedup = (arr) => (
+            arr && arr.reduce((total, current) => {
+                return total.includes(current) ? total: total.concat(current);
+            }, [])
+        )
+        ```
+
 
 12. Module 模块
 
