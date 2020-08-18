@@ -1,6 +1,7 @@
 # ES集合
 
 * 严格模式: `use strict`
+* 输出函数执行时间: `console.time('函数名')` 和 ``console.timeEnd('函数名')`
 
 
 ## Babel
@@ -669,4 +670,339 @@ input.map(function (item) {
 
 
 ## ES7 编程
+
+1. 数组新增 `includes` 方法:
+
+   - 判断一个`元素`是否存在`数组`中
+
+   - 使用: `数组.includes(元素)` 
+
+     - 存在返回返回 true，不存在返回 false。
+
+2. `Math.pow ` : 指数运算的简写方法   `**`
+
+   - `计算2的3次方`
+     - 旧方法: `Math.pow(2,3)`
+     - 新方法: `2**3`
+
+## ES8 编程
+
+1. `Async/Await`
+
+   - `next => 返回 Promise`
+
+   - 操作异步代码
+
+     - 嵌套回调
+     - Promise
+     - Generators
+
+   - 捕获异常
+
+     - 代码实现
+
+       ```javascript
+       function promiseFn(){
+         return new Promise((resolve, reject) => {
+           setTimeout(() => {
+             reject('错误信息')
+           }, 1500);
+         });
+       }
+       
+       // 方法一
+       async function fn(){
+         try {
+           await promiseFn();
+           console.log('我在错误下面不会执行');
+         }catch(err){
+           console.log(err)
+         }
+       }
+       fn();
+       
+       // 方法二
+       async function fn(){
+         await promiseFn();
+         console.log('我在错误下面不会执行');
+       }
+       fn().catch(err => {
+         console.log(err);
+       })
+       
+       // 方法三: 让错误代码之后的内容正常输出，提前错误的捕获
+       async function fn(){
+         await promiseFn().catch(err => {
+            console.log(err);
+         });
+         console.log('我会正常输出');
+       }
+       fn();
+       ```
+
+   - 多个 await 异步命令同时执行，并行
+
+     - 代码实现
+
+       ```javascript
+       function promiseFn1(){
+         return new Promise(resolve => {
+           setTimeout(() => {
+             resolve('result1');
+           }, 1000);
+         });
+       }
+       
+       function promiseFn2(){
+       	return new Promise(resolve => {
+           setTimeout(() => {
+             resolve('result2');
+           }, 2000);
+         })
+       }
+       
+       // 串行
+       async function fnC(){
+         console.time('fnC');
+         let res1 = await promiseFn1();
+         let res2 = await promiseFn2();
+         console.timeEnd('fnC')
+       }
+       fnC(); // fnC: 3008.9951171875ms
+       
+       // 并行
+       async function fnB(){
+         console.time('fnB');
+         let [res1, res2] = await Promise.all([promiseFn1(),promiseFn2()]);
+         console.timeEnd('fnB')
+       }
+       fnB();  // fnB: 2001.199951171875ms
+       ```
+
+2. `Object.values()`和`Object.keys()`
+
+   - `Object.values()` 只包含自身的值，不包含继承过来的值
+
+     - 案例
+
+       ```javascript
+       const obj = {name: '小明', age: 4};
+       
+       // 之前
+       console.log(Object.keys(obj).map(key => obj[key]))  // 结果: ["小明", 4]
+       
+       // ES8
+       console.log(Object.values(obj))  // 结果: ["小明", 4]
+       ```
+
+3. `Object.entries()` 和 `for...in(会枚举原型链中的属性)`
+
+     - `Object.entries()`  会返回键值对的数组
+     
+       - 案例
+     
+         ```javascript
+         const obj = {name: '小明', age: 4};
+         
+         console.log(Object.entries(obj)) // [["name", "小明"], ["age", 4]]
+         ```
+     
+     - `Object.entries()`  非对象会强制转换为对象
+     
+     - 需求，遍历对象的键值
+     
+       ```javascript
+       const obj = {name: '小明', age: 4};
+       
+       // 方案一
+       for(const [key, value] of Object.entries(obj)){
+         console.log(`${key}-${value}`);  // name-小明  age-4
+       }
+       
+       // 方案二
+       Object.entries(obj).forEach(([key, value]) => {
+         console.log(`${key}-${value}`);  // name-小明  age-4
+       })
+       ```
+     
+4. `String Padding `
+
+     - `String.prototype.padStart(targetLength, [padString])`: 在字符串的开头进行添加操作
+       - targetLength: 目标长度  =>  `添加字符串之后的长度(添加的字符串+原始字符串的长度)`
+       - 从右往左数
+       - `目标长度 > 添加的字符串+原始字符串的长度(自动截取)`
+       - `目标长度 < 添加的字符串+原始字符串的长度(自动重复添加)`
+       - 案例: `console.log('123'.padStart(4, '30'))`  //结果:  3123
+     - `String.prototype.padEnd`: 在字符串的末尾进行添加操作
+
+5. `结尾允许逗号`
+
+     - 版本检测的时候会用到
+
+       ```javascript
+       function fn(para1,para2,){}
+       
+       const obj = {
+         a: '',
+         b: '',
+       } 
+       ```
+
+6. `Object.getOwnPropertyDescriptors()`
+
+     - 获取对象自身属性是描述符
+
+     - 使用:
+
+       ```javascript
+       const obj = {name: '小明', age: 4};
+       console.log(Object.getOwnPropertyDescriptors(obj));
+       ```
+
+7. `SharedArrayBuffer` 和 `Atomics` 
+
+     - 给 js 带来了多线程的功能，高级特性，JS引擎核心的改进
+
+     - 共享内存主要思想: 把多线程引入 JS
+
+     - `JS 主线程`和`web-worker 线程`之间共享数据，用`SharedArrayBuffer`
+
+     - 之前使用`postMessage()` 将数据在线程之间进行传递。现在用`SharedArrayBuffer`共享数据
+
+     - 多线程会存在竞争，引入`Atomics` 来进行枷锁
+
+     - 使用: `new SharedArrayBuffer(length);    缓冲区大小, 以字节byte 为单位`   
+
+       - `arrayBuffer` 无法共享数据
+       - `SharedArrayBuffer `可以共享数据
+
+     - 简单实现`主进程`与`worker.js`进程之间的通信`(数据量大 通信效率低)`
+
+       ```javascript
+       // 文件:main.js(主线程)
+       // 创建一个 work进程
+       const worker = new Worker('./worker.js');
+       // postMessage用此方法传输数据, 到worker线程
+       worker.postMessage('hello I am main')
+       worker.onmessage = function(e) {
+           console.log(e.data);
+       }
+       
+       
+       // 文件:work.js(work线程)
+       // message事件, 接收数据 
+       onmessage = function (e) {
+           console.log(e.data);
+           postMessage('hello I am work');
+       }
+       ```
+
+     - 进程之间共享内存地址
+
+       ```javascript
+       // 主线程(main.js)
+       // 创建一个 work进程
+       const worker = new Worker('./worker.js');
+       // 新建1kb 内存
+       const sharedBuffer = new SharedArrayBuffer(1024); 
+       // 建视图, 写入数组
+       const intArrBuffer = new Int32Array(sharedBuffer);
+       for(let i=0; i<intArrBuffer.length; i++ ){
+           intArrBuffer[i] = i;
+       }
+       // postMessage 发送的共享内存地址
+       worker.postMessage(intArrBuffer); // 分享内存地址
+       worker.onmessage = function(e) {
+           console.log('更改后的数据', intArrBuffer[20]);
+       }
+       
+       
+       // work线程(work.js)
+       // message事件, 接收数据 
+       onmessage = function (e) {
+           let arrBuffer = e.data; // 在主进程中写入数据,在子进程中读
+           arrBuffer[20] = 88; // 在 work 进程, 直接修改了内存中的数据 
+           postMessage('hello I am worker');
+       }
+       ```
+
+     - 使用线程枷锁机制, 来读取和修改数据
+
+       ```javascript
+       // 主线程(main.js)
+       // 创建一个 work进程
+       const worker = new Worker('./worker.js');
+       // 新建1kb 内存
+       const sharedBuffer = new SharedArrayBuffer(1024); 
+       // 建视图, 写入数组
+       const intArrBuffer = new Int32Array(sharedBuffer);
+       for(let i=0; i<intArrBuffer.length; i++ ){
+           intArrBuffer[i] = i;
+       }
+       // postMessage 发送的共享内存地址
+       worker.postMessage(intArrBuffer); // 分享内存地址
+       setTimeout(() => {
+           // 3个参数
+           // 参数一: 共享内存的视图数组 
+           // 参数二: index 视图数据位置
+           // 参数三: count 唤醒的 worker 进程数, 默认 Infinity
+           Atomics.notify(intArrBuffer, 11, 1);  // 3S 后自动唤醒
+       }, 3000)
+       worker.onmessage = function(e) {
+           console.log('更改后的数据', Atomics.load(intArrBuffer, 20));
+       }
+       
+       
+       
+       // work线程(work.js)
+       // message事件, 接收数据 
+       onmessage = function (e) {
+           let arrBuffer = e.data; // 在主进程中写入数据,在子进程中读
+           console.log('读取数据的方式', Atomics.load(arrBuffer, 20));  // 使用枷锁方式读取数据
+           Atomics.store(arrBuffer, 20, 99);   // 使用枷锁方式修改数据, 返回写入的值   99 
+           Atomics.store(arrBuffer, 20, 111);   // 使用枷锁方式修改数据, 返回之前的值  99
+           postMessage('hello I am worker');
+         
+           // 某些线程满足以下条件, 进行休眠
+           Atomics.wait(arrBuffer, 11, 11);
+           console.log('我已经进入休眠了, 不会被执行了');
+           // 某些线程满足以下条件, 进行休眠, 2S 后进行自动唤醒
+           Atomics.wait(arrBuffer, 11, 11, 2000);
+       }
+       ```
+
+     - `Atomics`运算方法
+
+       - `Atomics.add(intArrBuffer, index, value)`: 加运算
+       - `Atomics.sub(intArrBuffer, index, value)`: 减运算
+       - 位运算: `and or xor`
+       - `AtomicscompareExchange(intArrBuffer, index, oldVal, newVal)`: 
+         - index 当前位置的值 === oldVal，则写入newVal;  会返回newVal
+         - index 当前位置的值 != oldVal，则不写入newVal;   会返回oldVal
+
+     ​     
+
+​     
+
+​     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
