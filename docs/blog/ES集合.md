@@ -980,13 +980,396 @@ input.map(function (item) {
          - index 当前位置的值 === oldVal，则写入newVal;  会返回newVal
          - index 当前位置的值 != oldVal，则不写入newVal;   会返回oldVal
 
-     ​     
+## ES9 编程
+
+1. 异步迭代器   `Asyncchronous Iterator`
+
+   - `Iterator` 是一个特殊对象，包含 `next` 方法，`next`方法会返回 一个对象
+
+     - next() => {value, done} 返回一个迭代器对象
+
+     - value 表示对象的值
+
+     - done: 布尔类型。表示迭代是否结束。
+
+     - 实现一个同步迭代器
+
+       ```javascript
+       // 创建一个迭代器
+       const createIterator = (items) => {
+           const keys = Object.keys(items);
+           const len = keys.length;  // 长度
+           let pointer = 0;  // 指针
+           return {
+               next(){
+                   const done = pointer >= len;
+                   const value = !done ? items[keys[pointer++]] : undefined;
+                   return {
+                       value,
+                       done
+                   };
+               }
+           };
+       };
+       const res = createIterator([12,34,56]);
+       console.log(res.next());  // {value: 12, done: false}
+       console.log(res.next());  // {value: 34, done: false}
+       console.log(res.next());	// {value: 56, done: false}
+       console.log(res.next());  // {value: undefined, done: true}
+       ```
+
+     - 数组原生具有 iterator 接口
+
+       ```javascript
+       const arr = [12,34,10,999];
+       
+       console.log(typeof arr[Symbol.iterator]);  // function
+       
+       // 同步迭代器, 配合 for of 使用
+       for(const item of arr){ 
+         console.log(item);  // 输出数组的每一项元素
+       }
+       ```
+
+     - 对象没有 iterator 接口，不是一个迭代器
+
+       ```javascript
+       var obj = {name: '小名', age: '4'};
+       console.log(typeof obj[Symbol.iterator]);  // undefined
+       
+       
+       // 实现一个迭代器
+       const obj = {name: '小名', age: '4'};
+       // iterator 接口
+       obj[Symbol.iterator] = function() {
+           const me = this;
+           const keys = Object.keys(me);
+           const len = keys.length;
+           let pointer = 0;
+           return {
+               next(){
+                   const done = pointer >= len;
+                   const value = !done ? me[keys[pointer++]] : undefined;
+                   return {
+                       value,
+                       done
+                   };
+               }
+           };
+       };
+       
+       console.log(typeof obj[Symbol.iterator]);  // function
+       for(const val of obj){
+           console.log(val);  // 小名  4
+       }
+       ```
+
+   - 区别迭代器和异步迭代器的区别
+
+     - 同步: `next() => {value: '', done: false} `
+     - 异步: ``next() => promise`
+
+   - 实现一个异步迭代器
+
+     ```javascript
+     const asyncItems = {
+         name: '小明',
+         age: 4,
+         [Symbol.asyncIterator](){
+             const me = this;
+             const keys = Object.keys(me);
+             const len = keys.length;
+             let pointer = 0;
+             return {
+                 next() {
+                     const done = pointer >= len;
+                     const value = !done ? me [keys[pointer++]] : undefined;
+                     return new Promise(resolve => {
+                         setTimeout(() => {
+                             resolve({value, done})
+                         }, 1000)
+                     })
+                 }
+             }
+         }
+     }
+     
+     
+     // 异步迭代器配合  for...await...of
+     async function fn(){
+         for await(const val of asyncItems){
+             console.log(val);   // 小明  4
+         }
+     }
+     fn();
+     ```
+
+     
+
+2. 异步执行语句   `for...await...of`
+
+3. 异步生成器  `Async generator`
+
+   - 生成迭代器对象
+
+   - `Generator函数`
+
+     - `yield`  `*`
+
+     - 同步生成器的案例
+
+       ```javascript
+       // 执行函数时，并不会执行函数体
+       function* fn(){
+           console.log('正常函数我会执行');
+           yield 1;
+           yield 2;
+           yield 3;
+           console.log('执行完了');
+       }
+       
+       const iteratorFn = fn(); // 只是创建了一个 iterator
+       // 正常函数我会执行
+       console.log(iteratorFn.next()); // {value: 1, done: false}
+       console.log(iteratorFn.next()); // {value: 2, done: false}
+       console.log(iteratorFn.next()); // {value: 3, done: false}
+       // 执行完了
+       console.log(iteratorFn.next()); //  {value: undefined, done: true}
+       ```
+
+   - 异步生成器
+
+     ```javascript
+     async function* fn(){
+         yield await Promise.resolve(1);
+         yield await Promise.resolve(2);
+         yield await Promise.resolve(3);
+     }
+     const asyncI = fn();
+     async function fn1(){
+         for await(const val of asyncI){
+             console.log(val); // 1  2  3
+         }
+     }
+     fn1();
+     ```
+
+4. 总结异步迭代器和异步生成器:
+
+   > 同步迭代器和异步迭代器比较: 
+   >
+   >  - 相同点
+   >    	- 都只含有 一个next 方法的对象
+   >  - 不同点
+   >    	- 同步迭代器的 next，返回 一个`只有value和done`的`普通对象`
+   >    	- 异步迭代器的 next，返回一个`只有value和done`的 `promise`
+   >    	- 同步迭代器的遍历: `for of`
+   >    	- 异步迭代器的遍历: `for await of`
+
+   > 异步生成器: 
+   >
+   > 	- `异步生成器`可以创建`异步迭代器`
+   > 	- 是 `async` 类型的 `Generator` 函数, 内部可以使用`async`表达式等待异步方法完成
+   > 	- 可以使用 `for await of`遍历
+
+5. `Promise.finally()`
+
+   - `new Promise`   调用链
+
+   - 无论`正确`还是`错误`都要`执行一段代码`
+
+     ```javascript
+     function fn(){
+         return new Promise((resolve, reject) => {
+             // resolve('正确信息');
+             reject('错误信息');
+         })
+     }
+     fn().then(res => {
+         console.log(res);
+     }).catch(err => {
+         console.log(err);
+     }).finally(() => {
+         console.log('我都会执行');  // 例如: 关闭数据库链接
+     })
+     ```
+
+6. Rest/Spread
+
+   - `Rest参数`案例
+
+     ```javascript
+     function fn(a, b,  ...c){
+         console.log(a, b, c);
+     }
+     fn(1,2,3,4,5,6);  // 1  2  [3, 4, 5, 6]
+     
+     
+     // 扩展运算符, ES6 提供的。仅用于数组
+     const arr = [1,2,3];
+     console.log([11, 12, ...arr]);
+     
+     // ES9 提供的，支持对象了。未匹配的放到了 haha 里。 
+     const obj = {
+         name: '小明',
+         age: 4,
+         info: {
+             phone: 188
+         }
+     }
+     const  {name, ...haha} = obj;
+     console.log(name, '===', haha); // 小明 === {age: 4, info: {phone: 188}}
+     
+     //  用时函数传参也是同样的道理
+     const objFn = {
+         name: '嘻嘻',
+         age: 50,
+         info: {
+             phone: 001
+         }
+     }
+     function fn({name, ...haha}){
+         console.log(name, '===', haha);  // 嘻嘻 === {age: 50, info: {phone: 1}}
+     }
+     fn(objFn);
+     
+     
+     // 对象的扩展运算符
+     const obj1 = {
+         name: '嘻嘻',
+         age: 50,
+         info: {
+             phone: 001
+         }
+     }
+     const obj2 = {...obj1, address: '北京'}
+     console.log(obj2);  // {name: "嘻嘻", age: 50, info: {phone: 1}, address: "北京"}
+     
+     
+     // 对象的浅拷贝: 修改克隆对象，则不会影响原始对象
+     const obj = {
+         name: '静静',
+         info: {
+             phont: 10
+         }
+     };
+     const objClone = { ...obj};
+     objClone.name = 'www';
+     objClone.info.phont = '20';
+     // 对象的浅拷贝
+     console.log(obj.name); // 静静
+     console.log(objClone.name); // www
+     // 对象的深拷贝
+     console.log(obj.info.phont);  // 20
+     console.log(objClone.info.phont); // 20
+     ```
+
+7. 正则表达式的增强: `给分组自定义名称`
+
+   - 需求一: `YYYY-MM-DD`  年月日解析到数组中
+
+     ```javascript
+     const dataStr = '2030-08-01'
+     
+     // 之前的写法
+     const reg = /([0-9]{4})-([0-9]{2})-([0-9]{2})/;
+     const res = reg.exec(dataStr);
+     console.log(res[1], res[2], res[3]); // 通过数组下标获取，想要的值。"2030" "08" "01"
+     
+     // ES9版本 新的写法 ?<name>
+     const reg = /(?<year>[0-9]{4})-(?<month>[0-9]{2})-(?<day>[0-9]{2})/;
+     const res = reg.exec(dataStr);
+     console.log(res.groups.year, res.groups.month, res.groups.day); // "2030" "08" "01"
+     ```
+
+   - 需求二:  将`年月日`, 修改为`月日年`
+
+     ```javascript
+     const dataStr = '2030-08-01';
+     const reg = /(?<year>[0-9]{4})-(?<month>[0-9]{2})-(?<day>[0-9]{2})/;
+     const newDate = dataStr.replace(reg, `$<month>-$<day>-$<year>`);
+     console.log(newDate);  // 08-01-2030
+     ```
+
+   - 反向断言
+
+     - ES9中，以相同方式工作，匹配前面的反向断言
+
+     - 反向断言的格式: `(?<=pattern)`
+
+     - 例如：获取价格, 反向断言写法
+
+       ```javascript
+       const str = "$123";
+       // 通过匹配前面的, 拿到后面的数据
+       const reg = /(?<=\D)\d+/;  
+       const result = reg.exec(str);
+       console.log(result);  // 123
+       ```
+
+   - 先行断言。匹配后面的
+
+     -  先行断言的格式: `(?=pattern)当前匹配位置开始, 判断后面的字符串是否成立 ` 
+     
+     - 例如：获取货币符号, 先行断言写法
+     
+       ```javascript
+       const str = "$123";
+       // 先行断言是, 完全匹配后的 \d+, 拿到前面的数据
+       const reg = /\D(?=\d+)/;  // \D:非字符  \d:数字  +: 多个
+       const result = reg.exec(str);
+       console.log(result[0]);  // $
+       ```
+     
+   - `dotAll` 方式
+
+     - `.`:  在正则中表示， 会匹配到除回车符，以外的单字符
+
+       ```javascript
+       const str = 'he\nllo';
+       const reg = /he.llo/;
+       const result = reg.test(str);
+       console.log(result);  // false
+       ```
+
+     - 弥补回车符的匹配
+
+       ```javascript
+       const str = 'he\nllo';
+       const reg = /he.llo/s;  // s标记，表示允许换行符的出现
+       const result = reg.test(str);
+       console.log(result); //true
+       ```
+
+   - ES9`汉字匹配`新写法 `/\p{Script=Han}/u`
+
+     - 汉字匹配新写法和旧写法的比较
+
+       ```javascript
+       const oldReg = /[\u4e00-\u9fa5]/;  // 繁琐不好记忆
+       const str = /你好呀/;
+       const newReg = /\p{Script=Han}/u;
+       console.log(newReg.test(str));  // true
+       ```
+
+   - `非转义序列`的模板字符串
+
+     - 取消转义 `String.raw`
+
+     - 案例
+
+       ```javascript
+       // \u unicode转义    \x 十六进制转义
+       '\u{54}'  // 自动转义成 T 了
+       String.raw`\u{54}`;  // 取消转义
+       ```
+
+       
+
+       
+
 
 ​     
-
-​     
-
-
 
 
 
