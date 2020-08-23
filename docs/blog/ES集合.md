@@ -1363,29 +1363,272 @@ input.map(function (item) {
        '\u{54}'  // 自动转义成 T 了
        String.raw`\u{54}`;  // 取消转义
        ```
+## ES10 编程
+
+1. BigInt`新的基本数据类型:`  `任意精度整数`  
+
+     - 第七种基本数据类型
+
+     - 最大的安全整数值
+
+       - `Number.MAX_SAFE_INTEGER     // 9007199254740991` 
+
+     - 在数字后面加一个 `n`代表`BigInt`类型
+
+       - 案例
+
+         ```javascript
+         let num = 1n;
+         let num2 = 10n;
+         
+         console.log('类型', typeof num);     // bigint
+         console.log('类型比较', num === 1);  //false  任意精度的整数值, 值相同，类型不同
+         console.log('运算', num2-num); // 9n 只能同类型运算
+         ```
+
+       - 另一种定义方式
+
+         ```javascript
+         const bigIntNum = BigInt(12);
+         console.log(bigIntNum); // 12n
+         ```
+
+         
+
+2. 添加`数组`的两个新方法
+
+   - `flat()` 
+
+     - 将二维数组，拉平为一维数组。`默认深度值为1`
+
+       ```javascript
+       const arr = [1,2,3,[4,5]];
+       console.log(arr.flat());  // [1, 2, 3, 4, 5]
+       ```
+
+     - 指定遍历深度。`通过传参数的方式来指定深度值`
+
+       ```javascript
+       const arr = [1,2,3,[4,5,[6,7]]];
+       console.log(arr.flat(2));  // [1, 2, 3, 4, 5, 6, 7]
+       ```
+
+     - 指定任意深度。`Infinity`
+
+       ```javascript
+       const arr = [1,2,3,[4,5,[6,7]]];
+       console.log(arr.flat(Infinity));  //  [1, 2, 3, 4, 5, 6, 7]
+       ```
+
+     - 去除数组的空项
+
+       ```javascript
+       const arr = [1,,,,,,,,,,5,6];
+       console.log(arr.flat());  // [1, 5, 6]
+       ```
+
+   - `flatMap()`
+
+     - 与 map 用法的对比
+
+       ```javascript
+       const arr = [1,2,3,4];
+       console.log(arr.map(item => [item*2]));  // [[2], [4], [6], [8]]
+       console.log(arr.flatMap(item => [item*2]));   // [2, 4, 6, 8]
+       
+       // 深度值默认值为1。// [[2], [4], [6], [8]]
+       console.log(arr.map(item => [[item*2]]));
+       ```
+
+3. 添加`字符串`的方法
+
+   - `Object.fromEntries()`
+
+     - 传入`带有键值对的列表`，返回`带有键值对的新对象`。
+
+     - 返回`对象自身可枚举属性的键值对数组`。
+
+     - 与`for...in`区别
+
+       - `for...in`可枚举原型链的属性, fromEntries只枚举对象自身的属性
+
+     - 案例:
+
+       ```javascript
+       const map = new Map([
+       		['name', '一灯'],
+       		['address', '北京']
+       ]);
+       console.log(Object.fromEntries(map));  // {name: "一灯", address: "北京"}
+       ```
+
+   - `Object.entries`
+
+     - 与`Object.fromEntries()`相反
+     - 传入一个对象, 返回含有键值对的数组
+
+   - `String.prototype.matchAll`
+
+     - 返回包含所有匹配正则表达式及分组捕获迭代器
+
+     - 案例对比
+
+       ```javascript
+       const str = '静静 你好 你好';
+       const reg = /你好*/g;
+       
+       // 之前
+       while((matches = reg.exec(str)) !== null){
+         console.log(`${matches[0]}-${reg.lastIndex}`);  // 你好-5    你好-8
+       }
+       
+       // 现在
+       let matches2 = str.matchAll(reg);
+       for(const res of matches2){
+         // ["你好", index: 3, input: "静静 你好 你好", groups: undefined]
+         // ["你好", index: 6, input: "静静 你好 你好", groups: undefined]
+         console.log(res);
+       }
+       // 或
+       console.log(matches2.next());   // {value: Array(1), done: false}
+       console.log(matches2.next());   // {value: Array(1), done: false}
+       console.log(matches2.next());   // {value: undefined, done: true}
+       ```
+       
+      - 分组中使用
+
+        ```javascript
+        const reg = /y(i)(deng(\d?))/g;
+        const str = 'yideng66yideng66';
+        console.log(str.match(reg));   // ["yideng6", "yideng6"]
+        
+        const arr = [...str.matchAll(reg)];
+        console.log(arr); // [Array(4), Array(4)]
+        ```
+     
+   - 去除首尾空格: `trimStart()`、`trimEnd()`
+     
+     - `Input框`输入，去除首位空格
+
+4. `Symbol.prototype.description`
+
+   - 案例
+
+     ```javascript
+     const sym = Symbol('描述');
+     
+     console.log(String(sym)); // Symbol(描述)
+     console.log(sym.description); // 描述    
+     ```
+
+5. `Catch`参数可以省略
+
+     - 之前写法
+
+       ```javascript
+        try {
+          
+        } catch (error) {
+          console.log(error);
+        }
+       ```
+
+     - 现在
+
+       ```javascript
+       try {
+                   
+       } catch {
+       
+       }
+       ```
+
+6. 允许`行分割符和段分割符合`出现在字符串中
+
+     - JSON
+
+       ```javascript
+       // JSON.parse  JSON 是 ECMAScript 一个子集
+       // JSON 可以包含行分割符和段分割符
+               
+       const json = '{"name": "你好\n小明"}';
+       console.log(json);  // 打印出来的 JSON 换行了
+       JSON.parse(json); 	// 报错, 行分割符和段分割符 不允许出现在其中
+       
+       // 修复字符 U+D800 到U+DFFF 处理
+       // U+2028 行分割符  U+2029段分隔符
+       
+       // 实际输出: UDEAD。草案过后: JSON转义序列 '"\\UDEAD"'
+       console.log(JSON.stringify("\UDEAD"));  
+       ```
+
+7. `Array.prototype.sort()`
+
+     - 小于10, 插入排序  快速排序不稳定的排序 O(n^2)
+
+     - 新的 V8, TimSort() O(nlogo)。稳定排序
+
+       - 案例
+
+       ```javascript
+        const arr = [
+          {name: 'w', age: 18},
+          {name: '小明', age: 4},
+          {name: 'www', age: 4},
+        ];
+       
+       const result = arr.sort((a, b) => a.age - b.age);
+       
+       console.log(result);
+       // 非稳定
+       [
+         {name: 'www', age: 4},
+         {name: '小明', age: 4},
+         {name: 'w', age: 18},
+       ];
+       
+       // 稳定
+       [
+         {name: '小明', age: 4},
+         {name: 'www', age: 4},
+         {name: 'w', age: 18},
+       ];	
+       ```
+
+8. `Function.toString()`
+
+     - `Object.prototype.toString()`
+
+     - 标准化, 返回精确字符
+
+       ```javascript
+       function /*注释*/ foo /*注释*/ (){}
+       // 之前
+       console.log(foo.toString()); // function foo(){}
+       // 现在
+       console.log(foo.toString()); // function /*注释*/ foo /*注释*/ (){}
+       ```
+
+9. `globalThis`
+
+     - 标准化 globalThis 对象
+
+     - 作用: `在任何平台访问全局属性`
+
+     - 案例
+
+       ```javascript
+       // 之前
+       const getGlobal = function() {
+         if(typeof self != 'undefind'){return self};
+         if(typeof window != 'undefind'){return window};
+         if(typeof global != 'undefind'){return global};
+         return new Error();
+       };
+       // 现在
+       console.log(globalThis); // 在不同的平台访问全局作用域
+       // Window {parent: Window, opener: null, top: Window, length: 0, frames: Window, …}
+       ```
 
        
-
-       
-
-
-​     
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
