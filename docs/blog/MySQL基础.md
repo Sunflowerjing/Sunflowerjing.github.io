@@ -5,10 +5,9 @@
 1. 下载地址：<a 
                 href='https://dev.mysql.com/downloads/mysql/'
                 target='_blank'
-            >
-                https://dev.mysql.com/downloads/mysql/
-            </a>
-
+            >https://dev.mysql.com/downloads/mysql/
+                 </a>
+           
 2. 选择如下
 ![安装 MySQL img](安装MySQL-image1.png)
 3. 点击进去后,进行下载
@@ -41,7 +40,7 @@
 ## MySQL 常见命令
 1. `show databases;`查看多少个数据库,database后面带"s"。
 2. `use "数据库名"` 使用该数据库
-3. `show tables ;` 查看当前库下有哪些表
+3. `show tables;` 查看当前库下有哪些表
 4. `create database 数据库名;`新建数据库
 5. 基础增删改查操作命令
     * `INSERT INTO 表名 ( field1, field2,...fieldN ) VALUES ( value1, value2,...valueN );` 插入数据
@@ -51,6 +50,7 @@
 
 - MAC上的MySQL管理工具 Sequel Pro
 ![MySQL 常见命令](MySQL操作表的常见命令-image1.png)
+- `desc 表名; `: 查询某表中的包含哪些字段
 
 ## MySql 踩过的坑
 * phpMyAdmin 尝试连接到 MySQL 服务器，但服务器拒绝连接。

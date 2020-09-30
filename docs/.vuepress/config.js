@@ -48,7 +48,8 @@ module.exports = {
                         'Redux',
                         'npm',
                         'Promise',
-                        'ES集合'
+                        'ES集合',
+                        'EventLoop'
                     ]
                 },
                 {
