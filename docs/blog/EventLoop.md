@@ -19,6 +19,8 @@
 
 ### 浏览器中的 eventLoop
 ![浏览器中的 eventLoop](eventLoop1.png)
+* 任务队列分类: 宏任务队列和微任务队列
+![浏览器中的 eventLoop](eventLoop2.png)
 
 1. 浏览器中的任务队列
 
