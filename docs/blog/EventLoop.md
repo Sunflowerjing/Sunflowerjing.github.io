@@ -315,7 +315,160 @@
       setTimeou 8
       ```
 ### nodeJS中的 eventLoop
+* 下图理解
+  * V8引擎解析JavaScript脚本。
+  * 解析后的代码，调用Node API。
+  * libuv库负责Node API的执行。它将不同的任务分配给不同的线程，形成一个Event Loop（事件循环），以异步的方式将任务的执行结果返回给V8引擎。
+  * V8引擎再将结果返回给用户。
+![nodeJS中的 eventLoop](eventLoop3.png)
+* nodejs的`event loop`分为6个阶段，它们会按照顺序反复运行，分别如下：
+  * `timers`：执行setTimeout() 和 setInterval()中到期的callback。
+  * `I/O callbacks`：上一轮循环中有少数的I/Ocallback会被延迟到这一轮的这一阶段执行
+  * `idle, prepare`：队列的移动，仅内部使用
+  * `poll`：最为重要的阶段，执行I/O callback，在适当的条件下会阻塞在这个阶段
+  * `check`：执行setImmediate的callback
+  * `close callbacks`：执行close事件的callback，例如socket.on("close",func)
+![nodeJS中的 eventLoop](eventLoop4.png)
+* Nodejs 中的任务队列
+  * 宏任务
+    * `setTimeout`
+    * `setInterval`
+    * `setImmediate`
+    * `IO`
+  * 微任务
+    * `Promise(async)`
+    * `process.nextTick`(在每一个阶段切换的时候执行, 并且优先级大于Promise)
+* 比较 `setImmediate` 和 `setTimeout` 的执行顺序
+  * 案例一
+    ```javascript
+    setTimeout(_ => console.log('setTimeout'));
+    setImmediate(_ => console.log('setImmediate'));
 
-1. 
-2. 
+    // 结果: 不固定
+    ```
+    * 在执行完 `poll` 之后, 看 `timers` 里面是否有内容, 有内容则执行 `timers`, 执行完在执行 `check`。
+  * 案例二
+    * 如果两者都在一个 poll 阶段注册, 那么执行顺序就能确定
+    ```javascript
+    const fs = require('fs');
+    fs.readFile('./index.html', () => {
+      setTimeout(_ => console.log('setTimeout'));
+      setImmediate(_ => console.log('setImmediate'));
+    })
 
+    // 结果: setImmediate - setTimeout
+
+    // 原因 poll 阶段注册时, timers 里面还没有内容, 所以要先执行check。
+    ```
+* 理解 `process.nextTick`
+  * `每一个阶段执行完成后, 在当前阶段末尾触发 nextTick`
+  * 案例: 常见的 nodeJs 回调函数第一个参数, 都是抛出的错误
+  ```javascript
+  function apiCall(arg, callback) {
+    if(typeof arg !== 'string'){ // 抛出错误，也会执行回调
+      return process.nextTick(
+        callback,
+        new TypeError('argument shold be string');
+      );
+    }
+  }
+  ```
+
+* 比较 `process.nextTick` 和 `setImmediate`
+  * process.nextTick() 在同一个阶段尾部立即执行
+  * setImmediate() 在事件循环的 check 阶段触发。
+  ```javascript
+  setTmmediate(() => {  // check 阶段执行
+    console.log('setTmmediate');
+  });
+  process.nextTick(() => { // 每一个阶段开始之前，都会执行nextTick
+    console.log('nextTick');
+  })
+
+  // 结果: nextTick - setTmmediate (上面的代码在 poll 中执行的时候)
+  ```
+
+
+### 不同 Node 版本中的 EventLoop
+  * Node11 版本之前
+    * 一旦执行一个阶段, 会先`将这个阶段里的所有宏任务执行完成之后`, 才会执行该阶段剩下的微任务
+  *  Node11 版本之后 (和浏览器行为保持一致)
+    * 一旦执行一个阶段里的一个宏任务, 就立刻执行对应的微任务队列。
+
+  * 案例一: timeout 阶段的变化
+  ```javascript
+  setTimeout(() => {
+    console.log('timer1');
+    Promise.resolve().then(function(){
+      console.log('promise1');
+    })
+  })
+  setTimeout(() => {
+    console.log('timer2');
+    Promise.resolve().then(function(){
+      console.log('promise2');
+    })
+  })
+
+  // node 大于 11版本的结果:
+  timer1
+  promise1
+  timer2
+  promise2
+
+  // node 小于 11版本的结果:
+  timer1
+  timer2
+  promise1
+  promise2
+  ```
+
+  * 案例二: check 阶段的执行时机变化
+  ```javascript
+  setImmediate(() => console.log('immediate1'));
+  setImmediate(() => {
+    console.log('immediate2');
+    Promise.resolve().then(() => console.log('promise resolve'));
+  });
+  setImmediate(() => console.log('immediate3'));
+  setImmediate(() => console.log('immediate4'));
+
+  // node 大于 11版本的结果:
+  immediate1
+  immediate2 // 在执行某一个宏任务的时候，要先将当前阶段的微任务执行完成后，在执行下一阶段的宏任务
+  promise resolve
+  immediate3
+  immediate4
+
+  // node 小于 11版本的结果:
+  immediate1
+  immediate2
+  immediate3
+  immediate4
+  promise resolve
+  ```
+
+  * 案例三: nextTick 队列的执行时机变化
+  ```javascript
+  setImmediate(() => console.log('timeout1'));
+  setImmediate(() => {
+    console.log('timeout2');
+    promise.nextTick(() => console.log('next tick'))
+  });
+  setImmediate(() => console.log('timeout3'));
+  setImmediate(() => console.log('timeout4'));
+
+  // node 大于 11版本的结果:
+  timeout1
+  timeout2
+  timeout3
+  timeout4
+  next tick
+
+  // node 小于 11版本的结果:
+  timeout1
+  timeout2
+  next tick
+  timeout3
+  timeout4
+  ```
