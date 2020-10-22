@@ -1,7 +1,7 @@
 # Redux
 * 安装 redux(状态管理):  `npm install redux`
 * 创建一个 React Redux 应用程序: `npx create-react-app my-app --template redux`
-
+![Redux](redux1.png)
 
 ## store: state状态管理器
 1. 创建一个 `Redux store` 来存放应用中所有的 `state`。
