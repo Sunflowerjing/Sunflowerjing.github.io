@@ -49,7 +49,8 @@ module.exports = {
                         'npm',
                         'Promise',
                         'ES集合',
-                        'EventLoop'
+                        'EventLoop',
+                        '框架'
                     ]
                 },
                 {
