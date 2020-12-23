@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+</head>
+<body>
+    <div id="root">
+        <ul>
+            <li>
+                <a href="">
+                    <img src="" alt="">
+                </a>
+            </li>
+            <li>
+                <span></span>
+            </li>
+            <li>
+            </li>
+        </ul>
+        <p></p>
+        <button></button>
+    </div>
+
+    <script>
+        var div = document.getElementById('root');
+        console.log(';;;;',div);
+
+        function DFS(node,nodelist){
+            // var nodelist = [];
+            console.log(nodelist, '====');
+            if(node){
+                nodelist.push(node);
+                
+                var children = node.children;
+                for(var i=0; i< children.length; i++){
+                    DFS(children[i], nodelist);
+                }
+            }
+            return nodelist
+
+        }
+
+
+        var result = DFS(div,[]);
+        console.log('result', result);
+    </script>
+</body>
+</html>
