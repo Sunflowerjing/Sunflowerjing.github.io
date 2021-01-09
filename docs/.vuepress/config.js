@@ -86,6 +86,12 @@ module.exports = {
                         '递归',
                         '二叉树'
                     ]
+                },
+                {
+                    title: '正则',
+                    children: [
+                        '正则基础知识点',
+                    ]
                 }
             ],
             '/scattered/':[

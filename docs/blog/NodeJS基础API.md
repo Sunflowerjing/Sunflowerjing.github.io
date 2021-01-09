@@ -2,6 +2,8 @@
 1. `process.pid` 属性返回进程的 PID。  
 2. `process.cwd()` 方法返回 Node.js 进程的当前工作目录。 
 3. 项目热更新: 需要引入的包 `nodemon`
+4. `__dirname` 总是指向被执行 js 文件的绝对路径.
+
 
 ## Node.js回调机制
 什么是回调:
