@@ -95,7 +95,7 @@
         checkage18(20);
         ```
         * 函数的柯里化code: `转换为一元函数`
-        ```
+        ```javascript
         // 柯里化之前
         function add(x, y) {  // 这个就是多元函数
             return x + y; 

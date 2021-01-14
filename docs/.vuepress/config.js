@@ -50,7 +50,8 @@ module.exports = {
                         'Promise',
                         'ES集合',
                         'EventLoop',
-                        '框架'
+                        '框架',
+                        '设计模式'
                     ]
                 },
                 {
