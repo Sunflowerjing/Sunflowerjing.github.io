@@ -124,9 +124,9 @@ module.exports = {
                     ]
                 },
                 {
-                    title: '流行库',
+                    title: 'npm',
                     children: [
-                        '库名'
+                        '库'
                     ]
                 },
                 {
