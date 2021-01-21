@@ -51,7 +51,8 @@ module.exports = {
                         'ES集合',
                         'EventLoop',
                         '框架',
-                        '设计模式'
+                        '设计模式',
+                        'JS 模块规范'
                     ]
                 },
                 {
@@ -120,6 +121,12 @@ module.exports = {
                     title: '工具网址',
                     children: [
                         '实用工具网站'
+                    ]
+                },
+                {
+                    title: '流行库',
+                    children: [
+                        'npm库'
                     ]
                 },
                 {
