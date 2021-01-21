@@ -126,7 +126,7 @@ module.exports = {
                 {
                     title: '流行库',
                     children: [
-                        'npm库'
+                        '库名'
                     ]
                 },
                 {
