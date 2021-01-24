@@ -108,7 +108,8 @@ module.exports = {
                     title: '前端界面常见需求',
                     children: [
                         '联动菜单',
-                        'React 父组件调子组件方法'
+                        'React 父组件调子组件方法',
+                        '监听路由变化'
                     ]
                 },
                 {
