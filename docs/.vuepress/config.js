@@ -137,11 +137,24 @@ module.exports = {
                     ]
                 }
             ],
+            '/book/':[
+                {
+                    title: '生活',
+                    children: [
+                        '假学习和假努力',
+                        '樊登讲论语',
+                    ]
+                },
+                {
+                    title: '技术',
+                    children: []
+                }
+            ],
             '/about/': [
                 {
                     title: '补充',
                     children: [
-                        '如何提升'
+                        '如何提升',
                     ]
                 }
             ]
