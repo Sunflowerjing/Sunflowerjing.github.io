@@ -12,3 +12,5 @@
     * 在本地开发npm模块的时候，我们可以使用`npm link`命令，将npm 模块链接到对应的运行项目中去，方便地对模块进行调试和测试
     * 同时模块使用方式为: `npm link 包名`
 
+4. npm 打 tag: `git tag V版本号`。提交 tag: `git push --tags`
+

@@ -1,7 +1,7 @@
 # Express
 
 * `restful`: 同样的一个请求, 即可以用 post 方式, 也可以用 get 方式。路由可以并排的往后写/:id/:name/:age。
-
+* 
 
 ## Express 框架核心特性
 * 可以设置中间件来响应 HTTP 请求。
@@ -42,7 +42,7 @@ app.get('/', function (req, res) {
 
 
 ## Express 中间件
-* 举例: next(); 向下传递中间件。
+* 举例: `next();` 向下传递中间件。
 ```
 var express = require('express');
 var app = express();
@@ -180,12 +180,12 @@ app.all('/secret', function (req, res, next) {
     ```
     * `应对方法`: res下表中响应对象（）上的方法可以向`客户端发送响应，并终止请求-响应周期`。如果从路由处理程序中`未调用这些方法`，则`客户端请求将被挂起`。
 
-    |  方法                  | 描述 |
-    |  ----                 | ----  |
-    | res.download()        |	提示要下载的文件。 |
-    | 重发（）                |	结束响应过程。|
-    | res.json（）            |	发送JSON响应。|
-    | res.jsonp（）           |	发送带有JSONP支持的JSON响应。|
+    |  方法                 | 描述 |
+    |  ----                | ----  |
+    | res.download()       |	提示要下载的文件。 |
+    | 重发（）               |	结束响应过程。|
+    | res.json（）          |	发送JSON响应。|
+    | res.jsonp（）         |	发送带有JSONP支持的JSON响应。|
     | res.redirect（）      |	重定向请求。|
     | res.render（）        |	渲染视图模板。|
     | res.send（）          |	发送各种类型的响应。|

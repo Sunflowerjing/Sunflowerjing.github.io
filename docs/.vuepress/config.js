@@ -52,7 +52,8 @@ module.exports = {
                         'EventLoop',
                         '框架',
                         '设计模式',
-                        'JS 模块规范'
+                        'JS 模块规范',
+                        'package文件学习',
                     ]
                 },
                 {
@@ -68,9 +69,18 @@ module.exports = {
                     children: [
                         'NodeJS 基础概念',
                         'NodeJS基础API',
+                        'Koa',
                         'Express',
+                        'Express和Koa的比较',
                         '项目实战总结',
                         'PM2'
+                    ]
+                },
+                {
+                    title: '工具',
+                    children: [
+                       'webpack',
+                       'rollup'
                     ]
                 },
                 {
