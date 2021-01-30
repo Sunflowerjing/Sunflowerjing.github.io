@@ -80,7 +80,7 @@
 * `import test from 'test'`
 * 只有 `main` 字段有效。
 
-### 总结
+## 总结
 * 如果 `npm` 包导出的是 `ESM 规范的包`，使用 `module`
 * 如果 `npm` 包只在 `web 端`使用，并且`严禁在 server 端`使用，使用 `browser`
 * 如果 `npm` 包只在 `server 端`使用，使用 `main`
