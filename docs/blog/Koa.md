@@ -320,16 +320,114 @@
             };
             ```
 
-
-
-
-
 ## 请求（Request）
-
+1. 对 `request` 内容的一些包装
+2. 解析
+    * `get header()` 
+        ```javascript
+        get header() {
+            return this.req.headers;
+        }
+        ```
+    * `set header(val)`
+        ```javascript
+        set header(val) {
+            this.req.headers = val;
+        }
+        ```
+    * 简单的进行封装, 都是 `get` 和 `set`。
+    * `~` 按位非运算符。例如:`!`。两次`~~`，类似与`负负得正`。
 
 ## 响应（Response）
+1. 同 `request` 一样。也是 get 和 set。
+2. 解析
+    * `body()`
+        ```javascript
+        set body(val) {
+            const original = this._body;
+            this._body = val;
 
+            // no content
+            if (null == val) {
+            if (!statuses.empty[this.status]) this.status = 204;
+            if (val === null) this._explicitNullBody = true;
+            this.remove('Content-Type');
+            this.remove('Content-Length');
+            this.remove('Transfer-Encoding');
+            return;
+            }
 
+            // set the status
+            if (!this._explicitStatus) this.status = 200;
+
+            // set the content-type only if not yet set
+            const setType = !this.has('Content-Type');
+
+            // string
+            if ('string' === typeof val) {
+            if (setType) this.type = /^\s*</.test(val) ? 'html' : 'text';
+            this.length = Buffer.byteLength(val);
+            return;
+            }
+
+            // buffer
+            if (Buffer.isBuffer(val)) {
+            if (setType) this.type = 'bin';
+            this.length = val.length;
+            return;
+            }
+
+            // stream
+            if (val instanceof Stream) {
+            onFinish(this.res, destroy.bind(null, val));
+            if (original != val) {
+                val.once('error', err => this.ctx.onerror(err));
+                // overwriting
+                if (null != original) this.remove('Content-Length');
+            }
+
+            if (setType) this.type = 'bin';
+            return;
+            }
+
+            // json
+            this.remove('Content-Length');
+            this.type = 'json';
+        }
+        ```
+        * 对 body 的4种类型处理: `string`和 `buffer`、`stream`、`json`。
+    * `redirect()`
+        ```javascript
+        redirect(url, alt) {
+            // location
+            if ('back' === url) url = this.ctx.get('Referrer') || alt || '/';
+            this.set('Location', encodeUrl(url));
+
+            // status
+            if (!statuses.redirect[this.status]) this.status = 302;
+
+            // html
+            if (this.ctx.accepts('html')) {
+            url = escape(url);
+            this.type = 'text/html; charset=utf-8';
+            this.body = `Redirecting to <a href="${url}">${url}</a>.`;
+            return;
+            }
+
+            // text
+            this.type = 'text/plain; charset=utf-8';
+            this.body = `Redirecting to ${url}.`;
+        }
+        ```
+        * 重定向, 根据条件判断, 符合条件的状态码设置为302。
+    * `type()`
+        ```javascript
+        get type() {
+            const type = this.get('Content-Type');
+            if (!type) return '';
+            return type.split(';', 1)[0]; // 取第一个
+        }
+        ```
 
 
 
