@@ -21,11 +21,11 @@ cnpm: 中国 npm 服务器。安装命令: `npm install cnpm`
 * 检测所有源的速度: `nrm test`
 
 ## 什么是 `NodeJS`?
-* NodeJS 本质是一个 JavaScript 解析器。
-* NodeJS 是 JavaScript 的运行环境。
+* NodeJS 本质是一个 JavaScript 解析器(JS 运行的时候需要的环境)。
+* NodeJS 是 JavaScript 的运行环境(也就是说 JS 需要依赖 NodeJS 环境运行)。
 * NodeJS 是一个服务器程序。
-* NodeJS 本身使用的是 V8 引擎。
-* NodeJS 不是 web 服务器。
+* NodeJS 是本身使用的是 V8 引擎(使用在 google 浏览器上面)。
+* NodeJS 不是 web 服务器(只是 JS 的运行环境)。
 
 ## 为什么要使用 `NodeJS`?
 * 为了提供高性能的 web 服务。
@@ -131,7 +131,7 @@ npm install webpack --save-dev
 npm install webpack --save-prod
 ```
 
-## Node.js REPL 环境
+## Node.js REPL(交互式解析器) 环境
 * 进入此环境，只需要在终端中输入`node`即可。
 1. `Ctrl + C`: 退出当前终端。
 2. `Ctrl + C 按下两次`: 退出 Node REPL。
