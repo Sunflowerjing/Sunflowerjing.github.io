@@ -240,10 +240,10 @@ console.log('程序执行完毕');
 
 
 ## NodeJS 全局方法和工具 (详细看菜鸟教程)
-* `Node.js` 中的全局对象是 `global`，所有全局变量（除了 global 本身以外）都是 global 对象的属性。
+1. `Node.js` 中的全局对象是 `global`，所有全局变量（除了 global 本身以外）都是 global 对象的属性。
 
-* 在 `Node.js` 我们可以直接访问到 `global 的属性`，而不需要在应用中包含它。
-* 全局对象与全局变量: 
+2. 在 `Node.js` 我们可以直接访问到 `global 的属性`，而不需要在应用中包含它。
+3. 全局对象与全局变量: 
     * `global 最根本的作用是作为全局变量的宿主`。按照 ECMAScript 的定义，满足以下条 件的变量是全局变量:
         * 在最外层定义的变量;
         * 全局对象的属性;
@@ -323,7 +323,7 @@ console.log('程序执行完毕');
         // 程序执行结束
         // 退出码为:0
         ```
-* NodeJS 常用工具:
+4. NodeJS 常用工具:
     * `util` 是一个Node.js `核心模块`，提供常用函数的集合。
     * `const util = require('util');`
     * `util.inherits`
@@ -346,13 +346,13 @@ console.log('程序执行完毕');
 
 
 ## NodeJS 文件系统
-* `const fs = require("fs");`
-* `Node.js` 文件系统（fs 模块）模块中的方法均有`异步`和`同步`版本
+1. `const fs = require("fs");`
+2. `Node.js` 文件系统（fs 模块）模块中的方法均有`异步`和`同步`版本
     * 读取文件内容的函数有异步的 `fs.readFile()` 和同步的 `fs.readFileSync()`。
     * 异步的方法函数, 最后一个参数为回调函数，回调函数的第一个参数包含了错误信息(error)。
     * 建议使用`异步方法`，比起同步，异步方法性能更高，速度更快，而且没有阻塞。
 
-* 读取文件的两种方式:
+3. 读取文件的两种方式:
     ```javascript
     const fs = require("fs"); 
     // 异步读取
@@ -369,7 +369,7 @@ console.log('程序执行完毕');
 
     console.log("程序执行完毕。");
     ```
-* 打开文件: `fs.open(path, flags[, mode], callback)`
+4. 打开文件: `fs.open(path, flags[, mode], callback)`
     * `path` - 文件的路径。
 
     * `flags` - 文件打开的行为。具体值详见下文。
@@ -402,7 +402,7 @@ console.log('程序执行完毕');
         console.log("文件打开成功！");     
         });
         ```
-* 获取文件信息: `fs.stat(path, callback)`
+5. 获取文件信息: `fs.stat(path, callback)`
     * `path` - 文件路径。
     * `callback` - 回调函数，带有两个参数如：(err, stats), stats 是 fs.Stats 对象。
     * `fs.stat(path)`执行后，会将`stats类的实例`返回给其回调函数。
@@ -426,7 +426,7 @@ console.log('程序执行完毕');
         |    stats.isFIFO()              |	如果是FIFO，返回true，否则返回 false。FIFO是UNIX中的一种特殊类型的命令管道。 |
         |    stats.isSocket()	         |	如果是 Socket 返回 true，否则返回 false。 |
         
-* 写入文件: `fs.writeFile(file, data[, options], callback)`
+6. 写入文件: `fs.writeFile(file, data[, options], callback)`
     * 异步模式下`写入文件`
     * `writeFile` 直接打开文件默认是 `w 模式`，所以如果文件存在，该方法写入的内容`会覆盖旧的文件内容`。
     * `file` - 文件名或文件描述符。
@@ -453,7 +453,7 @@ console.log('程序执行完毕');
             });
         });
         ```
-* 读取文件: `fs.read(fd, buffer, offset, length, position, callback)`
+7. 读取文件: `fs.read(fd, buffer, offset, length, position, callback)`
     * 异步模式下`读取文件`
     * `fd` - 通过 `fs.open()` 方法返回的文件描述符。
     * `buffer` - 数据写入的缓冲区。
