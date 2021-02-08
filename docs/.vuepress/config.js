@@ -69,6 +69,7 @@ module.exports = {
                     children: [
                         'NodeJS 基础概念',
                         'NodeJS基础API',
+                        'NodeJS基础API2',
                         'Koa',
                         'Express',
                         'Express和Koa的比较',

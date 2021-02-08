@@ -242,82 +242,253 @@ console.log('程序执行完毕');
 ## NodeJS 全局方法和工具 (详细看菜鸟教程)
 * `Node.js` 中的全局对象是 `global`，所有全局变量（除了 global 本身以外）都是 global 对象的属性。
 
-* 在 Node.js 我们可以直接访问到 global 的属性，而不需要在应用中包含它。
+* 在 `Node.js` 我们可以直接访问到 `global 的属性`，而不需要在应用中包含它。
 * 全局对象与全局变量: 
     * `global 最根本的作用是作为全局变量的宿主`。按照 ECMAScript 的定义，满足以下条 件的变量是全局变量:
         * 在最外层定义的变量;
-
         * 全局对象的属性;
-        * 隐式定义的变量(未定义直接赋值的变量);
+        * 隐式定义的变量(不给变量加 var, 未定义直接赋值的变量);
     * `当你定义一个全局变量时，这个变量同时也会成为全局对象的属性`，反之亦然。
-
-    * 需要注意的是，在 Node.js 中你不可能在最外层定义变量，因为`所有用户代码都是属于当前模块的， 而模块本身不是最外层上下文。`
+    * 需要注意的是，在 Node.js 中你不可能在最外层定义变量，因为`所有用户代码都是属于当前模块的， 而模块本身不是最外层上下文。` 也就是说没有一个window窗口。
     * **注意**： 最好不要使用 var 定义变量以避免引入全局变量，因为全局变量会污染命名空间，提高代码的耦合风险。
-    1. `__filename`: 表示当前正在执行的脚本的文件名。它将输出文件所在位置的`绝对路径`，且和命令行参数所指定的文件名不一定相同。 `如果在模块中，返回的值是模块文件的路径。`
+    * `__filename`: 表示当前正在执行的脚本的文件名。它将输出文件所在位置的`绝对路径`，且和命令行参数所指定的文件名不一定相同。 `如果在模块中，返回的值是模块文件的路径。`
         * 创建文件 main.js ，代码如下所示：
 
         * console.log( __filename ); // 输出全局变量 __filename 的值
         * 输出: `/web/com/runoob/nodejs/main.js`
-    2. `__dirname`: 表示当前执行脚本所在的目录。
+    * `__dirname`: 表示当前执行脚本所在的目录。
         * console.log( __dirname );  // 输出全局变量 __dirname 的值
 
         * 输出: `/web/com/runoob/nodejs`
-    3. **`process`**: 用于描述当前 Node.js `进程状态的对象`，提供了一个与操作系统的简单接口。
+    * `setTimeout(cb,ms)`
+        * `setTimeout(cb,ms)` 全局函数在指定的毫秒(ms)数后, 执行指定函数(cb)。
+        * 只执行一次指定函数。
+        * 案例:
+            ```javascript
+            function printHello(){
+                console.log("hello word");
+            }
+            var t = setTimeout(printHello, 200)
+            ```
+    * `clearTimeout(t)`
+        * 全局函数用于停止一个之前通过 `setTimeout()` 创建的定时器，参数 t 是通过 `setTimeout()` 函数创建的计算器。
+         * 案例:
+            ```javascript
+            function printHello(){
+                console.log("hello word");
+            }
+            // 两秒后执行函数
+            var t = setTimeout(printHello, 200);
+
+            // 清除定时器
+            clearTimeout(t)
+            ```
+    * `setInterval(cb,ms)`
+        * `setInterval(cb, ms)` 全局函数在指定的`毫秒(ms)数`后执行指定`函数(cb)`。
+        * 返回一个代表定时器的句柄值。
+        * 可以使用 `clearInterval(t)` 函数来清除定时器。
+        * `setInterval()` 方法会不停地调用函数，直到 `clearInterval()` 被调用或窗口被关闭。
+    * `console`
+        * `console.log([data][, ...])`: 向标准输出流打印字符并以换行符结束。
+        * `console.info([data][, ...])`: 该命令的作用是返回信息性消息
+        * `console.error([data][, ...])`: 输出错误消息的
+        * `console.warn([data][, ...])`: 输出警告消息
+        * `console.dir(obj[, options])`: 用来对一个对象进行检查（inspect），并以易于阅读和打印的格式显示。
+        * `console.time(label)`: 输出时间，表示计时开始。
+        * `console.timeEnd(label)`: 结束时间，表示计时结束。
+        * `console.trace(message[, ...])`: 当前执行的代码在堆栈中的调用路径
+        * `console.assert(value[, message][, ...])`: 用于判断某个表达式或变量是否为真，接收两个参数，第一个参数是表达式，第二个参数是字符串。
+    * **`process`**: 用于描述当前 Node.js `进程状态的对象`，提供了一个与操作系统的简单接口。
+        * `process` 是一个全局变量，即 global 对象的属性。
+        * 进程: 应用程序(node 特殊的软件) 和 系统交互的接口。
         * `exit`: 当进程准备退出时触发。
 
-        * `beforeExit`: 当 node 清空事件循环，并且没有其他安排时触发这个事件。通常来说，当没有进程安排时 node 退出，但是 'beforeExit' 的监听器可以异步调用，这样 node 就会继续执行。
-        * `uncaughtException`:  当一个异常冒泡回到事件循环，触发这个事件。如果给异常添加了监视器，默认的操作（打印堆栈跟踪信息并退出）就不会发生。
+        * `beforeExit`: 当 node 清空事件循环，并且没有其他安排时, 则触发这个事件。通常来说，当`没有进程安排时 node 退出`，但是 'beforeExit' 的监听器可以异步调用，这样 node 就会继续执行。
+        * `uncaughtException`:  当一个`异常冒泡回到事件循环，触发这个事件`。如果给异常添加了监视器，默认的操作（打印堆栈跟踪信息并退出）就不会发生。
+            * node 处理错误，最高级别的一个手段. 找不到相应的错误，但是还想捕获, 不想程序哪里写错了，就让程序挂掉, 捕获错误高的方法。
         * `Signal 事件`: 当进程接收到信号时就触发。信号列表详见标准的 POSIX 信号名，如 SIGINT、SIGUSR1 等。
         * `示例`:
         ```javascript
         process.on('exit', function(code) {
-
-        // 以下代码永远不会执行
-        setTimeout(function() {
-            console.log("该代码不会执行");
-        }, 0);
-        
-        console.log('退出码为:', code);
+            // 以下代码永远不会执行
+            setTimeout(function() {
+                console.log("该代码不会执行");
+            }, 0);
+            
+            console.log('退出码为:', code);
         });
         console.log("程序执行结束");
+
+        // 结果
+        // 程序执行结束
+        // 退出码为:0
         ```
 * NodeJS 常用工具:
-    * util 是一个Node.js 核心模块，提供常用函数的集合。
-
+    * `util` 是一个Node.js `核心模块`，提供常用函数的集合。
+    * `const util = require('util');`
+    * `util.inherits`
+        * `util.inherits(constructor, superConstructor)`
+        * 是一个实现对象间`原型继承`的函数。
+    * `util.inspect`
+        * `util.inspect(object,[showHidden],[depth],[colors])`
+        * 是一个将任意对象转换 为字符串的方法，通常用于调试和错误输出。
+        * 它至少接受一个参数 object，即要转换的对象。
+    * `util.isArray`
+        * `util.isArray(object)`
+        * 给定的参数 "object" 是一个数组返回 true，否则返回 false。
+    * `util.isRegExp`
+        * `util.isRegExp(object)`
+        * 给定的参数 "object" 是一个正则表达式返回true，否则返回false。
+    * `util.isDate`
+        * `util.isDate(object)`
+        * 给定的参数 "object" 是一个日期返回true，否则返回false。
     * 工具库: `underscore`
 
 
 ## NodeJS 文件系统
 * `const fs = require("fs");`
+* `Node.js` 文件系统（fs 模块）模块中的方法均有`异步`和`同步`版本
+    * 读取文件内容的函数有异步的 `fs.readFile()` 和同步的 `fs.readFileSync()`。
+    * 异步的方法函数, 最后一个参数为回调函数，回调函数的第一个参数包含了错误信息(error)。
+    * 建议使用`异步方法`，比起同步，异步方法性能更高，速度更快，而且没有阻塞。
 
 * 读取文件的两种方式:
-```javascript
-// 异步读取
-fs.readFile('input.txt', function (err, data) {
-   if (err) {
-       return console.error(err);
-   }
-   console.log("异步读取: " + data.toString());
-});
+    ```javascript
+    const fs = require("fs"); 
+    // 异步读取
+    fs.readFile('input.txt', function (err, data) {
+        if (err) {
+            return console.error(err);
+        }
+        console.log("异步读取: " + data.toString());
+    });
 
-// 同步读取
-var data = fs.readFileSync('input.txt');
-console.log("同步读取: " + data.toString());
+    // 同步读取
+    var data = fs.readFileSync('input.txt');
+    console.log("同步读取: " + data.toString());
 
-console.log("程序执行完毕。");
-```
+    console.log("程序执行完毕。");
+    ```
 * 打开文件: `fs.open(path, flags[, mode], callback)`
-    * path - 文件的路径。
+    * `path` - 文件的路径。
 
-    * flags - 文件打开的行为。具体值详见下文。
+    * `flags` - 文件打开的行为。具体值详见下文。
+        |  Flag	         |     描述      |
+        |  ----          |     ----      |
+        |    r	         |	以读取模式打开文件。如果文件不存在抛出异常。   |
+        |    r+          |	以读写模式打开文件。如果文件不存在抛出异常。 |
+        |    rs          |	以同步的方式读取文件。 |
+        |    rs+         |	以同步的方式读取和写入文件。 |
+        |   wx           |	类似 'w'，但是如果文件路径存在，则文件写入失败。 |
+        |    w+          |	垂直制表符 |
+        |    wx+	     |	类似 'w+'， 但是如果文件路径存在，则文件读写失败。 |
+        |    a           |	以追加模式打开文件，如果文件不存在则创建。 |
+        |    ax	         |	类似 'a'， 但是如果文件路径存在，则文件追加失败。 |
+        |    a+	         |	以读取追加模式打开文件，如果文件不存在则创建。 |
+        |    ax+	     |	类似 'a+'， 但是如果文件路径存在，则文件读取追加失败。 |
 
-    * mode - 设置文件模式(权限)，文件创建默认权限为 0666(可读，可写)。
+    * `mode` - 设置文件模式(权限)，文件创建默认权限为 0666(可读，可写)。
 
-    * callback - 回调函数，带有两个参数如：callback(err, fd)。
+    * `callback` - 回调函数，带有两个参数如：callback(err, fd)。
+    * 案例
+        ```javascript
+        var fs = require("fs");
+        // 异步打开文件
+        console.log("准备打开文件！");
+        fs.open('input.txt', 'r+', function(err, fd) {
+        if (err) {
+            return console.error(err);
+        }
+        console.log("文件打开成功！");     
+        });
+        ```
 * 获取文件信息: `fs.stat(path, callback)`
-    * path - 文件路径。
+    * `path` - 文件路径。
+    * `callback` - 回调函数，带有两个参数如：(err, stats), stats 是 fs.Stats 对象。
+    * `fs.stat(path)`执行后，会将`stats类的实例`返回给其回调函数。
+    * 可以通过 `stats类` 中的提供方法判断文件的相关属性。例如判断是否为文件：
+    * 案例
+        ```javascript
+        var fs = require('fs');
+        fs.stat('/Users/liuht/code/itbilu/demo/fs.js', function (err, stats) {
+            console.log(stats.isFile());         //true
+        })
+        ```
+        * stats类中的方法有：
 
-    * callback - 回调函数，带有两个参数如：(err, stats), stats 是 fs.Stats 对象。
+        |  方法		                      |     描述      |
+        |  ----                          |     ----      |
+        |    stats.isFile()		         |	如果是文件返回 true，否则返回 false。   |
+        |    stats.isDirectory()         |	如果是目录返回 true，否则返回 false。 |
+        |    stats.isBlockDevice()       |	如果是块设备返回 true，否则返回 false。 |
+        |    stats.isCharacterDevice()   |	如果是字符设备返回 true，否则返回 false。 |
+        |   stats.isSymbolicLink()       |	如果是软链接返回 true，否则返回 false。 |
+        |    stats.isFIFO()              |	如果是FIFO，返回true，否则返回 false。FIFO是UNIX中的一种特殊类型的命令管道。 |
+        |    stats.isSocket()	         |	如果是 Socket 返回 true，否则返回 false。 |
+        
+* 写入文件: `fs.writeFile(file, data[, options], callback)`
+    * 异步模式下`写入文件`
+    * `writeFile` 直接打开文件默认是 `w 模式`，所以如果文件存在，该方法写入的内容`会覆盖旧的文件内容`。
+    * `file` - 文件名或文件描述符。
+    * `data` - 要写入文件的数据，可以是 String(字符串) 或 Buffer(缓冲) 对象。
+    * `options` - 该参数是一个对象，包含 {encoding, mode, flag}。默认编码为 utf8, 模式为 0666 ， flag 为 'w'
+    * `callback` - 回调函数，回调函数只包含错误信息参数(err)，在写入失败时返回。
+    * 案例
+        ```javascript
+        var fs = require("fs");
+
+        console.log("准备写入文件");
+        fs.writeFile('input.txt', '我是通 过fs.writeFile 写入文件的内容',  function(err) {
+            if (err) {
+                return console.error(err);
+            }
+            console.log("数据写入成功！");
+            console.log("--------我是分割线-------------")
+            console.log("读取写入的数据！");
+            fs.readFile('input.txt', function (err, data) {
+                if (err) {
+                    return console.error(err);
+                }
+                console.log("异步读取文件数据: " + data.toString());
+            });
+        });
+        ```
+* 读取文件: `fs.read(fd, buffer, offset, length, position, callback)`
+    * 异步模式下`读取文件`
+    * `fd` - 通过 `fs.open()` 方法返回的文件描述符。
+    * `buffer` - 数据写入的缓冲区。
+    * `offset` - 缓冲区写入的写入偏移量。
+    * `length` - 要从文件中读取的字节数。
+    * `position` - 文件读取的起始位置，如果 position 的值为 null，则会从当前文件指针的位置读取。
+    * `callback` - 回调函数，有三个参数err, bytesRead, buffer，err 为错误信息， bytesRead 表示读取的字节数，buffer 为缓冲区对象。
+    * 案例
+        ```javascript
+        var fs = require("fs");
+        var buf = new Buffer.alloc(1024);
+
+        console.log("准备打开已存在的文件！");
+        fs.open('input.txt', 'r+', function(err, fd) {
+            if (err) {
+                return console.error(err);
+            }
+            console.log("文件打开成功！");
+            console.log("准备读取文件：");
+            fs.read(fd, buf, 0, buf.length, 0, function(err, bytes){
+                if (err){
+                    console.log(err);
+                }
+                console.log(bytes + "  字节被读取");
+                
+                // 仅输出读取的字节
+                if(bytes > 0){
+                    console.log(buf.slice(0, bytes).toString());
+                }
+            });
+        });
+        ```
+
+
+
 
 
 
