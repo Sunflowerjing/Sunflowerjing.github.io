@@ -151,7 +151,8 @@ module.exports = {
                 {
                     title: '问题总结',
                     children: [
-                        '待梳理'
+                        '待梳理',
+                        '代码质量提升小结'
                     ]
                 }
             ],
