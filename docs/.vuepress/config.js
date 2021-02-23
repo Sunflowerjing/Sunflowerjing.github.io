@@ -72,6 +72,7 @@ module.exports = {
                         'NodeJS基础API',
                         'NodeJS基础API2',
                         'stream模块',
+                        'net 模块', 
                         'Koa',
                         'Express',
                         'Express和Koa的比较',
