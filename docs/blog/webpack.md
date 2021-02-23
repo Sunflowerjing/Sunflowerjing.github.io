@@ -1,7 +1,9 @@
 # webpack
 
-* 基于 nodeJS 的模块化打包工作
+* 基于 nodeJS 的`模块化打包工具`
 * 生成 package.json, 执行 `npm init -y`
+* 一切皆模块
+
 ## webpack 是什么
 1. 本质上是一个 JavaScript 应用程序的静态模块打包器(Static Module bundle)。
 
@@ -35,29 +37,65 @@
 ## webpack 配置文件
    1. webpack 配置文件: `webpack.confing.js`
    2. 案例
-   ```javascript
-   cosnt path = require('path');
-   // commonJS 方式导出
-   modules.exports = {
-        // mode 打包模式。 
-        // 默认 production, 即生产环境的配置, 打包文件压缩。
-        // 开发环境配置 development 不被压缩
-        mode: "production",
-        // 入口文件配置
-        entry: "./src/index.js",
-        // 输出, 默认打包到 dist 下面的 main.js
-        output: {
-            // 自定义打包后的文件名字
-            fileName: "index.js" 
-            // 打包后的路径. path.resolve() 将2个相对路径进行链接,生成绝对路径
-            path: path.resolve(__dirname, 'dist') 
-        }
-   }
-   ```
-   3. 执行
+    ```javascript
+    cosnt path = require('path');
+    // commonJS 方式导出
+    modules.exports = {
+            // mode 打包模式。 
+            // 默认 production, 即生产环境的配置, 打包文件压缩。
+            // 开发环境配置 development 不被压缩
+            mode: "production",
+            // 入口文件配置
+            entry: {
+                main: "./src/index.js"
+            },
+            // 输出, 默认打包到 dist 下面的 main.js
+            output: {
+                // 自定义打包后的文件名字
+                fileName: "index.js" 
+                // 打包后的路径. path.resolve() 将2个相对路径进行链接,生成绝对路径
+                path: path.resolve(__dirname, 'dist') 
+            },
+            // loader 能拿到源码
+            module: {
+                rules: [
+                    {
+                        // 正则匹配图片. 指定检测什么文件
+                        test: '/\.{jpg|png|gif}$/',
+                        use: {
+                            loader: 'file-loader' // 对文件进行加载处理
+                        }
+                    },
+                    {
+                        // 正则匹配图片. 指定检测什么文件
+                        test: '/\.{less|css}$/',
+                        use: [
+                            {
+                                loader: 'style-loader'
+                            },
+                            {
+                                loader: 'css-loader'
+                            },
+                            {
+                                loader: 'less-loader'
+                            },
+                        ]
+                    }
+                ]
+            }
+            // plugins webpack 生命周期 做相关的事情
+    }
+    ```
+    3. 执行
         * 默认执行 index.js: `npx webpack`
         * 若配置了 webapck.config.js: `npx webpack --config  webapck.config.js`
-
+        * 或者在 package.json 中的 scripts写: `build: webpack`
+    4. loader 
+        * `file-loader`
+            * 发现图片模块
+            * 打包到 dist 目录下, 改一个名字, 自定义
+            * 移动到 dist 目录之后, 得到图片的名称
+            * 然后作为返回值, 返回给我们引入的变量
 
 
 
