@@ -223,6 +223,6 @@
 ## 总结
 1. 需要什么, 就安装什么。loader plugins
 2. 注意: 版本匹配, 代码. 使用的库查看 git 
-
+3. 官网推荐 loaders 和 plugins 
 
 

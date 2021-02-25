@@ -191,7 +191,7 @@
             "dev:server": "webpack-dev-server --config ./config/webpack.dev.js",
         }
         ```
-## 打包优化
+## js打包优化,代码拆分方式
 1. `入口配置`: entry 多入口
     * 配合 `ProvidePlugin` 使用
     * 例如: 引入 jquery,单独打包出去
@@ -214,11 +214,32 @@
     ```
 2. 抽取公共代码: splitchunks
     * webpack4 新版本中加了 `splitChunksPlugins`, 其实是取代前版本中的 `commonChunksPlugins`, 二者的功能是相同的
-    * `splitchunksPlugins优点`: 打包速度比之前更快了
+    * `splitChunksPlugins优点`: 打包速度比之前更快了
     * 配置, 在 webpack.config.js
     ```javascript
     module.exports = {
-        
+        optimization: {
+            splitChunks: {
+                chunks: 'all',  // 设置为 all 全部模块进行处理。 参数: initial async all 
+                minSize: 30000, // 抽取文件前的最小 大小, 符合这个要求 就进行代码抽取
+                maxSize: 0,  // 抽取文件前的最大值是多大
+                minChunks: 1, // 表示某包, 被引用的次数。符合此条件就进行抽取
+                name: false, // 表示自定义文件名字
+                cacheGroups: {
+                    defaultVendors: {
+                        test: /[\\/]node_modules[\\/]/, // 匹配 node_modules 目录下的文件, 就进行抽取
+                        priority: -10, // 优先级
+                        reuseExistingChunk: true,
+                        filename:'jquery.js' // 最终打包后的文件名字
+                    },
+                    default: {
+                        minChunks: 2,
+                        priority: -20,  // 
+                        reuseExistingChunk: true, // 表示模块打包过, 复用之前的就不用打包了
+                    },
+                }
+            }
+        }
     }
     ```
 3. 动态加载: 按需加载 懒加载
@@ -239,15 +260,92 @@
     })
     ```
 
+## css 文件代码分割
 
+1. css 代码与 js 代码打包后进行分割: `mini-css-extract-plugin` (将 js中的css代码, 提取出来)
+2. 代码分割生成环境的配置: 
+    * `webpack.prod.js`
+        ```javascript
+        const webpack = require('webpack');
+        const merage = require('webpack-merge');
+        const baseConfig = require('./webpack.base.js');
+        const MiniCssExtractPlugin= require('mini-css-extract-plugin');
+        const Opti= require('optimize-css-assets-webpack-plugin');
+        const Terser= require('terser-webpack-plugin');
+        const Bundle = require('webpack-bundle-analyzer').BundleAnalyzerPlugin; 
+        const prodConfig = {
+            mode: 'production',  // 设置 production 默认为自动压缩, 由于配置了optimization, 则默认压缩失效, 所以手动设置压缩js
+            devtool: 'none',
+            // 配置 进行 CSS 压缩
+            optimization:{
+                minimizer: [new Ooti({}), new Terser()]
+            }
+            module: {
+                rules: [
+                    {
+                        // 正则匹配图片. 指定检测什么文件
+                        test: /\.{less|css}$/,
+                        // 执行顺序,从下到上
+                        use: [
+                                {
+                                    // 通过 style 标签, 将 css 直接注入到 html 页面
+                                    loader: MiniCssExtractPlugin.loader, // css 注入到 html 中
+                                    options: {}
+                                },
+                                {
+                                    loader: 'css-loader' // css 转 commonJS
+                                },
+                                {
+                                    loader: 'postcss-loader', 
+                                    options: {
+                                        // css 样式加前缀, css 编译环节 中间进行处理
+                                        plugins: [require("autoprefixer")]
+                                        // 或者 在项目的根目录中建立 postcss.confing.js
+                                        // module.export = {
+                                        //      plugins: [require("autoprefixer")]
+                                        // }
+                                    }
+                                },
+                                {
+                                    loader: 'less-loader' // less 转 css
+                                }
+                            ]
+                    }
+                ]
+            },
+            plugins: [
+                new MiniCssExtractPlugin({
+                    filename: "[name].[hash:5].css"
+                }),
+                new Bundle()
+            ]
+        }
+        module.exports = merage(baseConfig, prodConfig)
+        ```
+3. 压缩 css:  `optimize-css-assets-webpack-plugin`
+4. 配置代码分割, 设置了optimization:  要注意影响到 JS 代码压缩, 需要手动配置 `terser-webpack-plugin` (js压缩)
 
+## 代码包分析工具
+1. 代码包越来越大, 帮助分析代码包中的内容: `webpack-bundle-analyzer`
 
+## 获取环境参数
+* 推荐插件: `yargs`
+* webpack.base.js
+    ```javascript
+    const webpack = require('webpack');
+    const argv = require('yargs').argv; 
+    console.log('环境参数', argv.myenv, argv.env); // 输出 me production
 
-
-
-
-
-
-
+    // 使用方式 判断是生成环境还是开发环境
+    const modeFlag = argv.env === "production"
+    ```
+* package.json
+    ```javascript
+    "scripts": {
+        "build:dev": "webpack --config ./config/webpack.dev.js",
+        "build:prod": "webpack --config ./config/webpack.prod.js --env production --myenv me",
+        "dev:server": "webpack-dev-server --config ./config/webpack.dev.js",
+    }
+    ```
 
 
