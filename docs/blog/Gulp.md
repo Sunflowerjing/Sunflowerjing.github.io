@@ -1,6 +1,7 @@
 # Gulp
 
 ## gulp是什么
+* 编译流式工具或者插件, 即操作文件之类的比较合适。
 * gulp是一个基于`流的构建工具`，可以自动执行指定的任务，就是把前端业务中的一些工作用计算机工具自动完成。
 
 ## gulp能做什么
@@ -32,7 +33,7 @@
     ```
 3. 升级使用
     ```javascript
-    // 因为是基于流式的编译, 所以编译很快
+    // 因为是基于流式的编译, 所以编译很快. 上一个输出是下一个输入
     const gulp = require('gulp');
     const uglify = require('gulp-uglify'); // 压缩
     const concat = require('gulp-concat'); // 合并
