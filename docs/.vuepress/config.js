@@ -83,7 +83,8 @@ module.exports = {
                 {
                     title: '工具',
                     children: [
-                       'webpack',
+                       'webpack基础',
+                       'webpack高级',
                        'rollup'
                     ]
                 },
@@ -128,6 +129,7 @@ module.exports = {
                         '监听路由变化',
                         '缓存',
                         '渐变',
+                        '小程序onPageNotFound的坑',
                         'nodejs全目录查找某个字符串'
                     ]
                 },

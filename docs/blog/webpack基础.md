@@ -1,4 +1,4 @@
-# webpack
+# webpack基础
 
 * 基于 nodeJS 的`模块化打包工具`
 * 生成 package.json, 执行 `npm init -y`
