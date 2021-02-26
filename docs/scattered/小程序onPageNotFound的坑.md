@@ -15,11 +15,50 @@
 4. 解决页面不存在, 跳转到另一个页面
     * `hock url`
    ```javascript
+    // 由于优化公共包 size. url变化较多, 则建立文件做了 url 映射。
+    const URL_MAP = {
+        '/pages/ppTrip/focusWechat/index': '/pages/tripP/focusWechat/index',
+    }
 
+    var nameSpace = wx || swan || my || tt;
+    const miniRouterFn = ['reLaunch', 'redirectTo', 'navigateTo'];
+    const quickRouterFn = ['push', 'replace', 'back'];
+    if(nameSpace){ // 小程序
+        miniRouterFn.forEach(function (hook) {
+            const old = nameSpace[hook];
+            Object.defineProperty(nameSpace, hook, {
+                value: function(params){
+                    const url = params.url
+                    if(URL_MAP[url]){
+                        old(
+                            Object.assign(params, {url: URL_MAP[url]})
+                        )
+                        
+                    }
+                }
+            })
+        });
+    } else if(process.env.ANU_ENV !== 'quick') { // 快应用
+        const router = require('@system.router');
+        quickRouterFn.forEach(function (hook) {
+            const old = router[hook];
+            const quickParams = (hook === 'back') ?  'path' : 'uri'
+            Object.defineProperty(router, hook, {
+                value: function(params){
+                    const url = params.url
+                    if(URL_MAP[url]){
+                        old(
+                            Object.assign(params, {[quickParams]: URL_MAP[url]})
+                        )
+                    }
+                }
+            })
+        });
+    }
    ```
 
 
-## 微信小程序路由
+## 微信(wx || swan || my || tt)小程序路由
 1. `wx.switchTab`:
     * `跳转到 tabBar 页面`，并关闭其他所有非 tabBar 页面
     * 在小程序插件中使用时，只能在当前插件的页面中调用

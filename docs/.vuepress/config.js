@@ -87,7 +87,9 @@ module.exports = {
                        'webpack高级',
                        'rollup',
                        'Gulp',
-                       'Grunt'
+                       'Grunt',
+                       'Bower',
+                       'Yeoman'
                     ]
                 },
                 {
