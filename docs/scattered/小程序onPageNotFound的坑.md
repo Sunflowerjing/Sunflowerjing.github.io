@@ -20,25 +20,32 @@
         '/pages/ppTrip/focusWechat/index': '/pages/tripP/focusWechat/index',
     }
 
-    var nameSpace = wx || swan || my || tt;
+    function getNameSpace(){
+        // 这样写的原因的是, 各小程序中引入其他小程序环境变量报错, 不得不这样写
+        try { return wx } catch (e) {}
+        try { return swan } catch (e) {}
+        try { return my } catch (e) {}
+        try { return tt } catch (e) {}
+    }
+
     const miniRouterFn = ['reLaunch', 'redirectTo', 'navigateTo'];
     const quickRouterFn = ['push', 'replace', 'back'];
-    if(nameSpace){ // 小程序
+
+    if(getNameSpace()){ // 小程序
         miniRouterFn.forEach(function (hook) {
-            const old = nameSpace[hook];
-            Object.defineProperty(nameSpace, hook, {
+            const old = getNameSpace()[hook];
+            Object.defineProperty(getNameSpace(), hook, {
                 value: function(params){
                     const url = params.url
+                    let newParams = params;
                     if(URL_MAP[url]){
-                        old(
-                            Object.assign(params, {url: URL_MAP[url]})
-                        )
-                        
+                        newParams = Object.assign(params, {url: URL_MAP[url]})
                     }
+                    old(newParams)
                 }
             })
         });
-    } else if(process.env.ANU_ENV !== 'quick') { // 快应用
+    } else if(process.env.ANU_ENV === 'quick') { // 快应用
         const router = require('@system.router');
         quickRouterFn.forEach(function (hook) {
             const old = router[hook];
