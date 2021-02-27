@@ -91,8 +91,17 @@ module.exports = {
                        'Bower',
                        'Yeoman',
                        'Browserify',
-                       'Parcel',
-                       '前端架构'
+                       'Parcel'
+                    ]
+                },
+                {
+                    title: '工程化&性能优化',
+                    children: [
+                        '前端架构',
+                        '前端工程化基础',
+                        'FIS',
+                        '前端性能优化',
+                        'Vue SSR实现原理',
                     ]
                 },
                 {
