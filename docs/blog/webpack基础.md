@@ -2,10 +2,67 @@
 
 * 基于 nodeJS 的`模块化打包工具`
 * 生成 package.json, 执行 `npm init -y`
-* 一切皆模块
+* `一切皆模块`
+* 模块化: 是一种将系统分离成`独立功能`部分的方法, 严格定义`模块接口`、模块间具有`透明`性。
+* 为什么模块化: web 应用越来越复杂, 简单的代码组织方式已经无法满足业务和架构需求, 需要通过模块化来组织代码。
+* 时代变迁
+    * 无模块
+        ```javascript
+        // a.js
+        var a = function (){
+            // todo
+        }
+        //b.js
+        var b = function (){
+            a()
+        }
+        // index.html
+        <script src='a.js' type='text/javascript'></script>
+        <script src='b.js' type='text/javascript'></script>
+
+        // 问题: 全局变量泛滥  命名冲突  依赖关系管理
+        ```
+    * 模块化萌芽
+        ```javascript
+        // 立即执行函数 (IIFE)
+        var moduleA = function() {
+            var a,b;
+            return {
+                message: function(c){
+                    alert(a+b+c)
+                }
+            }
+        }
+
+        (function(window){
+            // todo sth
+            window.jQuery = window.$=jQuery;
+        })(window)
+
+        // 问题: 全局变量泛滥  依赖关系管理
+        ```
+    * 现代模块化
+        ```javascript
+        // CommonJS  node
+        var math = require('math');
+        math.add(2,3); 
+
+        // RequireJS(AMD)/SeaJS(CMD)  浏览器
+        require(['math'], function(math){
+            math.add(2,3)
+        })
+
+        // ES6 Module
+        import math from 'math';
+        math.add(2,3);
+
+        ```
+* 模块化的价值: 建立模块化的标准, 能够管理模块之间的依赖, 从而提升代码的`可维护性`和`复用性`. `高内聚低耦合`
+
+
 
 ## webpack 是什么
-1. 本质上是一个 JavaScript 应用程序的静态模块打包器(Static Module bundle)。
+1. 本质上是一个 JavaScript `应用程序的静态模块打包器`(Static Module bundle)。
 
 2. 模块是什么
     * ES2015 的 import 语句
@@ -17,8 +74,124 @@
 3. 核心概念
     * loader 
     * plugins: 插件
-    * Entry: 入口
-    * Output: 出口
+    * Entry: 配置入口
+    * Output: 配置编译后的资源
+    * module: 资源处理, 定义 loader
+        * `loaders`功能: 
+            * 链式调用, 资源通过`管道机制`。最后一个 loader 返回 JavaScript
+            * 同步或者异步执行
+            * 运行在 nodeJS 无所不能
+            * 可以通过资源扩展名或者正则表达式来配置每个 loader 生效范围
+            * loader 可以通过 NPM安装和发布
+            * 插件可以提供给 loaders 更多功能
+        * `loaders`使用
+            * 第一种`require`
+                * `require("jade!./template.jade")`: 使用jade-loade, 处理template.jade这个文件
+                * `require("!style!css!less!./less/bootstrap.less")`: 使用!style!css!less这3个 loader, 处理less/bootstrap.less这个文件. 处理是从后往前处理
+            * 配置文件
+                ```javascript
+                {
+                    module: {
+                        loaders: [
+                            {test: /\.jade$/, loader:"jade"},
+                            {test: /\.css$/, loader:"style!css"},
+                            {test: /\.css$/, loaders:["style", "css"]}, // 数组,所以加 s
+                        ]
+                    }
+                }
+                ```
+            * 命令行方式
+                `webpack --module-bind jade --module-bind 'css=style!css'`
+        * 忽略对已知模块解析
+            ```javascript
+            {
+                module: {
+                    noParse: [/moment-with-locales/]
+                }
+            }
+            ```
+        * 将模块暴露到全局: 使用 `export-loader`. 不需要在每个文件中单独引用
+            ```javascript
+            {
+               module: {
+                  loaders: [
+                        {
+                            test: /jquery\.js$/,
+                            loader:"expose?$expose?jQuery"
+                        }
+                  ]
+                } 
+            }
+            ```
+
+        * 常见 Loaders 介绍
+            * `样式`: css-loader sass-loader less-loader
+            * `脚本`: babel-loader
+            * `图片/字体`:  file-loader url-loader
+    * resolve: 配置资源别名/扩展名等
+        * 使用别名
+        ```javascript
+        {
+          resolve: {
+              alias: {
+                  moment:"moment/min/moment-with-locales.min.js" // 配置别名为moment
+              }
+          }  
+        }
+
+        require("moment");
+        ```
+    * plugins: 插件, 比 loader 更强大
+        * 使用插件方式将文件暴露全局。ProvidePlugin
+            ```javascript
+            {
+                plugins: [
+                    new webpack.ProvidePlugin({
+                        $: "jquery",
+                        jQuery: "jquery",
+                        window.jQuery: "jquery"
+                    })
+                ] 
+            }
+            ```
+        * 提取公共代码: 打包时候将公共引用的文件提前出来。CommonsChunkPlugin
+            ```javascript
+            {
+                plugins: [
+                    new webpack.optimize.CommonsChunkPlugin({
+                        name:"vendor",
+                        filename: "[name].[hash:8].js",
+                        minChunks:3, // 模块至少被引用3次以上，才能被提取
+                        chunks: ['jquery', 'underscore']
+                    })
+                ] 
+            }
+            ```
+        * 配置全局开关。设置 debug 
+            ```javascript
+            {
+                plugins: [
+                    new webpack.DefinePlugin({
+                        DEBUG: true // 开发环境设置 true, 生产环境为 false。可以配置2个文件
+                    })
+                ] 
+            }
+
+            // 使用
+            const Constant = {
+                API_HOST: DEBUG ? "http://10.10.123.111": ""
+            }
+            ```
+        * 单独打包 CSS
+            ```javascript
+            {
+               plugins: [
+                    new ExtractTexPlugin("[name].[hash:8].css",{
+                        allChunks: true
+                    })
+               ] 
+            }
+            ```
     * sourceMap: 代码调试, 源码和打包
     * DevServer:
     * Hmr:热更新

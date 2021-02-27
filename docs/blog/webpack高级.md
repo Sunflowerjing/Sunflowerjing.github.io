@@ -1,4 +1,10 @@
 # webpack高级
+* 拆分依赖到代码块, 按需加载
+* 快速初始化加载
+* 所有的静态资源都可以当做模块
+* 第三方模块库
+* 自定义模块打包
+* 适合大型项目 
 
 
 ## treeShaking 摇树优化
@@ -347,5 +353,12 @@
         "dev:server": "webpack-dev-server --config ./config/webpack.dev.js",
     }
     ```
+
+
+
+
+
+
+
 
 
