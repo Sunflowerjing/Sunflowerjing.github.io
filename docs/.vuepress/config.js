@@ -81,7 +81,7 @@ module.exports = {
                     ]
                 },
                 {
-                    title: '工具',
+                    title: '打包工具',
                     children: [
                        'webpack基础',
                        'webpack高级',
@@ -89,7 +89,9 @@ module.exports = {
                        'Gulp',
                        'Grunt',
                        'Bower',
-                       'Yeoman'
+                       'Yeoman',
+                       'Browserify',
+                       'Parcel'
                     ]
                 },
                 {
