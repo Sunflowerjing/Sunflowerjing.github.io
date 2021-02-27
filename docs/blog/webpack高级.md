@@ -362,3 +362,89 @@
 
 
 
+
+
+
+## Chunk
+
+1. `Chunk VS Module`
+    * `Module`: 
+        * 首先来说module，Webpack可以看做是模块打包机，我们编写的任何文件，对于Webpack来说，都是一个个模块。
+        * 所以Webpack的配置文件，有一个module字段，module下有一个rules字段，rules下有就是处理模块的规则，配置哪类的模块，交由哪类loader来处理。
+    * `Chunk`: 
+        * Chunk是Webpack打包过程中，一堆module的集合。
+        * 我们知道Webpack的打包是从一个入口文件开始，也可以说是入口模块，入口模块引用这其他模块，模块再引用模块。
+        * Webpack通过引用关系逐个打包模块，这些module就形成了一个Chunk。
+        * 如果我们有多个入口文件，可能会产出多条打包路径，一条路径就会形成一个Chunk。
+2. 产生Chunk的三种途径
+    * entry入口
+        * entry的配置有三种方式：
+            * 传递一个字符串: `entry: './src/js/main.js'`.这种情况只会产生一个Chunk。
+            * 传递数组: `entry: ['./src/js/main.js','./src/js/other.js']`. 这种情况也只会产生一个Chunk。Webpack会将数组里的源代码，最终都打包到一个Bundle里，原因就是只生成了一个Chunk.
+            * 传递对象:
+            ```javascript
+            entry: {
+                main: './src/js/main.js',
+                other: './src/js/other.js'
+            },
+            output: {
+                // path: __dirname + "/public",
+                // filename:'bundle.js'
+                // 以上2行会报错 
+                path: __dirname + "/public",//打包后的文件存放的地方
+                filename: "[name].js", //打包后输出文件的文件名
+            }
+            ```
+            对象中一个字段就会产生一个Chunk，所以在`output中filename`直接写死名称，会报错。因为上面的配置，产生了`两个Chunk`，最终会生成两个Bundle，一个名称肯定不够用了。需要用[name]变量来利用entry下的字段名称，作为生成Bundle们的名称。
+            <br/>
+            这里面entry的key，也被用来当作它对应的Chunk的名称，上面传递一个字符串和传递数组两种方式，没有key，也会默认给生成的Chunk一个main的名称。
+    * 异步加载模块
+        * 除了入口文件会影响Chunk，异步加载的模块，也需要生成Chunk。
+        ```javascript
+        {
+            entry: {
+                "index": "pages/index.jsx"
+            },
+            output: {
+                filename: "[name].min.js",
+                chunkFilename: "[name].min.js"
+            }
+        }
+        const myModel = r => require.ensure([], () => r(require('./myVue.vue')), 'myModel')
+        ```
+    * 代码分割（code spliting）
+        * 下面代码会产生几个Chunk，其中main.js文件和two.js文件，都引用了同一个greeter.js文件。main.js中使用了react。
+        ```javascript
+        module.exports = {
+            entry: {
+                main: __dirname + "/app/main.js",
+                other: __dirname + "/app/two.js",
+            },
+            output: {
+                path: __dirname + "/public",//打包后的文件存放的地方
+                filename: "[name].js", //打包后输出文件的文件名
+                chunkFilename: '[name].js',
+            },
+            optimization: {
+                runtimeChunk: "single",
+                splitChunks: {
+                    cacheGroups: {
+                        commons: {
+                            chunks: "initial",
+                            minChunks: 2,
+                            maxInitialRequests: 5, // The default limit is too small to showcase the effect
+                            minSize: 0 // This is example is too small to create commons chunks
+                        },
+                        vendor: {
+                            test: /node_modules/,
+                            chunks: "initial",
+                            name: "vendor",
+                            priority: 10,
+                            enforce: true
+                        }
+                    }
+                }
+            }
+        }
+        ```
+        答案是5个，两个入口分别产生一个， runtimeChunk: "single"会将Webpack在浏览器端运行时需要的代码单独抽离到一个文件，commons下的配置会产生一个Chunk，vendor下的配置会产生一个Chunk。如下图。
