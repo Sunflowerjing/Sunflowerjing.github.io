@@ -91,7 +91,8 @@ module.exports = {
                        'Bower',
                        'Yeoman',
                        'Browserify',
-                       'Parcel'
+                       'Parcel',
+                       '前端架构'
                     ]
                 },
                 {
