@@ -149,8 +149,82 @@
     let n: null = null;
     ```
 
+## 函数
+1. JavaScript 函数
+    * 命名函数
+    ```javascript
+    // Named function
+    function add(x, y) {
+        return x + y;
+    }
+    ```
+    * 匿名函数
+    ```javascript
+    // Anonymous function
+    let myAdd = function(x, y) {
+         return x + y; 
+    };
+    ```
+2. TypeScript 函数
+    * 命名函数: 
+    ```javascript
+    // 添加了参数类型和函数类型。
+    function add(x:number, y:number):string {
+        return "hello typescript";
+    }
+    ```
+    * 匿名函数
+    ```javascript
+    // Anonymous function
+    let myAdd = function(x:number, y:string):string {
+        return "hello typescript";
+    };
+    ```
+    * 详细写法
+    ```javascript
+    // name类型string, age类型number
+    // => 后面的 number 表示函数的返回类型
+    var myAdd:(name:string, age:number) => number = function(n:string, a:number):number {
+        // n 代表 name
+        // a 代表 age
+        return a;
+    }
+    ```
+3. `可选参数`和`默认参数`
+    * `可选参数`: `?`
+    ```javascript
+    function buildNmae(firstName: string, lastName?:string){
+        if(lastName){
+            return firstName+" "+lastName;
+        } else {
+            return firstName;
+        }
+    }
 
+    var result1 = buildNmae("iwen","ime"); // 正确
+    var result2 = buildNmae("iwen"); // 正确
 
+    var result3 = buildNmae("iwen","ime", "if"); // 错误
+    ```
+    * 默认参数
+    ```javascript
+    function buildNmae(firstName: string, lastName="iwen"){
+       return firstName+" "+lastName;
+    }
+
+    var result1 = buildNmae("hello: "); // 正确
+    var result2 = buildNmae("iwen","ime"); // 正确
+    var result3 = buildNmae("iwen","ime", "if"); // 错误
+    ```
+4. 可变参数
+    * 优点: 不受参数个数的限制. `类型要统一`
+    ```javascript
+    function people(firstName: string, ...restOfname:string[]) {
+        return firstName+ "" + restOfname.join(" ");
+    }
+
+    var pn = people("iwen","ime","if");
+    ```
 
 
 
