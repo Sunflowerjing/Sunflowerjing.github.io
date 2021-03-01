@@ -57,6 +57,12 @@ module.exports = {
                     ]
                 },
                 {
+                    title: 'TS',
+                    children: [
+                        'TS基本知识',
+                    ]
+                },
+                {
                     title: '小程序',
                     children: [
                         '微信小程序基础概念',

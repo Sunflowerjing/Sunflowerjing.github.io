@@ -29,21 +29,39 @@
     }
     const miniRouterFn = ['reLaunch', 'redirectTo', 'navigateTo'];
     const quickRouterFn = ['push', 'replace', 'back'];
-    if (getNameSpace()){ // 小程序
+
+    const ENV = getNameSpace();
+    if (ENV){ // 小程序
         miniRouterFn.forEach(function (hook) {
-            const old = getNameSpace()[hook];
-            Object.defineProperty(getNameSpace(), hook, {
+            const old = ENV[hook];
+            Object.defineProperty(ENV, hook, {
                 value: function(params){
+                    // 写法一
                     const url = params.url;
                     let newParams = params;
                     if (URL_MAP[url]){
                         newParams = Object.assign(params, {url: URL_MAP[url]});
                     }
                     old(newParams);
+
+                    // 写法二
+                    const url = params.url;
+                    if (URL_MAP[url]){
+                        params.url = URL_MAP[url];
+                    }
+                    old(params);
                 }
             });
         });
-    } else if (process.env.ANU_ENV === 'quick') { // 快应用
+    } else if (process.env.ANU_ENV === 'quick') { 
+        // 快应用(因为每个页面都要hook, 快应用的路由)。
+        // 所以在onGlobalShow, 判断
+        // if (process.env.ANU_ENV === 'quick') {
+		//	    var quickHookUrl = require('./common/utils/hookUrl/quick');
+		//	    quickHookUrl();
+		// }
+
+        // hook 快应用原生 
         const router = require('@system.router');
         quickRouterFn.forEach(function (hook) {
             const old = router[hook];
@@ -59,6 +77,24 @@
                 }
             });
         });
+
+        // hook 娜娜奇, 写在单独的文件中
+        var quickHookUrl = function() {
+            if (process.env.ANU_ENV === 'quick') {
+                ['navigateTo', 'redirectTo', 'navigateBack'].forEach((apiName) => {
+                    if(global && global.React){
+                        const oldApi = global.React.api[apiName];
+                        global.React.api[apiName] = function(p) {
+                            if (URL_MAP[p.url]) {
+                                p.url = URL_MAP[p.url];
+                            }
+                            oldApi(p);
+                        }
+                    }
+                })
+            }
+        }
+        module.exports = quickHookUrl;
     }
    ```
 
