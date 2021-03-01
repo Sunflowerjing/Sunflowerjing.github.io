@@ -133,6 +133,211 @@ attr(10); // 年龄
 
 ## 类 Class
 
+1. 创建类
+```javascript
+    // class 类名
+    class Person{
+        // 属性
+        name: string;
+        age: number;
+
+        // 构造方法: 这里的构造方法,不是通过类名的形式实现
+        constructor(name:string, age: number){ 
+            this.name = name;
+            this.age = age;
+        } 
+
+        // 方法 或者 函数
+        print(){
+            return this.name+":"+this.age;
+        }
+    }
+
+    var p = new Person("ime", 80);
+    p.print();
+```
+
+2. 类的继承
+```javascript
+class Person {
+    name: string;
+    age: number;
+    constructor(name:string,age:number){
+        this.name = name;
+        this.age = age;
+    }
+    tell(){
+        return this.name + ":" +this.age;
+    }
+}
+
+
+class Student extends Person {
+    school: string;
+    constructor(school:string){
+        super("ime", 8000)
+        this.school = school;
+    }
+    tell(){
+        return this.name + ":" + this.age + ":" + this.school ;
+    }
+}
+
+var s = new Student("北大");
+
+s.tell();
+```
+
+3. 访问修饰符
+    * `public`: 公共的。属性默认public
+    * `private`: 私有的
+    ```javascript
+    class People {
+        public name: string;
+        age: number;
+    
+        constructor (private name:string, age: number){ // 设置 private 报错
+            this.name = name;
+            this.age = age;
+        }
+
+        print(){
+            return this.name + ":" +this.age;
+        }
+    }
+
+    class Teacher extends People {
+        school: string;
+        constructor (school: string){
+            super("ime", 8000)
+            this.school = school;
+        }
+        print(){
+            return this.name + ":" +this.age + ":" + this.school;
+        }
+    }
+
+    var t = new Teacher("清华");
+ 
+    t.print()
+    ```
+
+4. 封装
+```javascript
+class Hello {
+    private _name:string;
+    tell(){
+        return this.name;
+    }
+    get name():string{
+        return this._name;
+    }
+
+    set name(newNmae:string){ // 可以根据业务场景做正则判断
+        this._name = newNmae;
+    }
+}
+
+var h = new Hello();
+h.name = "iwen";
+h.tell()
+```
+
+5. 静态属性
+    * `static`: 静态的。 不能通过对象形式调用, 通过`类名调用`
+    ```javascript
+    class Person {
+        static name:string;
+        tell(){
+            console.log('姓名:'+ Person.name);
+        }
+    }
+
+    var  p = new Person();
+    Person.name = "iwen";
+
+    p.tell();
+    ```
+
+6. 进阶技巧
+    * 创建类, 相当于创建一个类型。 `引用数据类型`
+    ```javascript
+    class Greeter {
+        greeting: string;
+        constructor (message: string){
+            this.greeting = message;
+        }
+        greet(){
+            return "hello" + this.greeting;
+        }
+    }
+
+    var g:Greeter;
+    g = new Greeter("iwen");
+    g.greet()
+
+    ```
+
+7. 接口(interfaces)
+    ```javascript
+    // 之前写法
+    function printeLabel(labelObj:{label:string}){
+        console.log(labelObj.label);
+    }
+
+    var myObj = { label: "Hello"}
+    printeLabel(myObj);
+
+
+    // 最好写法
+    interfaces LabelValue {
+        label: string;
+    }
+    function printeLabel(labelObj:LabelValue){ // 指定类型为接口类型
+        console.log(labelObj.label);
+    }
+
+    var myObj = { label: "Hello"}
+    printeLabel(myObj);
+    ```
+
+8. 接口的可选属性
+    * 使用 `?` 表示可选
+    ```javascript
+    interfaces USB{
+        name?: string;
+        age?: number;
+    }
+
+    function prinitUSB(pu:USB){
+        console.log(pu.name);
+        console.log(pu.age);
+    }
+
+    var my = {name: "ime"};
+    prinitUSB(my.name)
+
+    ```
+
+9. 函数(方法)类型
+    ```javascript
+    // 接口检查不是名称的检查，是类型的检查
+    interfaces SearchFunc {
+        // 参数是string类型，返回值是boolean类型
+        (source: string, subString: string): boolean;
+    }
+
+    var mySearch:SearchFunc;
+    mySearch = function(src:string, sub:string){
+        var result = src.search(sub);
+        if(result != -1){
+            return  true;
+        } else {
+            return  false;
+        }
+    }
+    ```
+
 
 
 
