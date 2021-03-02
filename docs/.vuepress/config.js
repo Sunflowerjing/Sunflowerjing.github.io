@@ -60,7 +60,7 @@ module.exports = {
                     title: 'TS',
                     children: [
                         'TS基本知识',
-                        'TS函数学习',
+                        'TS函数接口泛型',
                     ]
                 },
                 {
