@@ -73,3 +73,104 @@
 
 
 
+
+
+
+
+## JSX
+1. 什么是 JSX
+    * 一切 JS。all in JS
+    * 全称: `javascript and xml`
+    * 可拓展的标记性语言
+    * 说明: JSX 是 react 中一项技术, 不是全新的语言, JS 扩展
+    * JSX 中遇到 `{}` 做为`变量解析`, 遇到 `<` 作为 `HTML 解析`。
+2. 基本用法
+    * 有些属性, 用`小驼峰`形式. 特例: `dataid`
+    * class 在 js 中是保留字, 所以使用 `className`。
+    ```javascript
+    function App(){
+        const divTitle = "我是 APP"
+        return (
+            <div title={divTitle} className="App">
+                <h2>hello word</h2>
+            </div>
+        )
+    }
+    ```
+3. JSX 原理
+    * `Reacr.createElement`
+        * 只能有一个`顶层元素`。即`根元素`
+        * React 库中提供了`占位符`, `import React, {Fragment} from "react"`.
+        * `Fragment` 可以当做根元素使用。 或者 `<></>` 这样写法
+    * 页面中的 `DOM 元素`结构, 都是可以使用 `javascript 对象`来描述。
+    * 上面的 JSX 语法, 编译到浏览器中使用的语法
+    ```javascript
+    // JSX 语法通过 Babel 编译之后, 就是通过下面的形式插入的 Chrome 中的
+    function App(){
+        const divTitle = "我是 APP"
+        // ------ 下面代码 和 上面 return 中的代码 是一样的
+        const element = Reacr.createElement(
+            "div", // div 标签。必填
+            {title: divTitle}, // 属性
+            // 子节点
+            Reacr.createElement(
+                "h2",
+                null,
+                "hello word"
+            )
+        )
+        // -----
+        return element;
+    }
+    ```
+
+4. JSX具体用法
+    * 标签类型
+        * DOM 标签。例如: `div p`。首字母必须`小写`
+        * 自定义标签。 例如: `组件`。首字母必须`大写`
+    * 内联样式
+        ```javascript
+        function App(){
+            const divTitle = "我是 APP";
+            const divStyle = {
+                color: "red",
+                fontSize: '26px'
+            }
+            // style={divStyle} 或者 style={{color: "red"}} 第一个大括号 JSX 解析
+            return (
+                <div style={divStyle} title={divTitle} className="App">
+                    <h2>hello word</h2>
+                </div>
+            )
+        }
+        ```
+    * 表达式: `{true ? 1 : 2}`
+    * 标签属性: 驼峰命名
+        * `onClick`
+        * `className`
+    * 注释: `{/* 我是注释 */}`
+    * 扩展运算符, 属性展开: `...`
+        ```javascript
+        // 定义 User 组件
+        function User(props){
+            return (
+                <div>
+                    <h2>我是 user</h2>
+                    <p>{props.name} --- {props.age}</p>
+                </div>
+            );
+        }   
+
+        // 调用 User 组件, 并且传递参数
+        const props = {name:'张三', age:10}
+        <User {...props}>
+        ```
+        
+
+
+
+
+
+
+
+
