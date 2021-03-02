@@ -35,19 +35,21 @@
         miniRouterFn.forEach(function (hook) {
             const old = ENV[hook];
             Object.defineProperty(ENV, hook, {
-                value: function(params){
-                    // 写法一
-                    const url = params.url;
-                    let newParams = params;
-                    if (URL_MAP[url]){
-                        newParams = Object.assign(params, {url: URL_MAP[url]});
+                value: function (params) {
+                    const completeURL =  params.url;
+                    const index = completeURL && completeURL.indexOf('?');
+                    let url = '';
+                    let urlParams = '';
+                    // 判断 跳转 url 中是否带参数
+                    if(index != -1){
+                        url = completeURL.slice(0, index);
+                        urlParams = completeURL.slice(index);
+                    } else {
+                        url = completeURL;
                     }
-                    old(newParams);
-
-                    // 写法二
-                    const url = params.url;
-                    if (URL_MAP[url]){
-                        params.url = URL_MAP[url];
+                    // 含有参数就拼接, 否则正常跳转
+                    if (URL_MAP[url]) {
+                        params.url = urlParams ? `${URL_MAP[url]}?${urlParams}` : `${URL_MAP[url]}`;
                     }
                     old(params);
                 }
@@ -84,11 +86,23 @@
                 ['navigateTo', 'redirectTo', 'navigateBack'].forEach((apiName) => {
                     if(global && global.React){
                         const oldApi = global.React.api[apiName];
-                        global.React.api[apiName] = function(p) {
-                            if (URL_MAP[p.url]) {
-                                p.url = URL_MAP[p.url];
+                        global.React.api[apiName] = function(params) {
+                            const completeURL =  params.url;
+                            const index = completeURL && completeURL.indexOf('?');
+                            let url = '';
+                            let urlParams = '';
+                            // 判断 跳转 url 中是否带参数
+                            if(index != -1){
+                                url = completeURL.slice(0, index);
+                                urlParams = completeURL.slice(index);
+                            } else {
+                                url = completeURL;
                             }
-                            oldApi(p);
+                            // 含有参数就拼接, 否则正常跳转
+                            if (URL_MAP[url]) {
+                                params.url = urlParams ? `${URL_MAP[url]}?${urlParams}` : `${URL_MAP[url]}`;
+                            }
+                            oldApi(params);
                         }
                     }
                 })
