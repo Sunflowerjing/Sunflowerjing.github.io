@@ -16,7 +16,9 @@
 2. 非 DOM 属性以及如何使用
     * `dangerouslySetInnerHTML`:  是 React 为浏览器 DOM 提供 `innerHTML 的替换`方案
         * 案例: 
-            `<div dangerouslySetInnerHTML ={{__html: '<p>我是插入的 html</p>'}}></div>`
+            ```javascript
+            <div dangerouslySetInnerHTML ={{__html: '<p>我是插入的 html</p>'}}></div>
+            ```
     * ref 
         * 相当于 原生 HTML 中的 `id`
         * 不能在`函数组件`上使用
