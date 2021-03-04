@@ -159,10 +159,20 @@
 ## 传值
 
 1. 父组件传值到子组件
-
-    * `props`: 接收任意类型值
-
+    * 通过 `props`
 
 2. 子组件传值到父组件
-
     * `props`: 接收任意类型值
+    * 子组件传递函数, 到父组件
+    ```javascript
+    // 父组件
+    function getChildData(data){
+        console.log('接收子组件传递过来的值',data);
+    }
+    <Footer getChildData={this.getChildData} />
+
+    // 子组件
+    handelAdd() {
+        this.props.getChildData('传递给父组件的值'+ this.state.count)
+    }
+    ```
