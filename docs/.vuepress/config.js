@@ -67,6 +67,7 @@ module.exports = {
                     title: '三大框架',
                     children: [
                         'React基础',
+                        'React基础2',
                     ]
                 },
                 {

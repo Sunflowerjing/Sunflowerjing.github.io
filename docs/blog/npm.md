@@ -14,3 +14,9 @@
 
 4. npm 打 tag: `git tag V版本号`。提交 tag: `git push --tags`
 
+5. 查看线上最新的包: `npm view 包名`
+
+
+6. 删除包: `npm uninstall 包名  -g`
+
+7. 安装线上最新的包: `npm install 包名@latest -g`

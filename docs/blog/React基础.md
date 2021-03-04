@@ -103,7 +103,7 @@
         * React 库中提供了`占位符`, `import React, {Fragment} from "react"`.
         * `Fragment` 可以当做根元素使用。 或者 `<></>` 这样写法
     * 页面中的 `DOM 元素`结构, 都是可以使用 `javascript 对象`来描述。
-    * 上面的 JSX 语法, 编译到浏览器中使用的语法
+    * 上面的 JSX 语法, 编译成下面的代码。虚拟 DOM
     ```javascript
     // JSX 语法通过 Babel 编译之后, 就是通过下面的形式插入的 Chrome 中的
     function App(){
