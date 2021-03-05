@@ -9,11 +9,36 @@
     * 并不是用到浏览器中的 DMO
     * 亮点: 批处理、diff
     * 尽可能少的操作 DOM, 提高渲染效率
+
+2. 虚拟 DOM 到底是什么? 
+    * 说简单点，就是一个普通的 JavaScript 对象，包含了 `tag、props、children` 三个属性。
     * 案例
     ```javascript
-    
+    <div id="app">
+        <p class="text">hello world!!!</p>
+    </div>
+
+    // 上面的 HTML 转换为虚拟 DOM 如下
+    {
+        tag: 'div',
+        props: {
+            id: 'app'
+        },
+        chidren: [
+            {
+                tag: 'p',
+                props: {
+                    className: 'text'
+                },
+                chidren: [
+                    'hello world!!!'
+                ]
+            }
+        ]
+    }
+    // 对象就是我们常说的虚拟 DOM 了，因为 DOM 是树形结构，所以使用 JavaScript 对象就能很简单的表示
     ```
-2. 非 DOM 属性以及如何使用
+3. 非 DOM 属性以及如何使用
     * `dangerouslySetInnerHTML`:  是 React 为浏览器 DOM 提供 `innerHTML 的替换`方案
         * 案例: 
             ```javascript
@@ -38,12 +63,10 @@
    
 
 
-3. 真实 DOM 
+4. 真实 DOM 
     * 真实 dom: 操作DOM成本高, 大量计算
+    * 真实的就是`控制台element`里看到的
     * 案例
-    ```javascript
-    
-    ```
 
 
 ## Props 的介绍和应用
@@ -108,7 +131,6 @@
 
 
 ## 事件监听 this 绑定
-
 1. this
     * 与执行上下文有关系
     * 函数调用: 
@@ -159,7 +181,6 @@
 
 
 ## 传值
-
 1. 父组件传值到子组件
     * 通过 `props`
 
@@ -178,3 +199,78 @@
         this.props.getChildData('传递给父组件的值'+ this.state.count)
     }
     ```
+
+
+
+
+
+
+
+
+## state 的介绍和应用
+1. 什么是 state
+    * props 对外的接口
+        * 可读性, 不能直接修改
+    * state 内部的状态, 实现交互的时候使用。 
+        * 控制元素的显示隐藏
+        * 可修改。setState
+        * state.状态 = '修改值' 的方式修改是不对的
+
+2. 如何使用
+    * this.state={}
+    * 对象
+        ```JavaScript
+        this.setState({
+            isShow: !this.state.isShow
+        })
+        ```
+    * 函数
+        ```JavaScript
+        this.setState(state => {
+            // 基于当前 state 进行计算, 保证拿到的 state 一定是最新的
+            count: ++state.count
+        })
+        ```
+    * setState 异步更新
+        * 不会立马更新组件。批量延迟更新
+        * React 控制的事件处理程序(onClick, onChange) 生命周期钩子函数, 不会同步更新 state, 异步
+        * 多个 setState 调用, 合并处理.性能优化, 高效
+    * setState 同步更新
+        * 原生 js 绑定的事件, setTimeout
+        * 可以用函数的形式调用
+        
+
+3. 组件的 state 如何划分
+    * state props 影响 UI 展示
+    * 原则
+        * 让组件尽可能少状态
+            * UI 渲染, 数据展示, 没有复杂交互。使用 props 不使用 state
+            * 无 state, 使用 function 函数组件。 hook 中可以使用 state
+            * 无状态组件, UI 组件, 函数式组件, 纯函数, 无交互, 无数据逻辑层的展示
+        * 随着时间产生变化的数据, 有交互. 使用state 
+            * 有 state, 使用 class
+
+
+4. props 与 state 对比
+    * 相同点
+        * 组件内的数据
+        * js 对象
+        * 保存信息
+        * 控制组件的形态 UI
+    * 不同点
+        * props
+            * props 父组件传入的, 定义外部组件的接口。
+            * 类组件通过 this.props 接收, 函数组件通过 props 接收
+            * props 只读, 不能直接被修改
+        * state
+            * 组件内部的状态, 作用范围当前组件. 
+            * 私有变量, 使用 stare 来跟踪状态(控制元素的显示隐藏)
+            * 修改通过 setState
+
+
+
+
+
+
+
+
