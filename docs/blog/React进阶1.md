@@ -1,8 +1,5 @@
 # React进阶1
 
-
-
-
 ## React生命周期
 ![React生命周期](react生命周期.png)
 1. 概念
@@ -97,10 +94,105 @@
 
 
 
-## 可控组件与不可控组件
+## 受控组件与非受控组件
+1. `表单`(受控组件与非受控组件) 针对表单而言的
+    * 受控组件(可控组件) 
+        * 表单元素依赖状态, 默认值实时映射到状态 state
+        * 通过 `state` 管理表单元素中的值。
+        * 在 Input 中修改 value 表单元素中的值, 来修改 state
+        * 必须使用 `onChange` 事件, 来获取值的改变, 对值的一些处理
+        * 不使用 `onChange` 事件, 则无法对值进行更改。
+        * 双向绑定类似
+        * 每当表单组件变化时, 都会写入表单组件的 state 中。即称为受控组件
+        * 代码
+        ```JavaScript
+        constructor(){
+            this.state = {
+                userName: '受控组件默认值'
+            }
+        }
+
+        handelChange = (e) => {
+            // e 事件对象
+            this.setState({
+                userName: e.target.value
+            })
+        }
+
+        <input type="text" value={this.state.userName} onChange={this.handelChange} />
+        ```
+        * 优点
+            * 符合 react 的数据流
+            * 修改使用更加方便, 完全不需要获取 DOM
+            * 便于数据处理
+    * 非受控组件(非可控组件)
+        * 不通过 `state` 管理表单元素中的值, 就是非受控的
+        * 不受控制 获取 DOM, 操作 DOM. 通过 ref
+        * 好处很容易与第三方组件结合
+        * 代码
+        ```JavaScript
+        const inputRef = React.createRef();
+        
+        handelChange = () => {
+            console.log('接收子组件的值', inputRef.current.data);            
+        }
+
+        <input type="text" ref={inputRef} defaultVaule="我是非受控组件的默认值" />
+        ```
+        * React 中表单元素 与 原生 HTML 表单元素有些不同
+        ```JavaScript
+        // html
+        <textarea>内容 </textarea>
+
+        // DOM
+        handTxtChange = (e) =>{
+            this.state({
+                txtVal: e.target.value
+            })
+        }
+        <textarea value={this.state.txtVal} onChange={this.handTxtChange} />
+        ```
 
 
+## react中的事件和This
 
+1. React 中的事件
+    * 直接写在 JSX 中, 不需要像原生 js 一样用 addEventListener 绑定
+    * `on+EventType(事件类型)`  `onClick`  `onChange`  `onBlur` => 驼峰式写法
+        * 以上方法只能加在原生 HTML 标签中, 不能加在自定义组件标签中
+        * 阻止默认行为: 显示调用`event.preventDefault`
+        * event: 是 React 的一个封装, 对外暴露了一些接口。不是原生 JavaScript 
+2. 事件监听 this
+    * `constructor   bind`   推荐
+    * `ES6 类字段  箭头函数`   推荐
+    * render 直接bind
+    * render 箭头函数
+    * `推荐前2种方式。后面2种有性能的问题, 会造成重新渲染。`
 
+3. 事件传参
+    * 传递 `id` 或者 `索引`
+        * 不得不使用, 在 render 中用 bind 和 箭头函数。
+    * bind 
+        * 传值 event 在后面: `handleBtnClick(params, event)`
+        ```JavaScript
+        // bind, 传递 event 在后面
+        handleBtnClick(params, event){
+            // 第一个参数 params, 传递的值
+            // 第二个参数 event, 事件对象
+            console.log('我是参数传递的值', params);
+        }
 
+        <button onClick={this.handleBtnClick.bind(this, '传递的参数-jing')} >传递参数</button>
+        ```
+    * 箭头函数
+        * 传值 event 在前面: `handleBtnClick(event, params)`
+        ```JavaScript
+        // 箭头函数, 传递 event 在前面
+        handleBtnClick(event, params){
+            // 第一个参数 event, 事件对象
+            // 第二个参数 params, 传递的值
+            console.log('我是参数传递的值', params);
+        }
+        <button onClick={(e) => this.handleBtnClick(e, '传递的参数-jing')} >传递参数</button>
+        ```
 
