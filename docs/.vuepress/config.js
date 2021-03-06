@@ -68,7 +68,9 @@ module.exports = {
                     children: [
                         'React基础',
                         'React基础2',
-                        'React进阶1'
+                        'React进阶1',
+                        'React进阶2',
+                        'React周边框架'
                     ]
                 },
                 {
