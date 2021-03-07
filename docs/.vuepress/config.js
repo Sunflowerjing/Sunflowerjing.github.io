@@ -45,7 +45,6 @@ module.exports = {
                         'JavaScript&QA工程师',
                         'JavaScript函数编程',
                         'JavaScript面试题目',
-                        'Redux',
                         'npm',
                         'Promise',
                         'ES集合',
@@ -70,7 +69,9 @@ module.exports = {
                         'React基础2',
                         'React进阶1',
                         'React进阶2',
-                        'React周边框架'
+                        'ReactRouter',
+                        'Redux',
+                        'Redux2'
                     ]
                 },
                 {
