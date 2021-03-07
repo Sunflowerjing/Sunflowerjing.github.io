@@ -343,48 +343,121 @@
             ```
             * 分析上面代码的执行过程 如下图
             ![React Hook ](redux执行流程.png)
-    * useRef
-        * 
-        * 
-        * 
-        * 
-        * 
-    * useMomo & useCallback
-        * 
-        * 
-        * 
-        * 
-        * 
-    * 自定义 Hook
-        * 
-        * 
-        * 
-        * 
-        * 
-    * 
-    * 
-    * 
-    * 
-    * 
-    * 
-    * 
-    * 
-    * 
-    * 
+    * `useRef`
+        * 操作 DOM, 返回可变的 Ref 对象
+        * 16 中 `Object.createRef` 创建 ref 的方法
+        * 主要用途是: 访问 DOM 节点, 在 DOM 渲染完成之后执行, 所以说放在useEffect中去操作 DOM
+        * 案例
+            ```javascript
+            // 实现自动获取焦点
+            import React, {useRef} from 'react';
+
+            // 创建 ref, 类似于 ID
+            const refInput = useRef(null);
+            // 和 userState 一样, 可以多次使用
+            useEffect(() => {
+                refInput.current.focus();
+            }, [])
+
+            <label htmlFor="name"></label>
+            <input type="text" id="name" ref={refInput} /> 
+            ```
+    * `useMemo & useCallback`
+        * 二者功能: 计算缓存, 记忆函数。 
+        * 实际上就是利用闭包的特性。使用 闭包 实现缓存, 从而占用内存, 不能盲目使用。
+        * 频繁变动的时候, 最好不要使用。
+        * useMemo
+            * 返回值
+            * 把创建函数和依赖项数组作为参数传入 useMemo
+            * 案例
+                ```javascript
+                import React, {useMemo} from 'react';
+                // 传入依赖值, 当依赖值改变时, 此函数才会触发
+                const memorized = useMemo(() => {
+                    return count
+                },[num]);
+
+                function changeNum(){
+                    setNum(num => {
+                        return ++num;
+                    })
+                }
+                console.log('记忆', memorized); // 直接输出
+                console.log('原始', count);
+
+                <button onClick={changeNum}>改变 num 依赖项</button>
+                ```
+            * 
+            * 
+        * useCallback
+            * 返回函数体
+            * 接收一个内联回调函数和一个依赖项数组
+            * 案例
+                ```javascript
+                import React, {useCallback} from 'react';
+                // 传入依赖值, 当依赖值改变时, 此函数才会触发
+                const memorized = useCallback(() => {
+                    return count
+                },[num])
+
+                function changeNum(){
+                    setNum(num => {
+                        return ++num;
+                    })
+                }
+                console.log('记忆', memorized()); // 区别函数调用
+                console.log('原始', count);
+
+                <button onClick={changeNum}>改变 num 依赖项</button>
+                ```
+    * `自定义 Hook`
+        * 逻辑功能相同的片段 => 封装成单独的函数来使用
+        * 自定义 hook, 其实就是自定义函数
+        * 自定义 hook 中, 可以调用官方提供的 Hook, 例如: useStates
+        * 所有自定义的 Hook, 都以 `use 开头`, 表示只能在函数组件中进行使用。
+        * 之前共用状态数据: 通过 render props 高阶组件 redux
+        * HOOK 是复用状态逻辑的方式, 而不是复用 state 本身
+        * 事实上 HOOK 每次调用都有一个独立的 state
+        * 主要是`抽离公共代码`
+        * 案例: `util/useNumber.js`
+            ```javascript
+            // 实现 简单的计算器加减的 Hook 封装
+            import {useEffect, useState} from 'react';
+            export function useNumber(){
+                // 只会复用状态逻辑, 不会复用状态值.
+                // 在每个组件调用的时候, 每个组件都有单独的 state
+                let [number, setNumber] = useState(0);
+
+                // 传入空数组, 代表 useEffect 只执行一次
+                useEffect(() => {
+                    setTimeout(() => {
+                        setNumber(number => number + 1)
+                    }, 1000)
+                })
+                return [number, setNumber]
+            }
+
+            // 调用
+            import { useNumber } from './util/useNumber'
+
+            function HookComponent(){
+                const [number, setNumber] = useNumber();
+
+                return (
+                    <div></div>
+                )
+            }
+            ```
+    
 
 
 5. Hook 使用规则
-    * 
-    * 
-    * 
-    * 
-    * 
-    * 
-    * 
-    * 
-    * 
-    * 
-
+    * 只能在最顶层使用 Hook
+        * 不要在循环、条件、嵌套函数中使用 HOOK。
+        * 确保在 React 函数最顶层调用。
+    * 只在 React 函数中调用 Hook
+    * 可以在自定义 Hook 中调用 Hook
+   
 
 
 
