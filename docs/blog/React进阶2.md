@@ -123,7 +123,7 @@
             export default HookComponent;
             ```
     * `useEffect`
-        * 函数总会执行副作用操作。
+        * 函数总会执行`副作用操作`
             * 只想渲染 一个DOM, 但是 DOM 渲染完了, 还会执行一段逻辑(副作用)
             * ajax 访问原生DOM对象 定时器
             * 没有发生在`数据向视图转换过程中的逻辑`
@@ -209,17 +209,140 @@
         * 
         * 
     * `useContext`
-        * 
-        * 
-        * 
-        * 
-        * 
-    * useReducer
-        * 
-        * 
-        * 
-        * 
-        * 
+        * 16 更新了 context api
+            * 定义了发布者模式, 在爷孙组件中进行传值
+        * 使用 context 能力
+        * context 和 useContext 使用, 可以解决组件之间的状态共享问题。之前用 redux 解决
+        * 可以实现两个互不相关的组件, 信息的传递
+            * 提供一个`顶层组件` ContextProvider.js
+                ```javascript
+                import React, {createContext, useState} from "react";
+                // 创建 context 对象
+                export const context = createContext({});
+                export function ContextProvider(children){
+                    const [count, setCount] = useState(10);
+
+                    const countVal = {
+                        count,
+                        setCount,
+                        add: () => setCount(count+1),
+                        reducer: () => setCount(count-1)
+                    }   
+                    // context 对象中, 提供了一个自带的 Provider 组件。 别的组件中 可以使用 useContext 来订阅context对象
+                    return <context.Provider value={countVal}>{children}</context.Provider>
+                }
+                ```
+            * 定义子组件 SubCount.js
+                ```javascript
+                import React, {useContext} from "react";
+                import {context, ContextProvider} from "./ContextProvider";
+
+                function SubCount(){
+                    const {count =0, add, reducer} = useContext(context);
+                    return (
+                        <div>
+                            <h1>我是SubCount组件</h1>
+                            <p>{count}</p>
+                            <button onClick={add}>加<button>
+                            <button onClick={reducer}>减<button>
+                        </div>
+                    )
+                }
+
+                export default () => (
+                    <ContextProvider>
+                        <SubCount />
+                    </ContextProvider>
+                )
+                ```
+            * 定义子组件 HookComponent.js
+                ```javascript
+                import React, {useContext} from "react";
+                import SubCount from "./SubCount";
+
+                function handleAdd() {
+                    // 调用 SubCount
+                    return (
+                        <div>
+                            <SubCount />
+                        </div>
+                    )
+                }
+                ```
+            * 定义 2 个 顶级组件, 想在一个子组件中用
+                ```javascript
+                import {context, ContextProvider} from "./ContextProvider";
+                import {context2, ContextProvider2} from "./ContextProvider2";
+
+                export default () => (
+                    <ContextProvider2>
+                        <ContextProvider>
+                            <SubCount />
+                        </ContextProvider>
+                    </ContextProvider2>
+                )
+                ```
+    * `useReducer`
+        * redux 几乎完全相同
+        * useState 内部就是靠 `useReducer` 实现的
+        * 是 useState 的替代方案 
+        * 接收 (state, action) => newState
+        * useReducer 适合下一个 state 依赖 上一个 state, 简单的用 `useReducer`, 复杂的用 `useReducer`
+        * 接收3个参数, 返回当前的 state, 配套的 dispatch 
+        * 案例: `ReducerComponent.js`
+            ```javascript
+            import React, {useReducer} from "react";
+
+            // (state, action) => newState 和 redux 完全相同
+
+            // useReducer 接受三个参数
+
+            // 定义了一个简单的 reducer。第一个参数
+            // 第一个参数 当前的状态值, 第二个参数 告诉 reducer 当前执行什么操作
+            const reducer = (state, action) => {
+                // react 有一个action对象, 且必须 type 属性, 才称作是 action
+                // action 主要用来描述发生了什么, 即发送动作指令。让 reducer 去做
+                switch(action.type){
+                    case "add": 
+                       return {...state, count: state.count+1};
+                    case "reduce": 
+                       return {...state, count: state.count-1}; 
+                    default:
+                       return state;  
+                }
+            }
+
+            // 定义 第二个参数。 createStore() 定义管理数据的仓库, 指定默认值
+            let initialState = {
+                count:10;
+                name:'reducer'
+            }
+
+            // 定义 第三个参数, 是一个函数。 会把第二个参数initialState, 当做参数执行
+            // 即 参数 相当于上面的 initialState 
+            const init = initialState => {
+                // 进行一些初始值的逻辑操作
+                return {count: initialState.count + 2}
+            }
+
+            // redux三大核心: `Store`、`Recucer`、`Action` 
+
+            export default function ReducerComponent(){
+                const [state, dispatch] = useReducer(reducer, initialState, init);
+                return (
+                    <div>
+                        
+                        <p>{state.count}</p>
+                        // redux 中 , 流程是通过 dispatch 触发 action(上面定义的 add 和 reduce )
+                        <button onClick={() => dispatch({type: 'add'})}>加</button>
+                        <button onClick={() => dispatch({type: 'reduce'})}>减</button>
+                    </div>
+                )
+            }
+
+            ```
+            * 分析上面代码的执行过程 如下图
+            ![React Hook ](redux执行流程.png)
     * useRef
         * 
         * 
