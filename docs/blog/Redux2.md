@@ -26,7 +26,6 @@
 3. Redux 可以将数据连接到任何组件
     * connect 函数
 
-
 ## Redux 的使用场景
 1. 公共组件、业务组件非常多, 用户使用方式比较复杂, 项目庞大
 2. 不同用户角色权限管理
@@ -62,22 +61,226 @@
     * 创建 action
     * 创建 reducer
     * 创建 store
-4. 
-5. 
 
 ## Redux的三大原则
-1. 
-    * 
-    * 
-    * 
-    * 
-    * 
-    * 
-    * 
-    * 
-    * 
+1. 单一数据原则(只允许有一个 store)
+    * store => 全局变量对象
+2. state 是只读的
+    * 唯一改变的方法是触发 action
+    * 确保视图 和 api请求都不能直接修改 state, 只能表达想要修改的意图, 通过action来表达修改意图, 在 reducer 中集中化处理
+3. reducer 中使用纯函数执行修改
+    * 为了描述 action 如何改变state
 
 ## 实际应用
+* `react 的实现方式`
+    1. `ReduxComponent.js`
+        ```javascript
+        import React from 'react';
+        
+        class ReduxComponent extends React.Component {
+            constructor(props){
+                super(props);
+                this.state = {
+                    count: 0
+                };
+            }
+            handleAdd = () => {
+                this.setState({
+                    count: this.state.count + 1
+                })
+            }
+            handleReduce = () => {
+                this.setState({
+                    count: this.state.count - 1
+                })
+            }
+
+            render(){
+                return (
+                    <div>
+                        <h3>我是 counter 组件</h3>
+                        <div>
+                            <button onClick={this.handleAdd}>加一</button>
+                            <span>{this.state.count}</span>
+                            <button onClick={this.handleReduce}>减一</button>
+                        </div>
+                    </div>
+                )
+            }
+            
+        }
+        export default ReduxComponent;
+        ```
+    2. `app.js`
+        ```javascript
+        import React from 'react';
+        import ReduxComponent from './components/ReduxComponent';
+
+
+        function App(){
+            return (
+                <>
+                    <ReduxComponent />
+                </>
+            )
+        }
+        ```
+
+
+* `redux 的实现方式`
+    * 安装依赖
+        * `yarn add redux react-redux` 
+    1. 创建 store and reducer: `/store/index.js`
+        ```javascript
+        import { createStore } from 'redux';
+        // 定义一个初始值
+        const initialState = {
+            count:0
+        }
+
+        // 定义一个 action
+        // action 只是强调发生了什么, 并不是做什么。主要是发通知
+        // 具体描述 action 如何改变 state 是在 reducer 中专门做处理
+
+
+        // store 需要一个 reducer
+        // (state,action) => newState
+        // 唯一要点: 当 state 变化时需要返回一个全新的对象, 不是修改传入的参数, 是覆盖
+        // reducer 必须是纯的, 遵守 redux 原则。在reducer中不去请求
+        function reducer(state = initialState, action){
+            console.log('我是一个reducer', state, action);
+            // switch 应用场景比较简单
+            // 复杂场景, 创建一个对象通过 action 的 type 来查找对应的处理函数
+            switch(action.type){
+                case 'ADD' : 
+                    // 不能直接修改 state, 必须return返回新的 state
+                    // state.count +1  错误实例
+                    return {
+                        ...state,
+                        count: state.count + 1
+                    }
+                case 'REDUCE' : 
+                    return {
+                        ...state,
+                        count: state.count - 1
+                    }
+                default state;
+            }
+        }
+
+        // 创建 store 存放应用状态
+        const store = createStore(reducer);
+
+        export default store;
+        ```
+    2. `ReduxComponent.js`
+        ```javascript
+        import React from 'react';
+        import store from '../store/index.js';
+        // 需要 cnnect 函数 provider 组件
+        import {Provider} from 'react-redux';
+        import ReduxCounter from './ReduxCounter';
+        
+
+        class ReduxComponent extends React.Component {
+            constructor(props){
+                super(props);
+                this.state = {
+                    count: 0
+                };
+            }
+            handleAdd = () => {
+                this.setState({
+                    count: this.state.count + 1
+                })
+            }
+            handleReduce = () => {
+                this.setState({
+                    count: this.state.count - 1
+                })
+            }
+            render(){
+                return (
+                    <div>
+                        <h3>我是 counter 组件</h3>
+                        <div>
+                            <button onClick={this.handleAdd}>加一</button>
+                            <span>{this.state.count}</span>
+                            <button onClick={this.handleReduce}>减一</button>
+                        </div>
+                        // 被Provider包裹的, ReduxCounter组件就能拿到 store
+                        <Provider store={store}>
+                            <ReduxCounter />
+                        </Provider>
+                    </div>
+                )
+            }
+            
+        }
+        export default ReduxComponent;
+        ```
+    3. `ReduxCounter.js`
+        ```javascript
+        import React from 'react'; 
+        import {connect} from 'react-redux';
+
+        // 是一个函数, 用于建立组件 和 store的 state的映射关系
+        function mapStateToProps(state){
+            return {
+                count: state.count
+            }
+        }
+
+        
+        class ReduxCounter extends React.Component {
+            handleAdd = () => {
+                this.props.dispatch({type: 'ADD'})
+            }
+            handleReduce = () => {
+                this.props.dispatch({type: 'REDUCE'})
+            }
+        
+            render(){
+                return (
+                    <div>
+                        <h3>我是 ReduxCounter 组件</h3>
+                        <div>
+                            <button onClick={this.handleAdd}>加一</button>
+                            <span>{this.props.count}</span>
+                            <button onClick={this.handleReduce}>减一</button>
+                        </div>
+                    </div>
+                )
+            }
+        
+        }
+
+        // 实现 redux 到 react 的一个连接
+        // 传入 mapStateToProps 这个参数后, 组件便会订阅 store 中状态的变化
+        // 两个括号的原因是 connect 是一个高阶函数(高阶组件)
+        // connect(mapStateToProps) 调用之后返回一个函数, 返回函数中传入ReduxCounter 组件
+        // 前面2步, 执行完毕后返回新的组件, 新的组件就是包装之后的组件
+        export default connect(mapStateToProps)(ReduxCounter);
+        ```
+    
+    
+    
+    
+    4. `app.js`
+        ```javascript
+        import React from 'react';
+        import ReduxComponent from './components/ReduxComponent';
+
+
+        function App(){
+
+            return (
+                <>
+                    <ReduxComponent />
+                </>
+            )
+        }
+        ```
 
 
 
