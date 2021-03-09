@@ -130,17 +130,29 @@
 * `redux 的实现方式`
     * 安装依赖
         * `yarn add redux react-redux` 
-    1. 创建 store and reducer: `/store/index.js`
+    1. 创建 action: `/store/action.js`
+        ```javascript
+        // 定义一个 action
+        // action 只是强调发生了什么, 并不是做什么。主要是发通知
+        // 具体描述 action 如何改变 state 是在 reducer 中专门做处理
+        // 对于 action 处理方式, 放在一个单独的action.js中
+
+        export const ADD = "ADD";
+        export const REDUCE = "REDUCE";
+
+
+        // 了解一下 action 的生成, action creator 函数生成器
+        export const add = () => ({type: ADD});
+        export const reduce = () => ({type: REDUCE})
+
+        ```
+    2. 创建 store and reducer: `/store/index.js`
         ```javascript
         import { createStore } from 'redux';
         // 定义一个初始值
         const initialState = {
             count:0
         }
-
-        // 定义一个 action
-        // action 只是强调发生了什么, 并不是做什么。主要是发通知
-        // 具体描述 action 如何改变 state 是在 reducer 中专门做处理
 
 
         // store 需要一个 reducer
@@ -173,7 +185,7 @@
 
         export default store;
         ```
-    2. `ReduxComponent.js`
+    3. `ReduxComponent.js`
         ```javascript
         import React from 'react';
         import store from '../store/index.js';
@@ -219,10 +231,11 @@
         }
         export default ReduxComponent;
         ```
-    3. `ReduxCounter.js`
+    4. `ReduxCounter.js`
         ```javascript
         import React from 'react'; 
         import {connect} from 'react-redux';
+        import {add, reduce} from './store/action.js';
 
         // 是一个函数, 用于建立组件 和 store的 state的映射关系
         function mapStateToProps(state){
@@ -231,13 +244,17 @@
             }
         }
 
+        const mapDispatchToProps = {
+            add,
+            reduce
+        }
         
         class ReduxCounter extends React.Component {
             handleAdd = () => {
-                this.props.dispatch({type: 'ADD'})
+                this.props.add()
             }
             handleReduce = () => {
-                this.props.dispatch({type: 'REDUCE'})
+                this.props.reduce()
             }
         
             render(){
@@ -260,13 +277,11 @@
         // 两个括号的原因是 connect 是一个高阶函数(高阶组件)
         // connect(mapStateToProps) 调用之后返回一个函数, 返回函数中传入ReduxCounter 组件
         // 前面2步, 执行完毕后返回新的组件, 新的组件就是包装之后的组件
-        export default connect(mapStateToProps)(ReduxCounter);
+
+        //mapDispatchToProps 作为第二个参数传入
+        export default connect(mapStateToProps,mapDispatchToProps)(ReduxCounter);
         ```
-    
-    
-    
-    
-    4. `app.js`
+    5. `app.js`
         ```javascript
         import React from 'react';
         import ReduxComponent from './components/ReduxComponent';
@@ -288,3 +303,248 @@
 
 
 
+* `副作用操作`
+    * reducer 不能进行副作用操作, 所以放在 action 中, 所以引入`redux-thunk`, 将 action增强了
+    1. `redux-thunk` 
+        * 进行不纯的操作
+        * `thunk action`
+        * 案例: `/store/action.js`
+            ```javascript
+            // 显然不行, reducer 不支持这种 action
+            // 可以使用 redux-thunk  thunk action
+            export const getInfo = () => {
+                return (dispatch, getState) => {
+                    // 进行不纯的操作
+                    // getState 可以获取整个 state 的值
+                    axios.get('api/info');
+                }
+            }
+            ``` 
+        * 安装: `npm install redux-thunk`
+    2. 文件: `/store/index.js`
+        ```javascript
+        // 没有抽离Reducer的写法
+        import {createStore, applyMiddleware} from 'redux';
+        import thunk from 'redux-thunk';
+        import {
+            FETCH_DATA_BEGIN,
+            FETCH_DATA_SUCCESS,
+            FETCH_DATA_FAIL
+        } from './action/dataAction';
+        const initialState = {
+            count:0,
+            loading: true,
+            error: null,
+            data: []
+        }
+        function reducer(state = initialState, action){
+            switch(action.type){
+                case FETCH_DATA_BEGIN: 
+                    return {
+                        ...state,
+                        loading: true,
+                        error: null
+                    }
+                case FETCH_DATA_SUCCESS: 
+                    return {
+                        ...state,
+                        loading: false,
+                        data: action.payLoad.data.list
+                    }
+                case FETCH_DATA_FAIL: 
+                    return {
+                        ...state,
+                        loading: false,
+                        error: action.payLoad.error
+                    }
+                case 'ADD' : 
+                    return {
+                        ...state,
+                        count: state.count + 1
+                    }
+                case 'REDUCE' : 
+                    return {
+                        ...state,
+                        count: state.count - 1
+                    }
+                default state;
+            }
+        }
+
+        // 将 action 的功能进行增强
+        // 必须确保 thunk 包裹在 applyMiddleware 调用里面, 否则不生效.
+        // 不要直接传 thunk, 一定要在applyMiddleware中包裹
+
+        // 通过这个 applyMiddleware 中间件, 将 thunk 应用到 store 中
+        const store = createStore(reducer, applyMiddleware(thunk));
+        export default store;
+
+        // 抽离Reducer的写法
+        import {createStore, applyMiddleware} from 'redux';
+        import thunk from 'redux-thunk';
+        import rootReducer from './reducers/rootReducer';
+        const store = createStore(rootReducer, applyMiddleware(thunk));
+        export default store;
+        ```
+    3. `dataAction.js`
+        ```javascript
+        export const FETCH_DATA_BEGIN = "FETCH_DATA_BEGIN";
+        export const FETCH_DATA_SUCCESS = "FETCH_DATA_SUCCESS";
+        export const FETCH_DATA_FAIL = "FETCH_DATA_FAIL";
+
+        export const fetDataBegin = () => ({
+            type: FETCH_DATA_BEGIN
+        })
+        export const fetDataSuccess = (data) => ({
+            type: FETCH_DATA_SUCCESS,
+            payLoad: { data }
+        })
+        export const fetDataFail = (error) => ({
+            type: FETCH_DATA_FAIL,
+            payLoad: { error }
+        })
+
+        // thunk action redux-thunk
+        export function featchData(){
+             return (dispatch, getState) => {
+                    // 请求前 loading true 
+                    dispatch(fetDataBegin())
+                    return fetch("https://api")
+                    .then(res => res.json())
+                    .then(json => {
+                        // 请求成功 loading  false 
+                        dispatch(fetDataSuccess(json))
+                        console.log('获取到接口的数据', json);
+                        return json
+                    }).catch(error => {
+                        // 捕获到错误 loading  false 
+                        dispatch(fetDataFail(error))
+                    })
+            }
+        }
+        ```
+    4. `countReducer.js`
+        ```javascript
+        
+        const initialState = {
+            count:0
+        }
+
+        export default function countReducer(state = initialState, action){
+            switch(action.type){
+                case 'ADD' : 
+                    return {
+                        ...state,
+                        count: state.count + 1
+                    }
+                case 'REDUCE' : 
+                    return {
+                        ...state,
+                        count: state.count - 1
+                    }
+                default state;
+            }
+        }
+
+        ```
+    5. `dataReducer.js`
+        ```javascript
+        import {
+            FETCH_DATA_BEGIN,
+            FETCH_DATA_SUCCESS,
+            FETCH_DATA_FAIL
+        } from './action/dataAction';
+
+        const initialState = {
+            loading: true,
+            error: null,
+            data: []
+        }
+
+        export default function dataReducer(state = initialState, action){
+            switch(action.type){
+                case FETCH_DATA_BEGIN: 
+                    return {
+                        ...state,
+                        loading: true,
+                        error: null
+                    }
+                case FETCH_DATA_SUCCESS: 
+                    return {
+                        ...state,
+                        loading: false,
+                        data: action.payLoad.data.list
+                    }
+                case FETCH_DATA_FAIL: 
+                    return {
+                        ...state,
+                        loading: false,
+                        error: action.payLoad.error
+                    }
+                default state;
+            }
+        }
+        ```
+    6. `rootReducer.js`
+        ```javascript
+        // 抽离后的写法
+        import {combineReducers} from 'redux';
+        import thunk from 'redux-thunk';
+       
+        import countReducer from './countReducer.js'
+        import dataReducer from './dataReducer.js'
+
+        
+
+        export default combineReducers({
+            countReducer,
+            dataReducer
+        });
+        ```
+    6. `ReduxCounter.js`
+        ```javascript
+        import React from 'react'; 
+        import {connect} from 'react-redux';
+        import {add, reduce} from './store/action.js';
+        import { featchData } from './store//action/dataAction'
+
+        function mapStateToProps(state){
+            // 因为 Reducer 连接, 所以 使用了countReducer、dataReducer
+            return {
+                count: state.countReducer.count,
+                error: state.dataReducer.error, 
+                loading: state.dataReducer.loading, 
+                data: state.dataReducer.data,
+            }
+        }
+        const mapDispatchToProps = {
+            add,
+            reduce,
+            featchData
+        }
+
+        class ReduxCounter extends React.Component {
+            componentDidMount(){
+                this.props.featchData();
+            }
+            render(){
+                const {error, loading, data} = this.props;
+                if(error){
+                    return <div>页面加载出错。。{error}</div>
+                }
+                if(loading){
+                    return <div>页面加载中。。</div>
+                }
+                return (
+                    <div>
+                        执行特殊的 action 
+                        <ul>
+                            {data.map(item => (<li key={item}>{item}</li>))}
+                        </ul>
+                    </div>
+                )
+            }
+        }
+        export default connect(mapStateToProps,mapDispatchToProps)(ReduxCounter);
+        ```
+     
