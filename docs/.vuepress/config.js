@@ -65,10 +65,11 @@ module.exports = {
                 {
                     title: '三大框架',
                     children: [
-                        'React基础',
+                        'React基础1',
                         'React基础2',
                         'React进阶1',
                         'React进阶2',
+                        'React各版本API和源码分析1',
                         'ReactRouter',
                         'Redux',
                         'Redux2'
