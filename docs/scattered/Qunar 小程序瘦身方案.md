@@ -11,7 +11,7 @@
 
 
 ### 项目成果
-微信小程序主包 size 缩减450kb (压缩后)。 此外还减少小程序首次渲染时间, 避免不必要的组件和页面渲染, 提升用户体验。据微信小程序后台统计, 主包下载耗时减少100ms, 渲染减少50ms。
+微信小程序主包 size 缩减330kb (压缩后)。 此外还减少小程序首次渲染时间, 避免不必要的组件和页面渲染, 提升用户体验。据微信小程序后台统计, 主包下载耗时减少100ms, 渲染减少50ms。
 
 
 
@@ -62,21 +62,33 @@
 
         ```
 
-    * 快应用端内相互跳转:
+    * 快应用端内相互跳转: 因为快应用禁止劫持底层路由方法, 所以在ReactQuick.js 中进行处理
         ```javascript
+        if (typeof app.onNavigate === 'function') {
+            obj = app.onNavigate(obj) || obj;
+        }
 
+        onNavigate(pathInfo) {
+            const patchQuick404Module = require('./common/utils/hookUrl/patchQuickUrl');
+            const matchedPathInfo = patchQuick404Module.getMatchedPathInfo(pathInfo.url);
+        
+            if (matchedPathInfo && matchedPathInfo.path) {
+                const patchedPath = `${matchedPathInfo.path}${matchedPathInfo.queryString ? '?' + matchedPathInfo.queryString : ''}` ;
+                return Object.assign(pathInfo, {
+                    url: patchedPath
+                })
+            }
+        }
 
         ```
 
 
 2. 端外跳端内
-    * 小程序跳端内: 在外部链接跳转到小程序中, 即使做了 MAP 映射, 也会显示 404 错误。
-        * 原因: 外部跳转进来的 URL, 不会使用reLaunch、rediectTo、navigateTo以上 API, 则不会走此次劫持
-        * 解决方案: 在 `app.js` 中的 `onPageNotFound` 方法进行处理。若访问路径存在 map 文件中, 则调用 `redirectTo` 函数进行处理
-        
-    * 快应用跳端内: 
+    * 在外部链接跳转到小程序或快应用中, 即使做了 MAP 映射, 也会显示 404 错误。
+    * 原因: 外部跳转进来的 URL, 不会使用reLaunch、rediectTo、navigateTo以上 API, 则不会走此次劫持
+    * 解决方案: 在 `app.js` 中的 `onPageNotFound` 方法进行处理。若访问路径存在 map 文件中, 则调用 `React.api.redirectTo` 函数进行处理,小程序和快应用处理逻辑相同
 
-       
+
 
 
 
