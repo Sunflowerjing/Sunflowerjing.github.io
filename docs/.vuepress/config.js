@@ -69,10 +69,12 @@ module.exports = {
                         'React基础2',
                         'React进阶1',
                         'React进阶2',
+                        'React diff',
                         'React各版本API和源码分析1',
                         'ReactRouter',
                         'Redux',
-                        'Redux2'
+                        'Redux2',
+                        'Redux 源码'
                     ]
                 },
                 {
@@ -165,7 +167,8 @@ module.exports = {
                         '缓存',
                         '渐变',
                         '小程序onPageNotFound的坑',
-                        'nodejs全目录查找某个字符串'
+                        'nodejs全目录查找某个字符串',
+                        'Qunar 小程序瘦身方案'
                     ]
                 },
                 {
