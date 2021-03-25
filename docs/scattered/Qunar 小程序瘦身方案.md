@@ -61,7 +61,6 @@
         });
 
         ```
-
     * 快应用端内相互跳转: 因为快应用禁止劫持底层路由方法, 所以在ReactQuick.js 中进行处理
         ```javascript
         if (typeof app.onNavigate === 'function') {

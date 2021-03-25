@@ -146,9 +146,9 @@
 
     // 写法六
     Promise.all([
-    import('./module1.js'),
-    import('./module2.js'),
-    import('./module3.js'),
+        import('./module1.js'),
+        import('./module2.js'),
+        import('./module3.js'),
     ])
     .then(([module1, module2, module3]) => {
         ···
