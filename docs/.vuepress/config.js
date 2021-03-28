@@ -130,7 +130,8 @@ module.exports = {
                     title: '网络协议',
                     children: [
                        'HTTP 协议',
-                       '代理'
+                       '代理',
+                       'http 缓存'
                     ]
                 },
                 {
