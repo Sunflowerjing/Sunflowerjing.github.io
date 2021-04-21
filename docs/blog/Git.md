@@ -32,15 +32,14 @@ https://blog.csdn.net/ustccw/article/details/79068547
 1.  将 A 分支的内容合并到 B 分支上面: `当前在 B 分支下面执行: git pull origin A`
 
 
-git 维护 commit 历史线小技巧。
+2. git 维护 commit 历史线小技巧。
 
-git merge ${yourBranch}   // 合并分支，但commit历史是线性的，从git log —graph 无法看出分支合并记录。
-git merge ${yourBranch}  —no-ff   // 推荐，能看出分支合并记录。
-git commit —amend    // 追加上一次提交。 比如上一次提交时候遗漏了一些修改， 可以将遗漏的更新追加到上一个commit中。
-git rebase    // commit合并。 比如你在你的开发分支中，提了 N 个commit , 而message 都是瞎写的，合并到主分支的时候建议使用这个来合并你的乱七八糟的commit历史，免得污染主分支的提交历史。
+    * git merge ${yourBranch}   // 合并分支，但commit历史是线性的，从git log —graph 无法看出分支合并记录。
+    * git merge ${yourBranch}  —no-ff   // 推荐，能看出分支合并记录。
+    * git commit —amend    // 追加上一次提交。 比如上一次提交时候遗漏了一些修改， 可以将遗漏的更新追加到上一个commit中。
+    * git rebase    // commit合并。 比如你在你的开发分支中，提了 N 个commit , 而message 都是瞎写的，合并到主分支的时候建议使用这个来合并你的乱七八糟的commit历史，免得污染主分支的提交历史。
 
-
-高频使用是 git merge --no-ff 和 git commit --amend
+    * 高频使用是 git merge --no-ff 和 git commit --amend
 
 
 
