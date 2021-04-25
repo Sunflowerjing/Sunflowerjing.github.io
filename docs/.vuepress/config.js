@@ -76,7 +76,8 @@ module.exports = {
                         'ReactRouter',
                         'Redux',
                         'Redux2',
-                        'Redux 源码'
+                        'Redux 源码',
+                        'mobx'
                     ]
                 },
                 {
@@ -126,6 +127,7 @@ module.exports = {
                         '前端性能优化',
                         'Vue SSR实现原理',
                         'React SSR', 
+                        'CI/CD'
                     ]
                 },
                 {
@@ -147,6 +149,8 @@ module.exports = {
                         '二叉树',
                         '斐波那契数',
                         '大数相加',
+                        '质数',
+                        '分解质因数', 
                         '队列和堆栈的转换'
                     ]
                 },
