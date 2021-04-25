@@ -31,7 +31,9 @@ module.exports = {
                     title: 'CSS',
                     children: [
                         'CSS3知识点梳理',
-                        'CSS 单位'
+                        'CSS 单位',
+                        'flex',
+                        'CSS常见问题'
                     ]
                 },
                 {
