@@ -1,5 +1,8 @@
 # CSS常见问题
 
+* BFC就是块级的作用域。GFC就是grid作用域。IFC就是内联作用域。FFC就是flex作用域
+
+
 
 
 什么是BFC， 怎么创建BFC， BFC解决了哪些问题？

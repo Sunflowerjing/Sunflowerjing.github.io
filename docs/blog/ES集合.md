@@ -337,7 +337,7 @@ input.map(function (item) {
    
      ```javascript
      const  arr = ['👗', '👘', '👙'];
-     for(let v of arr){
+     for(let v in arr){ // 支持对象, 如果是对象的话 就为 key
      	console.log(v); // 0  1  2
      }
      ```

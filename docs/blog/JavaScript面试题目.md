@@ -2,7 +2,7 @@
 
 
 1. 请写出如下代码输出值，并解释为什么。
-```
+```js
 console.log(a);
 console.log(typeof yideng(a));
 var flag = true;

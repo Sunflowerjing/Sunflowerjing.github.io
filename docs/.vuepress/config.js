@@ -32,7 +32,7 @@ module.exports = {
                     children: [
                         'CSS3知识点梳理',
                         'CSS 单位',
-                        'flex',
+                        'flex and Grid',
                         'CSS常见问题'
                     ]
                 },
