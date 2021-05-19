@@ -71,7 +71,7 @@
     * `UNSAFE_componentWillUpdate(nextProps, nextState)`
         * 更新发生前, 一般很少用
         * 不能调用 setState
-    * `componentDidlMount(prevProps, prevState)`
+    * `componentDidlUpdate(prevProps, prevState)`
         * 更新完成调用
         * 接收2个参数, 之前的属性 和 之前的状态
         * 有机会来操作 DOM

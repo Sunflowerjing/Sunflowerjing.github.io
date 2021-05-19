@@ -129,7 +129,8 @@ module.exports = {
                         '前端性能优化',
                         'Vue SSR实现原理',
                         'React SSR', 
-                        'CI/CD'
+                        'CI/CD',
+                        '从0到1搭建 TS 项目'
                     ]
                 },
                 {
