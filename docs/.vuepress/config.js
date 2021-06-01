@@ -111,6 +111,7 @@ module.exports = {
                     children: [
                        'webpack基础',
                        'webpack高级',
+                       'TreeShaking',
                        'rollup',
                        'Gulp',
                        'Grunt',

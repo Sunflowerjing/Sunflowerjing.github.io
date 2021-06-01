@@ -9,7 +9,7 @@
 4. 语法：
     * 导入：`require('路径')`
     * 导出：`module.exports` 和 `exports`
-    * 注意：`module.exports`和`exports`的的区别是`exports只是对module.exports的一个引用`，相当于Node为每个模块提供一个exports变量，指向module.exports。这等同在每个模块头部，有一行 `var exports = module.exports;`这样的命令。
+    * 注意：`module.exports` 和 `exports`的的区别是`exports 只是对 module.exports的一个引用`，相当于Node为每个模块提供一个exports变量，指向module.exports。这等同在每个模块头部，有一行 `var exports = module.exports;`这样的命令。
 5. demo
     ```javascript 
     // a.js
