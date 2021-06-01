@@ -100,7 +100,7 @@
     }
     ```
     * 每个版本 Tree Shaking 的配置
-        * webpack2: 可以简单的通过在启动 Webpack 时带上 `--optimize-minimize` 参数, 接入 `UglifyJS`
+        * webpack2: 可以简单的通过在启动 Webpack 时带上 `--optimize-minimize` 参数, 接入 `UglifyJS`。需要配置babel
         * webpack3 需要配和 uglifyjsWebpackPlugin 使用
         * webpack4 把 mode 设置成 production。就可以进行默认的摇树行为了
 
