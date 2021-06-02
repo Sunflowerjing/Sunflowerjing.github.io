@@ -12,6 +12,9 @@
         * 所有 `import` 标记为 `/* harmony import */`
         * 被使用过的 `export` 标记为 `/* harmony export ([type]) */`，其中 [type] 和 webpack 内部有关，可能是 binding, immutable 等等
         * 没被使用过的 `import` 标记为 `/* unused harmony export [FuncName] */`，其中 [FuncName] 为 export 的方法名称
+        * 是先找出 `已使用` 的代码，自然剩下的则是 `未使用` 的代码，最后通过注释的方式分别标注。
+
+
 4. 使用前提: 
     * 交给 Webpack 的 JavaScript 代码必须是采用 ES6 模块化语法, 因为 ES6 模块化语法是静态的（导入导出语句中的路径必须是静态的字符串，而且不能放入其它代码块中）
     * 所以 Webpack 可以简单的分析出哪些 export 的被 import 过了
@@ -39,8 +42,10 @@
     }
     ```
 5. 局限性:
-    * 不会对entry入口文件做 Tree Shaking。
-    * 不会对异步分割出去的代码做 Tree Shaking。
+    * class未使用的部分 `function` 不会标注 `unused export`。 可得 `webpack` 是对类整体进行标记的（标记为被使用），而不是分别针对内部方法。
+    * 工具类函数尽量以单独的形式输出，不要集中成一个对象或者类，避免打包对象和类未使用的部分。
+
+
 6. 案例: 有一个文件 `util.js` 里存放了很多工具函数和常量，在 `index.js` 中会导入和使用 `util.js`
     * util.js
     ```js
