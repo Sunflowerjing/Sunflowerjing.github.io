@@ -184,7 +184,8 @@ module.exports = {
                         '渐变',
                         '小程序onPageNotFound的坑',
                         'nodejs全目录查找某个字符串',
-                        'Qunar 小程序瘦身方案'
+                        'Qunar 小程序瘦身方案',
+                        'javascript报错处理'
                     ]
                 },
                 {
