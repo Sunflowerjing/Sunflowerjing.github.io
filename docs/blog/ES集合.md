@@ -27,7 +27,7 @@ input.map(function (item) {
 
       ```javascript
       {
-        "presets": ["@babel/preset-env"],  // 定义转码规则: 将当前 js 版本，编译成es2015版本
+        "presets": ["@babel/preset-env"],  // 定义转码规则: 对标准的 ES6 语法转换 
         "plugins": []
       }
       ```

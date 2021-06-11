@@ -33,7 +33,8 @@ module.exports = {
                         'CSS3知识点梳理',
                         'CSS 单位',
                         'flex and Grid',
-                        'CSS常见问题'
+                        'CSS常见问题',
+                        'SASS 学习'
                     ]
                 },
                 {
