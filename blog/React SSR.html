@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>React SSR | Sunflower</title>
+    <meta name="description" content="Vuepress blog demo">
+    
+    
+    <link rel="preload" href="/assets/css/0.styles.a32d750b.css" as="style"><link rel="preload" href="/assets/js/app.0c4e457a.js" as="script"><link rel="preload" href="/assets/js/2.3676e543.js" as="script"><link rel="preload" href="/assets/js/46.c7b31626.js" as="script"><link rel="prefetch" href="/assets/js/10.f6453fe8.js"><link rel="prefetch" href="/assets/js/100.0199c719.js"><link rel="prefetch" href="/assets/js/101.a7de43f8.js"><link rel="prefetch" href="/assets/js/102.50f8644c.js"><link rel="prefetch" href="/assets/js/103.3250c02d.js"><link rel="prefetch" href="/assets/js/104.29d7ed21.js"><link rel="prefetch" href="/assets/js/105.d7e9fbbd.js"><link rel="prefetch" href="/assets/js/106.1b5d8416.js"><link rel="prefetch" href="/assets/js/107.76dc1544.js"><link rel="prefetch" href="/assets/js/108.b3902295.js"><link rel="prefetch" href="/assets/js/109.d850dd61.js"><link rel="prefetch" href="/assets/js/11.60034940.js"><link rel="prefetch" href="/assets/js/110.a069f797.js"><link rel="prefetch" href="/assets/js/111.09024681.js"><link rel="prefetch" href="/assets/js/112.8b344d0d.js"><link rel="prefetch" href="/assets/js/113.d595799f.js"><link rel="prefetch" href="/assets/js/114.735747e0.js"><link rel="prefetch" href="/assets/js/115.4633d9d2.js"><link rel="prefetch" href="/assets/js/116.a13bf6e2.js"><link rel="prefetch" href="/assets/js/117.5ea5c11f.js"><link rel="prefetch" href="/assets/js/118.a476151d.js"><link rel="prefetch" href="/assets/js/119.5818c676.js"><link rel="prefetch" href="/assets/js/12.5bd43cd0.js"><link rel="prefetch" href="/assets/js/120.b161186b.js"><link rel="prefetch" href="/assets/js/121.b9f099e4.js"><link rel="prefetch" href="/assets/js/122.bc15ed2f.js"><link rel="prefetch" href="/assets/js/123.99d76580.js"><link rel="prefetch" href="/assets/js/124.c7ab2894.js"><link rel="prefetch" href="/assets/js/125.34cfb3f5.js"><link rel="prefetch" href="/assets/js/126.58a7e447.js"><link rel="prefetch" href="/assets/js/127.1c85bd46.js"><link rel="prefetch" href="/assets/js/13.66d25018.js"><link rel="prefetch" href="/assets/js/14.a25a4035.js"><link rel="prefetch" href="/assets/js/15.de39ab23.js"><link rel="prefetch" href="/assets/js/16.6d1bca0b.js"><link rel="prefetch" href="/assets/js/17.128d4594.js"><link rel="prefetch" href="/assets/js/18.0a3fd68b.js"><link rel="prefetch" href="/assets/js/19.b607c382.js"><link rel="prefetch" href="/assets/js/20.d31afd49.js"><link rel="prefetch" href="/assets/js/21.12acfd86.js"><link rel="prefetch" href="/assets/js/22.aadfbdc4.js"><link rel="prefetch" href="/assets/js/23.a0edc35a.js"><link rel="prefetch" href="/assets/js/24.b312e6df.js"><link rel="prefetch" href="/assets/js/25.97257d75.js"><link rel="prefetch" href="/assets/js/26.01936dd2.js"><link rel="prefetch" href="/assets/js/27.2e8828b4.js"><link rel="prefetch" href="/assets/js/28.e6790ba9.js"><link rel="prefetch" href="/assets/js/29.afc524f3.js"><link rel="prefetch" href="/assets/js/3.a9dffec4.js"><link rel="prefetch" href="/assets/js/30.aaf7c6de.js"><link rel="prefetch" href="/assets/js/31.9d65cff2.js"><link rel="prefetch" href="/assets/js/32.c894558d.js"><link rel="prefetch" href="/assets/js/33.8d8bd986.js"><link rel="prefetch" href="/assets/js/34.47facfd4.js"><link rel="prefetch" href="/assets/js/35.44ceb585.js"><link rel="prefetch" href="/assets/js/36.09f2f739.js"><link rel="prefetch" href="/assets/js/37.dbbc0e60.js"><link rel="prefetch" href="/assets/js/38.c1fad2a0.js"><link rel="prefetch" href="/assets/js/39.3ace24fd.js"><link rel="prefetch" href="/assets/js/4.2810ddf2.js"><link rel="prefetch" href="/assets/js/40.63374265.js"><link rel="prefetch" href="/assets/js/41.fd064420.js"><link rel="prefetch" href="/assets/js/42.57958530.js"><link rel="prefetch" href="/assets/js/43.c7cf35eb.js"><link rel="prefetch" href="/assets/js/44.e0cb951b.js"><link rel="prefetch" href="/assets/js/45.b223bdd3.js"><link rel="prefetch" href="/assets/js/47.3e4a6728.js"><link rel="prefetch" href="/assets/js/48.94b07616.js"><link rel="prefetch" href="/assets/js/49.fdf42941.js"><link rel="prefetch" href="/assets/js/5.e43498e1.js"><link rel="prefetch" href="/assets/js/50.cbed56b5.js"><link rel="prefetch" href="/assets/js/51.a18a4733.js"><link rel="prefetch" href="/assets/js/52.36cdbaf4.js"><link rel="prefetch" href="/assets/js/53.811cfd3f.js"><link rel="prefetch" href="/assets/js/54.83f3bd55.js"><link rel="prefetch" href="/assets/js/55.31ab89db.js"><link rel="prefetch" href="/assets/js/56.6c9598cc.js"><link rel="prefetch" href="/assets/js/57.d3a59dd5.js"><link rel="prefetch" href="/assets/js/58.4e4fc0d8.js"><link rel="prefetch" href="/assets/js/59.0266534d.js"><link rel="prefetch" href="/assets/js/6.8caa4cbe.js"><link rel="prefetch" href="/assets/js/60.d11b5ae3.js"><link rel="prefetch" href="/assets/js/61.741b1b34.js"><link rel="prefetch" href="/assets/js/62.20d137ff.js"><link rel="prefetch" href="/assets/js/63.8187c722.js"><link rel="prefetch" href="/assets/js/64.22cc7bfe.js"><link rel="prefetch" href="/assets/js/65.cc03ac65.js"><link rel="prefetch" href="/assets/js/66.cea322b8.js"><link rel="prefetch" href="/assets/js/67.72dd099a.js"><link rel="prefetch" href="/assets/js/68.f1b29a3d.js"><link rel="prefetch" href="/assets/js/69.77b58a41.js"><link rel="prefetch" href="/assets/js/7.87b373df.js"><link rel="prefetch" href="/assets/js/70.e6f55243.js"><link rel="prefetch" href="/assets/js/71.791e674e.js"><link rel="prefetch" href="/assets/js/72.38dfb769.js"><link rel="prefetch" href="/assets/js/73.bddf3f06.js"><link rel="prefetch" href="/assets/js/74.580447a5.js"><link rel="prefetch" href="/assets/js/75.13d0b306.js"><link rel="prefetch" href="/assets/js/76.2f8ecead.js"><link rel="prefetch" href="/assets/js/77.253ab4eb.js"><link rel="prefetch" href="/assets/js/78.eb589711.js"><link rel="prefetch" href="/assets/js/79.5b90567a.js"><link rel="prefetch" href="/assets/js/8.30d27849.js"><link rel="prefetch" href="/assets/js/80.bedfdf65.js"><link rel="prefetch" href="/assets/js/81.a68c6528.js"><link rel="prefetch" href="/assets/js/82.a37cd94a.js"><link rel="prefetch" href="/assets/js/83.8e32436f.js"><link rel="prefetch" href="/assets/js/84.ace16e95.js"><link rel="prefetch" href="/assets/js/85.86afda5c.js"><link rel="prefetch" href="/assets/js/86.fb04cb29.js"><link rel="prefetch" href="/assets/js/87.c58c2d4c.js"><link rel="prefetch" href="/assets/js/88.45337485.js"><link rel="prefetch" href="/assets/js/89.8b51f007.js"><link rel="prefetch" href="/assets/js/9.2d4820b7.js"><link rel="prefetch" href="/assets/js/90.6d9c1756.js"><link rel="prefetch" href="/assets/js/91.723d3e38.js"><link rel="prefetch" href="/assets/js/92.08564d2f.js"><link rel="prefetch" href="/assets/js/93.04edcdea.js"><link rel="prefetch" href="/assets/js/94.42a83ef8.js"><link rel="prefetch" href="/assets/js/95.46df9ab9.js"><link rel="prefetch" href="/assets/js/96.39a45b87.js"><link rel="prefetch" href="/assets/js/97.985d9133.js"><link rel="prefetch" href="/assets/js/98.879aeb93.js"><link rel="prefetch" href="/assets/js/99.36965454.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.a32d750b.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">Sunflower</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/blog/" class="nav-link router-link-active">博客</a></div><div class="nav-item"><a href="/scattered/" class="nav-link">零散知识</a></div><div class="nav-item"><a href="/book/" class="nav-link">阅读</a></div><div class="nav-item"><a href="/about/" class="nav-link">关于</a></div> <a href="https://github.com/Sunflowerjing/Sunflowerjing.github.io" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/blog/" class="nav-link router-link-active">博客</a></div><div class="nav-item"><a href="/scattered/" class="nav-link">零散知识</a></div><div class="nav-item"><a href="/book/" class="nav-link">阅读</a></div><div class="nav-item"><a href="/about/" class="nav-link">关于</a></div> <a href="https://github.com/Sunflowerjing/Sunflowerjing.github.io" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav>  <ul class="sidebar-links"><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Dev</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>CSS</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>JS</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>TS</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>三大框架</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>小程序</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>node</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>打包工具</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>工程化&amp;性能优化</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/blog/前端架构.html" class="sidebar-link">前端架构</a></li><li><a href="/blog/前端工程化基础知识.html" class="sidebar-link">前端工程化基础知识</a></li><li><a href="/blog/FIS.html" class="sidebar-link">FIS</a></li><li><a href="/blog/前端性能优化.html" class="sidebar-link">前端性能优化</a></li><li><a href="/blog/Vue SSR实现原理.html" class="sidebar-link">Vue SSR实现原理</a></li><li><a href="/blog/React SSR.html" class="active sidebar-link">React SSR</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/blog/React SSR.html#客户端渲染" class="sidebar-link">客户端渲染</a></li><li class="sidebar-sub-header"><a href="/blog/React SSR.html#服务端渲染" class="sidebar-link">服务端渲染</a></li><li class="sidebar-sub-header"><a href="/blog/React SSR.html#react-同构" class="sidebar-link">react 同构</a></li><li class="sidebar-sub-header"><a href="/blog/React SSR.html#ssr实现步骤" class="sidebar-link">SSR实现步骤</a></li><li class="sidebar-sub-header"><a href="/blog/React SSR.html#补充-ssr-关键点" class="sidebar-link">补充 SSR 关键点</a></li></ul></li><li><a href="/blog/CI/CD.html" class="sidebar-link">CI/CD</a></li><li><a href="/blog/从0到1搭建 TS 项目.html" class="sidebar-link">从0到1搭建 TS 项目</a></li></ul></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>网络协议</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>算法</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>正则</span> <span class="arrow right"></span></p> <!----></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="react-ssr"><a href="#react-ssr" class="header-anchor">#</a> React SSR</h1> <h2 id="客户端渲染"><a href="#客户端渲染" class="header-anchor">#</a> 客户端渲染</h2> <ol><li>什么是客户端渲染
+<ul><li>页面的文字，在源代码中找不到, 存在 JS 中。</li> <li>React/vue: 页面是 JS 渲染出来的, JS 存在客户端, 所以是客户端渲染</li></ul></li> <li>客户端渲染的优缺点
+<ul><li>优: 可见即可操作。页面操作流程自然。</li> <li>缺: 首次加载白屏时间长。SEO 不友好。</li></ul></li></ol> <h2 id="服务端渲染"><a href="#服务端渲染" class="header-anchor">#</a> 服务端渲染</h2> <ol><li>什么是服务端渲染
+<ul><li>页面的文字，在源代码中可以找到, 不需要 JS 渲染。服务器直接渲染好了返回客户端</li></ul></li> <li>服务端渲染的优缺点
+<ul><li>优: SEO 友好。首屏加载快</li> <li>缺: 页面体验不好。可见不一定可操作。服务器压力过大。</li></ul></li></ol> <h2 id="react-同构"><a href="#react-同构" class="header-anchor">#</a> react 同构</h2> <ol><li><p>什么是 react 同构</p></li> <li><p>react 同构的优缺点</p> <ul><li>优: SEO 友好。首屏加载快。页面切换自然</li> <li>缺: 配置复杂。服务器压力大。部分开发受限</li></ul></li> <li><p>基于 koa + react + ts 实战</p></li></ol> <h2 id="ssr实现步骤"><a href="#ssr实现步骤" class="header-anchor">#</a> SSR实现步骤</h2> <ol><li>使用 koa 渲染一段最基本的服务器端渲染
+<ul><li>渲染一段 HTML</li> <li>在 html 中引入一个 script 表示执行客户端打包的文件</li></ul></li> <li>打包客户端文件
+<ul><li>新建客户端的入口文件</li> <li>新建 shared 下的 App.tsx 用来同构</li> <li>配置 webpack 打包客户端的文件，打包生成 build.js
+<ul><li>配置文件扩展名: <code>extensions: ['.tsx','.ts','.js','.json']</code></li></ul></li> <li>配置 babel-loader
+<ul><li>@babel/core</li> <li>@babel/preset-react</li> <li>@babel/preset-typescript</li> <li>@babel/preset-proposal-class-properties(可选)</li></ul></li> <li>配置 npm run build:client 打包客户端</li></ul></li> <li>配置一个静态资源服务器
+<ul><li>使用 koa-static</li> <li>配置到 public 文件夹</li></ul></li> <li>配置 server 端的打包
+<ul><li>类似于客户端的 webpack 配置</li> <li>注意 target</li> <li>webpack-node-externals 避免打包 nodejs api</li> <li>配置 npm run build:server 打包服务端</li> <li>配置 npm-run-all --parallel build:* 批量打包客户端和服务端</li> <li>配置 npm run server: <code>cd dist &amp;&amp; nodemon ./app.js</code></li></ul></li></ol> <p>执行 npm run build 之后， 执行 npm run server, 即可看到页面内容</p> <ol start="5"><li><p>真正的服务端渲染</p> <ul><li>在 server 端，引入 react-dom/server 下的 <code>renderToString</code></li> <li>渲染完成之后，放入 id=root 的 div 内容，实现服务器端渲染</li> <li>客户端改写 render 为 hydrate, 消除警告</li></ul></li> <li><p>前后端路由绑定</p> <ul><li>仿照 react-router 官网, 在 App.tsx 创建一个基本的路由</li> <li>安装 react-router-dom</li> <li>直接运行会报错, 因为服务器端是没有 dom 的, 需要进行路由拆分</li> <li>拆分前端路由 browRouter, 后端路由 staticRouter, 并且分别绑定</li></ul></li></ol> <p>请求数据之前，需要对路由进行 JS 配置</p> <pre><code>- 使用 react-router-confing 改写路由，使用 renderRoutes 渲染路由
+- 在 app.tst 中, 使用 renderRoutes去渲染路由
+</code></pre> <ol start="7"><li>数据请求
+<ul><li>安装 <code>@koa/router</code> 将之前的中间件改成对应的路由</li> <li>在服务器端新增一个 getData 接口</li> <li>客户端使用 axios 在 componentDidMount 中请求接口</li></ul></li></ol> <p>7.1 如何不使用 ajax, 让服务器直接将数据绑定好??</p> <p>查看 react-router 官网，可以看到 server render 的方法</p> <pre><code>- 在定义的js 对象路由上，新增一个 loadData 方法，用来提供数据加载
+- 在对应的组件上，实现 loadData 方法，去请求数据，并返回 Promise
+- 后端使用 marchRoutes 匹配到对应的路由，然后判断是否有 loadData
+- 后端执行请求后即可获得数据，然后将数据渲染到 window 对象上
+- 前端 componentDidMount 里面获取数据
+</code></pre> <p>7.2 现在的问题是，如果一个路由匹配多个页面，那么如何进行多级路由</p> <p>需要借助 redux</p> <ul><li>安装 redux react-redux</li> <li>新建一个  store/index.ts</li> <li>定义 reducer, initStore, 并调用 createStore 创建 store</li> <li>客户端和服务器分别提供 createClinetStore/createServerStore</li> <li>在两端分别绑定 provider 传入 store 即可</li> <li>在组件中通过 mapStateToProps 获取 store 中的数据进行渲染</li></ul> <ol start="8"><li><p>改写后端数据请求</p> <ul><li>在调用组件的 loadData 方法时，将 store 传入</li> <li>在 loadData 执行完成后去触发 store.dispatch 去修改组件</li> <li>在 window 中注入的对象改为 store.getState() 就可以了</li> <li>在客户端 createClinetStore 中需要引入 store 是默认项为</li> <li></li></ul></li> <li><p>最后一个问题，路由切换的时候数据怎么获取</p> <ul><li>编写数据为空判断，如果是路由切换，使用 ajax 渲染即可</li> <li>ajax 请求到数据之后，调用 mapDispatch 方法改一下 store 即可重新</li></ul></li></ol> <h2 id="补充-ssr-关键点"><a href="#补充-ssr-关键点" class="header-anchor">#</a> 补充 SSR 关键点</h2> <ul><li>客户端搭建
+<ul><li>React ReactRouter Recoil</li></ul></li> <li>服务端搭建
+<ul><li>koa 相关插件</li></ul></li> <li>SSR 处理
+<ul><li>路由处理</li> <li>请求处理</li></ul></li></ul> <p>开始具体的代码编写</p> <ol><li>创建目录</li></ol> <div class="language-js extra-class"><pre class="language-js"><code>yarn init <span class="token operator">-</span>y
+
+react<span class="token operator">-</span>ssr
+  build
+  src
+    client
+    server
+</code></pre></div><ol start="2"><li><p>安装依赖</p> <ul><li>@types 就是ts用到的一些依赖，如果没有还需要自己定义 d.ts<div class="language-js extra-class"><pre class="language-js"><code>yarn add react @types<span class="token operator">/</span>react react<span class="token operator">-</span>dom @types<span class="token operator">/</span>react<span class="token operator">-</span>dom
+</code></pre></div></li></ul></li> <li><p>编写组件</p> <ul><li>新建 client/pages/App.jsx 根组件<div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">import</span> React <span class="token keyword">from</span> <span class="token string">'react'</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> <span class="token function-variable function">App</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token operator">&lt;</span>h1<span class="token operator">&gt;</span>Hello React<span class="token operator">&lt;</span><span class="token operator">/</span>h1<span class="token operator">&gt;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">export</span> <span class="token keyword">default</span> App<span class="token punctuation">;</span>
+</code></pre></div></li> <li>新建 client/index.jsx 入口文件<div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">import</span> React <span class="token keyword">from</span> <span class="token string">'react'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> ReactDom <span class="token keyword">from</span> <span class="token string">'react-dom'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> App <span class="token keyword">from</span> <span class="token string">&quot;./pages/App&quot;</span><span class="token punctuation">;</span>
+
+<span class="token comment">// reactDom有个render方法可以把我们的组件渲染到页面上</span>
+ReactDom<span class="token punctuation">.</span><span class="token function">render</span><span class="token punctuation">(</span><span class="token operator">&lt;</span>App<span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>App<span class="token operator">&gt;</span><span class="token punctuation">,</span>document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">'root'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div></li> <li>创建 About 页面
+<ul><li>about.jsx</li> <li>about.css</li></ul> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">import</span> React <span class="token keyword">from</span> <span class="token string">&quot;react&quot;</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token string">&quot;./about.css&quot;</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> <span class="token function-variable function">About</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token punctuation">(</span>
+        <span class="token operator">&lt;</span>div className<span class="token operator">=</span><span class="token string">'about'</span><span class="token operator">&gt;</span>
+        <span class="token operator">&lt;</span>h2<span class="token operator">&gt;</span>About<span class="token operator">&lt;</span><span class="token operator">/</span>h2<span class="token operator">&gt;</span>
+        <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token keyword">export</span> <span class="token keyword">default</span> About<span class="token punctuation">;</span>
+</code></pre></div><div class="language-js extra-class"><pre class="language-js"><code><span class="token punctuation">.</span>about <span class="token punctuation">{</span>
+    color<span class="token operator">:</span> red<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div></li> <li>创建 home 页面
+<ul><li>home.css</li> <li>home.jsx</li></ul> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">import</span> React <span class="token keyword">from</span> <span class="token string">&quot;react&quot;</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token string">&quot;./home.css&quot;</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> <span class="token function-variable function">Home</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token punctuation">(</span>
+        <span class="token operator">&lt;</span>div className<span class="token operator">=</span><span class="token string">'home'</span><span class="token operator">&gt;</span>
+        <span class="token operator">&lt;</span>h2<span class="token operator">&gt;</span>Home<span class="token operator">&lt;</span><span class="token operator">/</span>h2<span class="token operator">&gt;</span>
+        <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token keyword">export</span> <span class="token keyword">default</span> Home<span class="token punctuation">;</span>
+</code></pre></div><div class="language-js extra-class"><pre class="language-js"><code><span class="token punctuation">.</span>home <span class="token punctuation">{</span>
+    color<span class="token operator">:</span> blue<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div></li></ul></li> <li><p>配置路由</p> <ul><li>安装依赖<div class="language-js extra-class"><pre class="language-js"><code>yarn add react<span class="token operator">-</span>router<span class="token operator">-</span>dom
+</code></pre></div></li> <li>新建 client/router/index.js  编写路由代码
+<ul><li>看下官网的例子 https://reactrouter.com/</li> <li>react router  现在已经是5.x 了，和之前的路由还是有区别的，之前的像vue一样的配置，可以进行集中式配置，现在的路由都是组件式的<div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">import</span> React <span class="token keyword">from</span> <span class="token string">&quot;react&quot;</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Route<span class="token punctuation">,</span> Switch <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&quot;react-router-dom&quot;</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> Home <span class="token keyword">from</span> <span class="token string">&quot;../pages/About/about&quot;</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> About <span class="token keyword">from</span> <span class="token string">&quot;../pages/Home/home&quot;</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 这里导出，一会我们在服务端会用到</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> routes <span class="token operator">=</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">{</span>
+        path<span class="token operator">:</span> <span class="token string">&quot;/&quot;</span><span class="token punctuation">,</span>
+        exact<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+        component<span class="token operator">:</span> Home<span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+        path<span class="token operator">:</span> <span class="token string">&quot;/about&quot;</span><span class="token punctuation">,</span>
+        exact<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+        component<span class="token operator">:</span> About<span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 注意返回 是括号，大扩号要加return</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> <span class="token function-variable function">Routes</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">(</span>
+    <span class="token operator">&lt;</span>Switch<span class="token operator">&gt;</span>
+        <span class="token punctuation">{</span>routes<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">r<span class="token punctuation">,</span> index</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token keyword">const</span> <span class="token punctuation">{</span> path<span class="token punctuation">,</span> exact<span class="token punctuation">,</span> component <span class="token punctuation">}</span> <span class="token operator">=</span> r<span class="token punctuation">;</span>
+            <span class="token keyword">return</span> <span class="token punctuation">(</span>
+                <span class="token operator">&lt;</span>Route key<span class="token operator">=</span><span class="token punctuation">{</span>index<span class="token punctuation">}</span> path<span class="token operator">=</span><span class="token punctuation">{</span>path<span class="token punctuation">}</span> exact<span class="token operator">=</span><span class="token punctuation">{</span>exact<span class="token punctuation">}</span> component<span class="token operator">=</span><span class="token punctuation">{</span>component<span class="token punctuation">}</span> <span class="token operator">/</span><span class="token operator">&gt;</span>
+            <span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+        <span class="token punctuation">{</span><span class="token comment">/* 如果前边的路由都不匹配，会匹配最后一个路由，一般这里是一个404页面组件 */</span><span class="token punctuation">}</span>
+        <span class="token punctuation">{</span><span class="token comment">/* &lt;Route component={NotFount} /&gt; */</span><span class="token punctuation">}</span>
+    <span class="token operator">&lt;</span><span class="token operator">/</span>Switch<span class="token operator">&gt;</span>
+<span class="token punctuation">)</span>
+</code></pre></div></li></ul></li> <li>把页面组件引入到根组件  App.jsx<div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">import</span> React <span class="token keyword">from</span> <span class="token string">&quot;react&quot;</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Routes <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&quot;../router/index&quot;</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> BrowserRouter <span class="token keyword">as</span> Router <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&quot;react-router-dom&quot;</span><span class="token punctuation">;</span>
+<span class="token comment">// 注意放到大扩号执行</span>
+<span class="token keyword">const</span> <span class="token function-variable function">App</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token operator">&lt;</span>Router basename<span class="token operator">=</span><span class="token string">'/'</span><span class="token operator">&gt;</span><span class="token punctuation">{</span><span class="token function">Routes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">}</span><span class="token operator">&lt;</span><span class="token operator">/</span>Router<span class="token operator">&gt;</span><span class="token punctuation">;</span>
+<span class="token keyword">export</span> <span class="token keyword">default</span> App<span class="token punctuation">;</span>
+</code></pre></div></li></ul></li> <li><p>配置webpack</p> <ul><li>安装依赖<div class="language-js extra-class"><pre class="language-js"><code>yarn add webpack webpack<span class="token operator">-</span>cli webpack<span class="token operator">-</span>dev<span class="token operator">-</span>server <span class="token operator">-</span><span class="token constant">D</span>
+</code></pre></div></li> <li>新建 build/webpack.base.js<div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">const</span> <span class="token punctuation">{</span>resolve<span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'path'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 打包到哪</span>
+    output<span class="token operator">:</span><span class="token punctuation">{</span>
+        <span class="token comment">// 打包到哪，打包到根目录下的dist目录下就行了</span>
+        path<span class="token operator">:</span><span class="token function">join</span><span class="token punctuation">(</span>__dirname<span class="token punctuation">,</span><span class="token string">'../dist'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+module<span class="token operator">:</span><span class="token punctuation">{</span>
+    rules<span class="token operator">:</span><span class="token punctuation">[</span>
+    <span class="token punctuation">{</span>
+        <span class="token comment">// 这里还是babel-loader ，只不过解析的插件不一样</span>
+        test<span class="token operator">:</span><span class="token regex">/\.ts(x)$/</span><span class="token punctuation">,</span>
+        use<span class="token operator">:</span><span class="token punctuation">[</span><span class="token string">'babel-loader'</span><span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+<span class="token comment">// 配置下扩展名，默认只识别js,这里的jsx不会识别加上</span>
+resolve<span class="token operator">:</span><span class="token punctuation">{</span>
+    <span class="token comment">// js 一定要配置上，要不这里会把默认的覆盖</span>
+    extensions<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'.ts'</span><span class="token punctuation">,</span> <span class="token string">'.jsx'</span><span class="token punctuation">,</span> <span class="token string">'.js'</span><span class="token punctuation">,</span><span class="token string">'.json'</span><span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div></li></ul></li> <li><p>配置下ts解析</p> <ul><li>解析 react  语法需要用到的 @babel/preset-react 这个在babel官方都有对应说明</li> <li>https://www.babeljs.cn/docs/babel-preset-react<div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// 安装babel依赖</span>
+yarn add  babel<span class="token operator">-</span>loader @babel<span class="token operator">/</span>core @babel<span class="token operator">/</span>preset<span class="token operator">-</span>react <span class="token operator">-</span><span class="token constant">D</span>
+</code></pre></div></li> <li>安装完配置下 .babelrc
+<ul><li>还有个css解析要配置，还是一样的，客户端处理，服务端不处理</li></ul> <div class="language-js extra-class"><pre class="language-js"><code><span class="token punctuation">{</span>
+    <span class="token string">&quot;presets&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">&quot;@babel/preset-react&quot;</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre></div></li></ul></li> <li><p>新建 build/webpack.client.dev.js</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">const</span> <span class="token punctuation">{</span>
+    resolve
+<span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'path'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> <span class="token punctuation">{</span>
+    merge
+<span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'webpack-merge'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> HtmlWebpackPlugin <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'html-webpack-plugin'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> MiniCssExtractPlugin <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'mini-css-extract-plugin'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> baseConfig <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'./webapck.base'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> devConfig <span class="token operator">=</span> <span class="token punctuation">{</span>
+    mode<span class="token operator">:</span> <span class="token string">&quot;development&quot;</span><span class="token punctuation">,</span>
+    entry<span class="token operator">:</span> <span class="token function">resolve</span><span class="token punctuation">(</span>__dirname<span class="token punctuation">,</span> <span class="token string">&quot;../src/client/entry.client.jsx&quot;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    output<span class="token operator">:</span> <span class="token punctuation">{</span>
+        filename<span class="token operator">:</span> <span class="token string">&quot;client.bundle.js&quot;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    devServer<span class="token operator">:</span> <span class="token punctuation">{</span>
+        contentBase<span class="token operator">:</span> <span class="token function">resolve</span><span class="token punctuation">(</span>__dirname<span class="token punctuation">,</span> <span class="token string">&quot;../dist&quot;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        port<span class="token operator">:</span> <span class="token number">8080</span><span class="token punctuation">,</span>
+        <span class="token comment">// hashrouter  histroy  后端</span>
+        historyApiFallback<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    module<span class="token operator">:</span> <span class="token punctuation">{</span>
+        rules<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+            test<span class="token operator">:</span> <span class="token regex">/\.css$/</span><span class="token punctuation">,</span>
+            <span class="token comment">// 注意下顺序，从右往左</span>
+            use<span class="token operator">:</span> <span class="token punctuation">[</span>MiniCssExtractPlugin<span class="token punctuation">.</span>loader<span class="token punctuation">,</span> <span class="token string">&quot;css-loader&quot;</span><span class="token punctuation">]</span>
+        <span class="token punctuation">}</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    plugins<span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token keyword">new</span> <span class="token class-name">MiniCssExtractPlugin</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token keyword">new</span> <span class="token class-name">HtmlWebpackPlugin</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+            template<span class="token operator">:</span> <span class="token function">resolve</span><span class="token punctuation">(</span>__dirname<span class="token punctuation">,</span> <span class="token string">&quot;../src/client/index.template.html&quot;</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">]</span>
+
+<span class="token punctuation">}</span>
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token function">merge</span><span class="token punctuation">(</span>baseConfig<span class="token punctuation">,</span> devConfig<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div></li> <li><p>新建 client/index.template.html</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token operator">&lt;</span><span class="token operator">!</span><span class="token constant">DOCTYPE</span> html<span class="token operator">&gt;</span>
+<span class="token operator">&lt;</span>html lang<span class="token operator">=</span><span class="token string">&quot;en&quot;</span><span class="token operator">&gt;</span>
+
+<span class="token operator">&lt;</span>head<span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span>meta charset<span class="token operator">=</span><span class="token string">&quot;UTF-8&quot;</span> <span class="token operator">/</span><span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span>meta name<span class="token operator">=</span><span class="token string">&quot;viewport&quot;</span> content<span class="token operator">=</span><span class="token string">&quot;width=device-width, initial-scale=1.0&quot;</span> <span class="token operator">/</span><span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span>meta http<span class="token operator">-</span>equiv<span class="token operator">=</span><span class="token string">&quot;X-UA-Compatible&quot;</span> content<span class="token operator">=</span><span class="token string">&quot;ie=edge&quot;</span> <span class="token operator">/</span><span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span>title<span class="token operator">&gt;</span>react ssr<span class="token operator">&lt;</span><span class="token operator">/</span>title<span class="token operator">&gt;</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>head<span class="token operator">&gt;</span>
+
+<span class="token operator">&lt;</span>body<span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span>div id<span class="token operator">=</span><span class="token string">&quot;app&quot;</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>body<span class="token operator">&gt;</span>
+
+<span class="token operator">&lt;</span><span class="token operator">/</span>html<span class="token operator">&gt;</span>
+</code></pre></div></li> <li><p>需要的依赖安装一下</p> <div class="language-js extra-class"><pre class="language-js"><code>yarn add <span class="token operator">-</span><span class="token constant">D</span> webpack<span class="token operator">-</span>merge html<span class="token operator">-</span>webpack<span class="token operator">-</span>plugin mini<span class="token operator">-</span>css<span class="token operator">-</span>extract<span class="token operator">-</span>plugin css<span class="token operator">-</span>loader
+</code></pre></div></li> <li><p>配置打包命令</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token string">&quot;scripts&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token string">&quot;client:server&quot;</span><span class="token operator">:</span> <span class="token string">&quot;webpack serve --config ./build/webpack.client.dev.js&quot;</span><span class="token punctuation">,</span>
+    <span class="token string">&quot;client:dev&quot;</span><span class="token operator">:</span> <span class="token string">&quot;webpack --config ./build/webpack.client.dev.js&quot;</span><span class="token punctuation">,</span>
+    <span class="token string">&quot;server:dev&quot;</span><span class="token operator">:</span> <span class="token string">&quot;webpack --config ./build/webpack.server.dev.js&quot;</span><span class="token punctuation">,</span>
+    <span class="token string">&quot;dev:build&quot;</span><span class="token operator">:</span> <span class="token string">&quot;yarn client:dev &amp;&amp; yarn server:dev&quot;</span><span class="token punctuation">,</span>
+    <span class="token string">&quot;dev:server&quot;</span><span class="token operator">:</span> <span class="token string">&quot;nodemon ./src/server/app.js&quot;</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span>
+</code></pre></div></li> <li><p>启动起来</p> <div class="language-js extra-class"><pre class="language-js"><code>yarn client<span class="token operator">:</span>server
+</code></pre></div><ul><li>home.jsx<div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">import</span> <span class="token punctuation">{</span> NavLink<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&quot;react-router-dom&quot;</span><span class="token punctuation">;</span>
+<span class="token operator">&lt;</span>h2<span class="token operator">&gt;</span>Home<span class="token operator">&lt;</span><span class="token operator">/</span>h2<span class="token operator">&gt;</span>
+<span class="token operator">&lt;</span>NavLink to<span class="token operator">=</span><span class="token string">'/about'</span><span class="token operator">&gt;</span>about页面<span class="token operator">&lt;</span><span class="token operator">/</span>NavLink<span class="token operator">&gt;</span>
+</code></pre></div></li> <li>about.jsx<div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">import</span> <span class="token punctuation">{</span> NavLink<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&quot;react-router-dom&quot;</span><span class="token punctuation">;</span>
+<span class="token operator">&lt;</span>h2<span class="token operator">&gt;</span>About<span class="token operator">&lt;</span><span class="token operator">/</span>h2<span class="token operator">&gt;</span>
+<span class="token operator">&lt;</span>NavLink to<span class="token operator">=</span><span class="token string">'/'</span><span class="token operator">&gt;</span>home页面<span class="token operator">&lt;</span><span class="token operator">/</span>NavLink<span class="token operator">&gt;</span>
+</code></pre></div></li></ul></li> <li><p>搭建服务端</p></li> <li><p>安装依赖</p> <div class="language-js extra-class"><pre class="language-js"><code>yarn add koa @koa<span class="token operator">/</span>router koa<span class="token operator">-</span><span class="token keyword">static</span> 
+</code></pre></div></li> <li><p>编写服务端代码</p> <ul><li>app.js</li></ul> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">import</span> Koa <span class="token keyword">from</span> <span class="token string">&quot;koa&quot;</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> serve <span class="token keyword">from</span> <span class="token string">&quot;koa-static&quot;</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span>resolve<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'path'</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> app <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Koa</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">initRoute</span><span class="token punctuation">(</span>app<span class="token punctuation">)</span><span class="token punctuation">;</span>
+app<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span><span class="token function">serve</span><span class="token punctuation">(</span><span class="token function">resolve</span><span class="token punctuation">(</span>__dirname<span class="token punctuation">,</span> <span class="token string">'../../dist'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+app<span class="token punctuation">.</span><span class="token function">listen</span><span class="token punctuation">(</span><span class="token number">3000</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">&quot;server is running at http://localhost:3000&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><ul><li>router/index.js</li></ul> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">import</span> Router <span class="token keyword">from</span> <span class="token string">&quot;@koa/router&quot;</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> router <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Router</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> <span class="token function-variable function">route</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">app</span><span class="token punctuation">)</span><span class="token operator">=&gt;</span><span class="token punctuation">{</span>
+router<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'/'</span><span class="token punctuation">,</span><span class="token string">'/about'</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token parameter">ctx<span class="token punctuation">,</span>next</span><span class="token punctuation">)</span><span class="token operator">=&gt;</span><span class="token punctuation">{</span>
+        ctx<span class="token punctuation">.</span>body <span class="token operator">=</span> <span class="token string">'服务端启动成功'</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+app<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>router<span class="token punctuation">.</span><span class="token function">routes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>router<span class="token punctuation">.</span><span class="token function">allowedMethods</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><ul><li>配置下命令让他跑起来</li></ul> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// 先安装下依赖</span>
+<span class="token comment">// 这里需要用到babel-cli </span>
+yarn add nodemon 
+
+<span class="token comment">// 命令</span>
+<span class="token string">&quot;dev:server&quot;</span><span class="token operator">:</span> <span class="token string">&quot;nodemon  .src/server/app.js&quot;</span>
+</code></pre></div><ul><li>启动 <code>yarn dev:server</code> <ul><li>服务端也启动起来了，那我们继续往下，是不是要在服务端渲染 客户端组件，然后由服务端直接将html返回回来</li></ul></li> <li>entry.server.js<div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">import</span> React <span class="token keyword">from</span> <span class="token string">&quot;react&quot;</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Routes <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&quot;./router/index&quot;</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> StaticRouter <span class="token keyword">as</span> Router <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&quot;react-router-dom&quot;</span><span class="token punctuation">;</span>
+<span class="token comment">// 导出服务端要调用的一方法</span>
+<span class="token comment">// ctx 是服务端调用的时候传进来的，我们可以拿到一些地址等信息，可以匹配路由</span>
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">(</span><span class="token parameter">ctx</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 返回一个Promise</span>
+    <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Promise</span><span class="token punctuation">(</span> <span class="token punctuation">(</span><span class="token parameter">resolve</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token function">resolve</span><span class="token punctuation">(</span>
+        <span class="token comment">// 这里我们需要拿到请求的地址赋值给他，也是官方文档说明的</span>
+        <span class="token operator">&lt;</span>Router location<span class="token operator">=</span><span class="token punctuation">{</span>ctx<span class="token punctuation">.</span>req<span class="token punctuation">.</span>url<span class="token punctuation">}</span><span class="token operator">&gt;</span><span class="token punctuation">{</span><span class="token function">Routes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">}</span><span class="token operator">&lt;</span><span class="token operator">/</span>Router<span class="token operator">&gt;</span>
+        <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre></div></li> <li>Router/index.js<div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">const</span> Router <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'@koa/router'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> router <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Router</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> serverBundle <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'../../../dist/server.bundle.js'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>default<span class="token punctuation">;</span>
+<span class="token keyword">const</span> <span class="token punctuation">{</span>
+    renderToString
+<span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&quot;react-dom/server&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+module<span class="token punctuation">.</span><span class="token function-variable function">exports</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">app</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    router<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'/'</span><span class="token punctuation">,</span> <span class="token string">'/about'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token parameter">ctx<span class="token punctuation">,</span> next</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">const</span> jsx <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token function">serverBundle</span><span class="token punctuation">(</span>ctx<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">const</span> html <span class="token operator">=</span> <span class="token function">renderToString</span><span class="token punctuation">(</span>jsx<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        ctx<span class="token punctuation">.</span>body <span class="token operator">=</span> html<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    app<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>router<span class="token punctuation">.</span><span class="token function">routes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>router<span class="token punctuation">.</span><span class="token function">allowedMethods</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div></li> <li>现在渲染完成了，但是现在刷新页面，每次都请求服务端，因为js没有加载进来
+<ul><li>我们把页面模板和js，css引入进来</li></ul></li> <li>router/index.js<div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">const</span> fs <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&quot;fs&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> <span class="token punctuation">{</span>
+    resolve
+<span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'path'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> <span class="token function-variable function">fileResolve</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">file</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> path<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span>__dirname<span class="token punctuation">,</span> file<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> template <span class="token operator">=</span> fs<span class="token punctuation">.</span><span class="token function">readFileSync</span><span class="token punctuation">(</span><span class="token function">resolve</span><span class="token punctuation">(</span>__dirname<span class="token punctuation">,</span> <span class="token string">'../../../dist/index.html'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">&quot;utf8&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> <span class="token punctuation">{</span>
+    renderToString
+<span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&quot;react-dom/server&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">function</span> <span class="token function">templating</span><span class="token punctuation">(</span><span class="token parameter">template</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token parameter">props</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span>
+        template<span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span>
+            <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">&lt;div id=&quot;app&quot;&gt;&lt;/div&gt;</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+            <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">&lt;div id=&quot;app&quot;&gt;</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>props<span class="token punctuation">.</span>html<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">&lt;/div&gt;</span><span class="token template-punctuation string">`</span></span>
+        <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+router<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'/'</span><span class="token punctuation">,</span> <span class="token string">'/about'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token parameter">ctx<span class="token punctuation">,</span> next</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">const</span> render <span class="token operator">=</span> <span class="token function">templating</span><span class="token punctuation">(</span>template<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">const</span> jsx <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token function">serverBundle</span><span class="token punctuation">(</span>ctx<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">const</span> html <span class="token operator">=</span> <span class="token function">renderToString</span><span class="token punctuation">(</span>jsx<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">const</span> body <span class="token operator">=</span> <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+            html
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        ctx<span class="token punctuation">.</span>body <span class="token operator">=</span> body<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre></div></li> <li>现在再来访问，就是ssr了，</li> <li>首屏服务端直出，再切换页面就是js控制页面的渲染了</li></ul></li> <li><p>SSR 处理</p></li> <li><p>请求处理</p> <ul><li>服务端添加一个接口<div class="language-js extra-class"><pre class="language-js"><code>router<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'/api/getUserInfo'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">ctx</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    ctx<span class="token punctuation">.</span>body <span class="token operator">=</span> <span class="token punctuation">{</span>
+        code<span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+        message<span class="token operator">:</span> <span class="token string">&quot;&quot;</span><span class="token punctuation">,</span>
+        data<span class="token operator">:</span> <span class="token punctuation">{</span>
+            name<span class="token operator">:</span> <span class="token string">'yd'</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre></div></li> <li>About/about.jsx<div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">import</span> axios <span class="token keyword">from</span> <span class="token string">'axios'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> React<span class="token punctuation">,</span> <span class="token punctuation">{</span> useEffect<span class="token punctuation">,</span> useState <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&quot;react&quot;</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token string">&quot;./about.css&quot;</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> NavLink <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&quot;react-router-dom&quot;</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> axios <span class="token keyword">from</span> <span class="token string">&quot;axios&quot;</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> <span class="token function-variable function">About</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+<span class="token keyword">const</span> <span class="token punctuation">[</span>userInfo<span class="token punctuation">,</span> setUserInfo<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">useState</span><span class="token punctuation">(</span><span class="token punctuation">{</span> name<span class="token operator">:</span> <span class="token string">&quot;&quot;</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">useEffect</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    axios<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">&quot;http://localhost:3000/api/getUserInfo&quot;</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">res</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>res<span class="token punctuation">.</span>data<span class="token punctuation">.</span>data<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">setUserInfo</span><span class="token punctuation">(</span>res<span class="token punctuation">.</span>data<span class="token punctuation">.</span>data<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">return</span> <span class="token punctuation">(</span>
+    <span class="token operator">&lt;</span>div className<span class="token operator">=</span><span class="token string">'about'</span><span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span>h2<span class="token operator">&gt;</span>About<span class="token operator">&lt;</span><span class="token operator">/</span>h2<span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span>h3<span class="token operator">&gt;</span>名字<span class="token punctuation">{</span>userInfo<span class="token punctuation">.</span>name<span class="token punctuation">}</span><span class="token operator">&lt;</span><span class="token operator">/</span>h3<span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span>NavLink to<span class="token operator">=</span><span class="token string">'/'</span><span class="token operator">&gt;</span>home页面<span class="token operator">&lt;</span><span class="token operator">/</span>NavLink<span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token keyword">export</span> <span class="token keyword">default</span> About<span class="token punctuation">;</span>
+
+</code></pre></div></li> <li>现在来访问，数据正常请求回来了</li> <li>这里先来梳理下一个请求的流程。</li> <li>我们先通过服务器渲染，把我们页面的html给他渲染出来，然后我们再使用ajax去拿到后端的数据，并且显示在页面上。</li></ul></li> <li><p>大家在这个流程中有没有发现一个问题?</p></li></ol> <pre><code>- 既然我们已经通过服务器端渲染了，为什么还通过ajax去请求服务器端的数据，
+- 其实页面的数据，在服务器端渲染的时候就可以一并拿回来。
+- 所以接下来来修改下代码。
+- 其实在react-router中已经给出了一个解决方案: https://reactrouter.com/web/guides/server-rendering
+- 看下他是引导我们怎么去做的，看到dataloading 部分
+    ```js
+    loadData: () =&gt; getSomeData()
+    ```
+- 在组件上添加了一个 获取数据的方法
+- router/index.js
+    ```js
+        {
+            path:'/about',
+            component:About,
+            exact:true,
+            // about 下要发请求，这里就涉及到一个方法，我们要把请求的这个方法放到哪个位置呢？
+            // 一般是挂载到组件上，
+            loadData:getUserInfo
+        }
+    ```
+- about.jsx
+    ```js
+    export const getUserInfo = () =&gt; {
+        return axios.get(&quot;http://localhost:3000/api/getUserInfo&quot;)
+    };
+    ```
+- Router/index.jsx
+    ```js
+    import About, { getUserInfo } from &quot;../pages/About/about&quot;;
+    ```
+- Server-entry.jsx
+    ```js
+    import { matchPath } from &quot;react-router-dom&quot;;
+    // 这里是之前写好的路由 routes，导出来可以遍历匹配
+    import { Routes,routes } from &quot;./router/index&quot;;
+
+    // 写一下
+    export default (ctx) =&gt; {
+        // 返回一个Promise
+    return new Promise((resolve) =&gt; {
+        routes.some((route) =&gt; {
+        console.log(route.path, ctx.request.path);
+        if (route.path === ctx.request.path) {
+            // 打印看下
+            console.log(route);
+        }
+    });
+    ```
+- Server-entry.jsx
+    ```js
+    // 定义一个异步请求数组，有可能有多个数据请求
+
+    export default (ctx) =&gt; {
+        // 返回一个Promise
+        return new Promise((resolve) =&gt; {
+            const promises = [];
+            routes.some((route) =&gt; {
+            // matchPath 就是匹配前端的路由
+            // 并且存在异步请求
+            if (route.path === ctx.request.path &amp;&amp; route.loadData) {
+                promises.push(route.loadData());
+            }
+            });
+            // 这里要把之前的html代码放到这里边，要等到所有的请求结束，再去渲染页面
+            Promise.all(promises).then((data) =&gt; {
+                // promise.all 返回的是一个数组
+                console.log(&quot;data&quot;, data[0].data.data);
+                resolve(
+                    // 这里我们需要拿到请求的地址赋值给他，也是官方文档说明的
+                    &lt;Router location={ctx.req.url}&gt;{Routes()}&lt;/Router&gt;
+                );
+            });
+        });
+    };
+    ```
+</code></pre> <ol start="18"><li>注水脱水
+<ul><li><p>通过 redux作为中间者来处理下，和vue就是一个思路了</p></li> <li><p>如果不借助中间者，我们直接往页面里放，也不知道它的一个具体位置，通过redux这样一个的一个全局状态管理就可以轻松处理了。</p></li> <li><p>这也是vue为什么使用了vuex。</p></li> <li><p>安装redux</p> <div class="language-js extra-class"><pre class="language-js"><code>yarn add redux
+</code></pre></div><ul><li>redux 首先需要新建一个store  shred/store</li> <li>store 它又分为很多，比如index action reducer，一些actiontype 等等，</li> <li>这里为了方便，我们就简单一点，</li></ul></li> <li><p>新建 store/index.jsx</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">import</span> <span class="token punctuation">{</span>createStore<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'redux'</span><span class="token punctuation">;</span>
+<span class="token comment">// store有个默认的状态，初始值也就是</span>
+<span class="token keyword">const</span> initState <span class="token operator">=</span> <span class="token punctuation">{</span>
+    name<span class="token operator">:</span><span class="token string">'chushi'</span>
+<span class="token punctuation">}</span>
+<span class="token comment">// reducer 传进来的就是一个action</span>
+<span class="token keyword">function</span> <span class="token function">reducer</span><span class="token punctuation">(</span><span class="token parameter">state <span class="token operator">=</span> initState<span class="token punctuation">,</span>action</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">switch</span><span class="token punctuation">(</span>action<span class="token punctuation">.</span>type<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token comment">// 这里的CHANGE_DATA一般应该存放在专门存放常量的一个文件里的，这里就直接写了，</span>
+        <span class="token keyword">case</span> <span class="token string">'CHANGE_DATA'</span><span class="token operator">:</span>
+            <span class="token keyword">return</span> <span class="token punctuation">{</span>
+                <span class="token comment">// 如果要修改data的话，我就把当前的state返回，并且把action中传的payload 合并</span>
+                <span class="token operator">...</span>state<span class="token punctuation">,</span>
+                <span class="token operator">...</span>action<span class="token punctuation">.</span>payload
+            <span class="token punctuation">}</span>
+        <span class="token keyword">default</span><span class="token operator">:</span>
+            <span class="token keyword">return</span> <span class="token punctuation">{</span><span class="token operator">...</span>state<span class="token punctuation">}</span> <span class="token comment">//默认是一个浅拷贝</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token comment">// 然后分别把它交给我们的客户端和服务器端</span>
+<span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">createClientStore</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token comment">// createStore 接收的第一个方法是reducer,所以需要写一个reducer方法</span>
+    <span class="token keyword">return</span> <span class="token function">createStore</span><span class="token punctuation">(</span>reducer<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">createServerStore</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token comment">// createStore 接收的第一个方法是reducer,所以需要写一个reducer方法</span>
+    <span class="token keyword">return</span> <span class="token function">createStore</span><span class="token punctuation">(</span>reducer<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token comment">// 这里分为服务器端，客户端，是因为在不同的端要进行各自的处理，客户端还需要接收服务端注入好的初始值</span>
+</code></pre></div></li> <li><p>entry.client.jsx</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">import</span> <span class="token punctuation">{</span>Provider<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'react-redux'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span>createClientStore<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./store/index'</span><span class="token punctuation">;</span>
+
+ReactDom<span class="token punctuation">.</span><span class="token function">render</span><span class="token punctuation">(</span><span class="token operator">&lt;</span>Provider store<span class="token operator">=</span><span class="token punctuation">{</span><span class="token function">createClientStore</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">}</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span>App <span class="token operator">/</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>Provider<span class="token operator">&gt;</span><span class="token punctuation">,</span> document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">&quot;app&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div></li> <li><p>Entry.server.js</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">import</span> <span class="token punctuation">{</span> Provider <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&quot;react-redux&quot;</span><span class="token punctuation">;</span>
+<span class="token comment">// 引入服务端的 createServerStore</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> createServerStore <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&quot;./store/index&quot;</span><span class="token punctuation">;</span>
+
+<span class="token operator">&lt;</span>Provider store<span class="token operator">=</span><span class="token punctuation">{</span><span class="token function">createClientStore</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">}</span><span class="token operator">&gt;</span>
+        <span class="token operator">&lt;</span>Router location<span class="token operator">=</span><span class="token punctuation">{</span>ctx<span class="token punctuation">.</span>req<span class="token punctuation">.</span>url<span class="token punctuation">}</span><span class="token operator">&gt;</span><span class="token punctuation">{</span><span class="token function">Routes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">}</span><span class="token operator">&lt;</span><span class="token operator">/</span>Router<span class="token operator">&gt;</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>Provider<span class="token operator">&gt;</span>
+</code></pre></div></li> <li><p>注入之后，现在想要在about中去引入，又得用react-redux里边的connect来将我们的组件进行一个包裹，来拿到store中的值</p></li> <li><p>然后将store中的值映射到Props上</p></li> <li><p>这里也就不需要之前定义的state了</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">import</span> <span class="token punctuation">{</span> useSelector <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&quot;react-redux&quot;</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> name <span class="token operator">=</span> <span class="token function">useSelector</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">state</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>state<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> state<span class="token punctuation">.</span>name<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 把之前的删除了</span>
+</code></pre></div></li> <li><p>开始注水脱水操作</p> <ul><li><p>这里需要处理的一个地方就是，我们处理的页面模板是在 router/index.js ,</p></li> <li><p>sotore 是在entry.sever.js</p></li> <li><p>怎么把entry.server.js 的store传到 roetuer/index.js 可以使用呢？</p></li> <li><p>这里可以利用 ctx上下文，作为中间者，进行传递</p></li> <li><p>来操作下</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// 改下这几个地方</span>
+<span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Promise</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">resolve</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> promises <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> store <span class="token operator">=</span> <span class="token function">createServerStore</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+Promise<span class="token punctuation">.</span><span class="token function">all</span><span class="token punctuation">(</span>promises<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">data</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 数据请求完再挂载</span>
+<span class="token operator">&lt;</span>Provider store<span class="token operator">=</span><span class="token punctuation">{</span>store<span class="token punctuation">}</span><span class="token operator">&gt;</span>
+</code></pre></div></li></ul></li></ul></li></ol></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/blog/Vue SSR实现原理.html" class="prev">Vue SSR实现原理</a></span> <span class="next"><a href="/blog/CI/CD.html">CI/CD</a>
+      →
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.0c4e457a.js" defer></script><script src="/assets/js/2.3676e543.js" defer></script><script src="/assets/js/46.c7b31626.js" defer></script>
+  </body>
+</html>
