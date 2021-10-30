@@ -25,6 +25,8 @@ module.exports = {
                         'MongoDB',
                         'shell',
                         'Git',
+                        '常见报错',
+                        'mac文件汇总'
                     ]
                 },
                 {
@@ -76,6 +78,7 @@ module.exports = {
                         'React进阶1',
                         'React进阶2',
                         'React diff',
+                        'React hook',
                         'React各版本API和源码分析1',
                         'ReactRouter',
                         'Redux',
@@ -143,6 +146,12 @@ module.exports = {
                        '输入网址后发生了什么',
                        '代理',
                        'http 缓存'
+                    ]
+                },
+                {
+                    title: '常用的包',
+                    children: [
+                       'Lodash',
                     ]
                 },
                 {
@@ -230,7 +239,9 @@ module.exports = {
                 },
                 {
                     title: '技术',
-                    children: []
+                    children: [
+                        '技术团队管理'
+                    ]
                 }
             ],
             '/about/': [

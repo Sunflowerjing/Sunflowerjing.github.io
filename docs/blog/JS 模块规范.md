@@ -9,8 +9,11 @@
 4. 语法：
     * 导入：`require('路径')`
     * 导出：`module.exports` 和 `exports`
-    * 注意：`module.exports` 和 `exports`的的区别是`exports 只是对 module.exports的一个引用`，相当于Node为每个模块提供一个exports变量，指向module.exports。这等同在每个模块头部，有一行 `var exports = module.exports;`这样的命令。
-5. demo
+    * 注意：`module.exports` 和 `exports`的的区别是: 
+        * `exports 是指向的 module.exports 的引用`，相当于Node为每个模块提供一个exports变量，指向module.exports。这等同在每个模块头部，有一行 `var exports = module.exports;`这样的命令。
+        * module.exports 初始值为一个空对象 {}，所以 exports 初始值也是 {}
+        * require() 返回的是 module.exports 而不是 exports
+5. demo1
     ```javascript 
     // a.js
     // 相当于这里还有一行：var exports = module.exports;代码
@@ -20,6 +23,43 @@
     var moduleA = require('./a.js');
     console.log(moduleA.a);     // 打印出hello world
     ```
+6. demo2:
+    * exports 只是 module 对象的 exports 的一个引用，由于 exports 和 module.exports 指向同一块内存区域，所以修改 exports 对象的数据，那么 module.exports 也会随之改变。
+    * 相关文章: https://cnodejs.org/topic/5231a630101e574521e45ef8
+    ```js
+    const hello = function () {
+        console.log('Hello world');
+    }
+
+    console.log(exports); // {}
+    console.log(module.exports); // {}
+
+    exports.hello = {
+        hello
+    }  
+
+    console.log(exports); //{ hello: { hello: [Function: hello] } }
+    console.log(module.exports); // { hello: { hello: [Function: hello] } }
+    ```
+
+7. demo3:
+    * 给 `module.exports` 是直接等于一个新的对象，那么其将指向一块新的内存区域，而此时 exports 指向的仍然是之前的内存区域，所以二者的值会不一样，
+    * 但是此时在其他文件内引入 hello.js 文件，仍然可以调用 hello() 方法，这说明了导出的是 module.exports 而不是 exports。
+    ```js
+    const hello = function(){
+        console.log('hello')
+    }
+
+    console.log(module.exports); // {}
+
+    module.exports = {
+        hello
+    }
+
+    console.log(module.exports) // { hello: [Function: hello] }
+    console.log(exports) // {}
+    ```
+
 
 ## AMD
 1. 特点: 
@@ -154,3 +194,30 @@
         ···
     });
     ```
+
+
+## export 和 export default 区别
+1. `export` 和 `export default` 均可用于导出（常量 | 函数 | 文件 | 模块）等。
+2. 可以在其他文件中通过 `import+`（常量 | 函数 | 文件 | 模块）名的方式，将其导入，以便能够进行使用。
+3. 在一个文件或者模块中，`export、import` 可以有多个，但 `export default` 仅有一个。
+4. 通过 `export` 方式导出，在导入时要用花括号 `{ }`。
+    * 对于 `export {name}; ` 命名导出的，在导入的时候必须使用相应对象的`相同名称`
+    * 引用的时候：import { name } from './文件名.js'。
+5. 而通过 export default 方式导出的，则不需要。
+    * 如通过 `export default` 导出 `export default utils;` 则在使用的时候不用加花括号，且导入时的名字可以自定义，如： `import myUtils from './utils.js'`。
+    * 对于默认方式导出的，则导入的时候，名称可以随便取。默认导出：不能使用 let，var 或 const 作为默认导出。
+ 
+
+## import和require的区别
+1. 遵循规范:
+    * import 是 ES6 的一个语法标准，兼容浏览器需要转化成 ES5 的语法 require 采用 CommonJS 规范。
+2. 调用时间:
+    * `import` 是编译时调用，必须放在代码的开头, `require` 是运行时调用，可以运用在代码的任何地方。
+3. 实现过程:
+    * `import` 是解构过程，由于浏览器兼容问题，需要在 node 中用 babel 将 ES6 语法转化成为 ES5 语法再执行 
+    * `require` 是赋值过程，require 的结果就是 `module.exports` 后面的内容，例如对象、函数、字符串、数组等，最终把 require 的结果赋值给某个变量。
+
+
+
+
+
