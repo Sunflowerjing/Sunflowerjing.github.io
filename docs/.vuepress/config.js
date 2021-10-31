@@ -182,7 +182,8 @@ module.exports = {
                     title: '常用快捷键',
                     children: [
                         'MAC',
-                        'VsCode'
+                        'VsCode',
+                        '常用命令'
                     ]
                 },
                 {

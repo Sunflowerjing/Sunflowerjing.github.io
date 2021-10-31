@@ -34,7 +34,28 @@
     * `history | tail -n 3` 筛选最后执行的3个命令
     * 
 
-6. /usr/local/***/bin 
+6. ~/.ssh
 
 
-7. /etc/ 
+7. 用户 与 系统文件
+    * 用户是在
+        * ~
+    * 系统是在
+        * /usr/local/***/bin 
+        * /etc/ 
+
+8. homebrew 的命令为 brew
+    * 安装方式为 brew install 包名
+    * 起别名 alias woman=tldr 命令行用woman, 其实就是访问tldr。
+        * 使用: woman curl
+        * 使用: woman open
+
+9. 命令行中粘贴复制
+    * pbcopy
+        * 使用 echo '简简单单, 平平淡淡' | base64 | pbcopy
+    * pbpaste
+        * 命令行写: pbpaste
+
+10. 关机命令
+    * shutdown 
+    * 忘记怎么使用就 tldr shutdown

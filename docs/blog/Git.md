@@ -43,4 +43,9 @@ https://blog.csdn.net/ustccw/article/details/79068547
 
 
 
-
+## 配置key
+1. git 生成秘钥文件
+    * 由于没有配置秘钥，导致clone失败
+    * ssh-keygen -t rsa -C "<your email>"    
+2. 查看生成的秘钥
+    * cat ~/.ssh/id_rsa.pub	
